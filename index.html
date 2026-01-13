@@ -1,0 +1,1150 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta charset="utf-8"/>
+<title>ICRC Winter Basketball Schedules</title>
+<style>
+/* ============================
+   GLOBAL
+============================ */
+body {
+    margin: 0;
+    font-family: "Segoe UI", Arial, sans-serif;
+    background: #f4f7fb; /* soft gray-blue */
+    color: #2b2b2b;      /* slate text */
+}
+
+/* Wrapper that reserves real layout space */
+.top-stack {
+    height: 140px;
+    width: 100%;
+}
+
+/* ============================
+   SPONSOR BANNER
+============================ */
+.sponsor-banner {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: #ffffff;
+    padding: 6px 18px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    border-bottom: 1px solid #dde5ea;
+    z-index: 9999;
+}
+
+.sponsor-text {
+    font-size: 16px;
+    font-weight: 600;
+    color: #2b2b2b;
+    white-space: nowrap;
+}
+
+.sponsor-logos img {
+    height: 40px;
+    object-fit: contain;
+    opacity: 0.85;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.sponsor-logos img:hover {
+    opacity: 1;
+    transform: scale(1.05);
+}
+.sponsor-banner img {
+    margin: 0 12px; /* horizontal spacing */
+}
+
+/* ============================
+   TOP NAVIGATION
+============================ */
+.topnav {
+    position: fixed;
+    top: 60px; /* sits directly under the sponsor banner */
+    left: 0;
+    width: 100%;
+    background: #0073cf;
+    color: white;
+    padding: 12px 18px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    z-index: 9998;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.12);
+}
+
+.topnav-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.topnav-logo {
+    height: 38px;
+    width: auto;
+    object-fit: contain;
+    background: #ffffff;          /* white background behind logo */
+    padding: 6px;                 /* space around the logo */
+    border-radius: 8px;           /* smooth rounded corners */
+    box-shadow: 0 1px 3px rgba(0,0,0,0.15); /* subtle shadow */
+    animation: logoPop 0.6s ease-out;
+    border: 2px solid #4caf50; /* EPA green */
+}
+
+@keyframes logoPop {
+    0% { transform: scale(0.85); opacity: 0; }
+    60% { transform: scale(1.05); opacity: 1; }
+    100% { transform: scale(1); }
+}
+
+.topnav-title {
+    font-size: 1.45rem;
+    font-weight: 700;
+}
+
+/* ============================
+   SIDEBAR
+============================ */
+.sidebar {
+    position: fixed;
+    top: 140px;
+    left: 0;
+    width: 220px;
+    height: calc(100% - 140px);
+    background: #ffffff;
+    border-right: 1px solid #dde5ea;
+    padding: 18px;
+    overflow-y: auto;
+}
+
+.sidebar h3 {
+    margin-top: 0;
+    color: #4caf50; /* EPA green */
+    font-size: 1.2rem;
+    font-weight: 700;
+}
+
+.sidebar a {
+    display: block;
+    padding: 8px 0;
+    color: #2b2b2b;
+    text-decoration: none;
+    font-size: 1rem;
+    transition: color 0.2s ease, padding-left 0.2s ease;
+}
+
+.sidebar a:hover {
+    color: #4caf50;
+    padding-left: 6px;
+    font-weight: 600;
+}
+
+.sidebar a.active-league {
+    background: #e8f5e9;
+    border-left: 4px solid #4caf50;
+    padding-left: 12px;
+    font-weight: 700;
+    color: #4caf50;
+}
+
+/* ============================
+   MAIN CONTENT
+============================ */
+.content {
+    margin-left: 260px;
+    padding: 24px 36px 50px 36px;
+}
+
+/* ============================
+   LEAGUE SECTIONS
+============================ */
+.league-section {
+    display: none;
+    margin-bottom: 50px;
+    background: white;
+    padding: 28px;
+    border-radius: 14px;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+    scroll-margin-top: 160px;
+}
+
+.league-section.active {
+    display: block;
+}
+
+.league-title {
+    font-size: 1.85rem;
+    font-weight: 700;
+    color: #0073cf;
+    margin-bottom: 18px;
+    border-left: 8px solid #ffb703; /* gold accent */
+    padding-left: 12px;
+}
+
+/* TABLE — fixed layout with content-driven widths */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    font-size: 1rem;
+    table-layout: fixed;
+}
+
+th, td {
+    padding: 10px 12px;
+    text-align: left;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+/* Column widths — tuned for visual clarity */
+th:nth-child(1), td:nth-child(1) { width: 200px; } /* Date */
+th:nth-child(2), td:nth-child(2) { width: 120px; } /* Time */
+th:nth-child(3), td:nth-child(3) { width: 180px; } /* Team A */
+th:nth-child(4), td:nth-child(4) { width: 180px; } /* Team B */
+th:nth-child(5), td:nth-child(5) { width: 120px; } /* Location */
+
+/* Header styling */
+th {
+    background: #e3f2fd;
+    color: #0073cf;
+    font-weight: 700;
+    border-bottom: 2px solid #c7dfff;
+}
+
+/* Alternating row colors */
+tbody tr:nth-child(even) { background: #f1f8f2; }
+tbody tr:nth-child(odd)  { background: #ffffff; }
+
+/* New date separator */
+tr.new-date td {
+    border-top: 5px solid #9e9e9e;
+}
+
+.week-header {
+    margin-top: 28px;
+    margin-bottom: 10px;
+}
+
+.week-date {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #0073cf;
+    border-left: 6px solid #ffb703;
+    padding-left: 12px;
+}
+
+
+/* ============================
+   LOCATIONS
+============================ */
+.locations {
+    margin-top: 30px;
+    padding-top: 15px;
+    border-top: 1px solid #dde5ea;
+}
+
+.locations h3 {
+    font-size: 1.1rem;
+    color: #4caf50;
+    margin-bottom: 10px;
+}
+
+.locations ul {
+    list-style: none;
+    padding-left: 0;
+    margin: 0;
+}
+
+.locations li {
+    margin-bottom: 6px;
+    font-size: 0.95rem;
+    color: #2b2b2b;
+}
+/* =========================================
+   1. Row hover highlight
+========================================= */
+tbody tr:hover {
+    background: #eaf6ff;
+    transition: background 0.15s ease;
+}
+
+/* =========================================
+   4. Subtle background tint for each week
+   (applies to rows after each weekly header)
+========================================= */
+.week-header + table tbody tr,
+.week-header + tbody tr {
+    background: #fafafa;
+}
+
+/* =========================================
+   5. Left border accent on the table
+========================================= */
+table {
+    border-left: 4px solid #0073cf;
+    padding-left: 6px;
+}
+
+/* =========================================
+   6. Soft drop shadow around the table
+========================================= */
+table {
+    box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+    border-radius: 4px;
+    overflow: hidden; /* keeps rounded corners clean */
+}
+
+/* =========================================
+   10. Topnav scroll shadow
+========================================= */
+.topnav {
+    box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+}
+
+/* =========================================
+   1. Row hover highlight
+========================================= */
+tbody tr:hover {
+    background: #eaf6ff;
+    transition: background 0.15s ease;
+}
+
+/* =========================================
+   5. Left border accent on the table
+========================================= */
+table {
+    border-left: 4px solid #0073cf;
+    padding-left: 6px;
+}
+
+/* =========================================
+   6. Soft drop shadow around the table
+========================================= */
+table {
+    box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+    border-radius: 4px;
+    overflow: hidden; /* keeps rounded corners clean */
+}
+
+/* =========================================
+   10. Topnav scroll shadow
+========================================= */
+.topnav {
+    box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+}
+/* Letter spacing for team names */
+td:nth-child(3),
+td:nth-child(4) {
+    letter-spacing: 0.3px;
+}
+
+/* Gradient header background */
+th {
+    background: linear-gradient(to bottom, #eaf4ff, #d9eaff);
+}
+th:first-child {
+    border-top-left-radius: 6px;
+}
+th:last-child {
+    border-top-right-radius: 6px;
+}
+.week-date {
+    box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+}
+table, th, td {
+    line-height: 1.35;
+}
+th {
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-size: 0.85rem;
+}
+.week-header {
+    margin-bottom: 14px;
+}
+/* Welcome box styling */
+.welcome-box {
+    background: #ffffff;
+    padding: 30px 40px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    text-align: center;
+    max-width: 600px;
+    margin: 40px auto;
+    animation: fadeIn 0.4s ease;
+}
+
+/* Logo styling */
+.welcome-logo {
+    width: 120px;
+    margin-bottom: 20px;
+}
+
+/* Fade-in animation */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(6px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+
+/* ============================
+   PARK + LEAGUE NAV HELPERS
+============================ */
+.sidebar .park-link {
+    font-weight: 700;
+    color: #0073cf;
+    margin-top: 8px;
+}
+.sidebar .park-link:hover {
+    color: #4caf50;
+}
+
+.sidebar .league-group {
+    margin-left: 10px;
+    margin-bottom: 14px;
+    border-left: 2px solid #e6eef3;
+    padding-left: 10px;
+}
+
+.sidebar .league-link {
+    font-size: 0.98rem;
+}
+
+.sidebar .league-link.active-league {
+    /* reuse existing active style */
+}
+
+
+.sidebar a { cursor: pointer; }
+
+/* Week headers inside tables (preferred) */
+.week-header-row td{
+    background: #f0f4f7;
+    font-weight: 700;
+    color: #333;
+    padding: 10px 12px;
+    border-top: 2px solid #ddd;
+}
+
+
+/* JS status badge */
+.js-badge{
+    display:none;
+    margin: 8px 0 12px;
+    padding: 8px 10px;
+    background: #e8f4ff;
+    border: 1px solid #cfe7ff;
+    color: #1b4f7a;
+    border-radius: 8px;
+    font-size: 0.95rem;
+}
+
+</style>
+</head>
+<body>
+<!-- Wrapper that reserves real space -->
+<div class="top-stack">
+<div class="sponsor-banner">
+<span class="sponsor-text">Thank you to our sponsors!</span>
+<div class="sponsor-logos">
+<img alt="Sponsor 1" src="sponsor1.png"/>
+<img alt="Sponsor 2" src="sponsor2.png"/>
+<img alt="Sponsor 3" src="sponsor3.png"/>
+<img alt="Sponsor 4" src="sponsor4.png"/>
+<img alt="Sponsor 5" src="sponsor5.png"/>
+</div>
+</div>
+<!-- ⭐ UPDATED TOPNAV WITH LOGO -->
+<div class="topnav">
+<!-- New flex container for logo + title -->
+<div class="topnav-left">
+<img alt="League Logo" class="topnav-logo" src="your-logo.png"/>
+<div class="topnav-title">ICRC Winter Basketball Schedules</div>
+</div>
+</div>
+</div>
+<!-- Sidebar -->
+<div class="sidebar">
+<h3>Parks</h3>
+<a class="park-link" data-park="p1" data-park-name="Crooked Creek Park" href="#">Crooked Creek Park</a>
+<a class="park-link" data-park="p2" data-park-name="Seven Oaks Park" href="#">Seven Oaks Park</a>
+<h3 style="margin-top:18px;">Leagues</h3>
+<div class="league-group" id="leagueGroup_p1" style="display:none;">
+<a class="league-link" data-league="p1_l5_6" href="#">5–6 Basketball</a>
+<a class="league-link" data-league="p1_l7_8" href="#">7–8 Basketball</a>
+<a class="league-link" data-league="p1_l9_10" href="#">9–10 Basketball</a>
+<a class="league-link" data-league="p1_l9_11g" href="#">9–11 Girls Bridge Basketball</a>
+<a class="league-link" data-league="p1_l11_12" href="#">11–12 Bridge Basketball</a>
+<a class="league-link" data-league="p1_l12_14g" href="#">12–14 Girls Bridge Basketball</a>
+<a class="league-link" data-league="p1_l13_14" href="#">13–14 Bridge Basketball</a>
+<a class="league-link" data-league="p1_l15_18" href="#">15–18 Basketball</a>
+</div>
+<div class="league-group" id="leagueGroup_p2" style="display:none;">
+<a class="league-link" data-league="p2_l5_6" href="#">5–6 Basketball</a>
+<a class="league-link" data-league="p2_l7_8" href="#">7–8 Basketball</a>
+<a class="league-link" data-league="p2_l9_10" href="#">9–10 Basketball</a>
+<a class="league-link" data-league="p2_l9_11g" href="#">9–11 Girls Bridge Basketball </a>
+<a class="league-link" data-league="p2_l11_12" href="#">11–12 Bridge Basketball</a>
+<a class="league-link" data-league="p2_l12_14g" href="#">12–14 Girls Bridge Basketball</a>
+<a class="league-link" data-league="p2_l13_14" href="#">13–14 Bridge Basketball</a>
+<a class="league-link" data-league="p2_l15_18" href="#">15–18 Basketball</a>
+</div>
+<div class="locations">
+<h3>Location Key</h3>
+<ul>
+<li><strong>CCP</strong> – Crooked Creek Park</li>
+<li><strong>CIS</strong> – Chapin Intermediate School</li>
+<li><strong>CMS</strong> – Chapin Middle School</li>
+<li><strong>IMS</strong> – Irmo Middle School</li>
+<li><strong>IHS</strong> – Irmo High School</li>
+<li><strong>SOP</strong> - Seven Oaks Park</li>
+</ul>
+</div>
+</div>
+<div class="welcome-box" id="welcomeBox">
+<img alt="League Logo" class="welcome-logo" src="your-logo.png"/>
+<h2>Welcome to the Winter Basketball Schedules Page</h2>
+<p>Please select a park, then a league, from the sidebar to view your schedule.</p>
+</div>
+<!-- Main Content -->
+<div class="content">
+<div class="league-section" id="p1_l5_6">
+<div class="league-title">5–6 Basketball</div>
+<table>
+<thead>
+<tr>
+<th>Date</th><th>Time</th><th>Team</th><th>Team</th><th>Location</th>
+</tr>
+</thead>
+<tbody>
+<!-- December 11 -->
+<tr class="new-date"><td>Thursday, Dec 11</td><td>6:00 PM</td><td>Gators</td><td>Koalas</td><td>CCP 1</td></tr>
+<tr><td>Thursday, Dec 11</td><td>6:00 PM</td><td>Cougars</td><td>Swamp Foxes</td><td>CCP 2</td></tr>
+<tr><td>Thursday, Dec 11</td><td>6:15 PM</td><td>Fire Ants</td><td>Paladins</td><td>CCP 3</td></tr>
+<tr><td>Thursday, Dec 11</td><td>6:15 PM</td><td>Bulldogs</td><td>Bearcats</td><td>CCP 4</td></tr>
+<!-- December 18 -->
+<tr class="new-date"><td>Thursday, Dec 18</td><td>6:00 PM</td><td>Cougars</td><td>Fire Ants</td><td>CCP 1</td></tr>
+<tr><td>Thursday, Dec 18</td><td>6:00 PM</td><td>Bearcats</td><td>Paladins</td><td>CCP 2</td></tr>
+<tr><td>Thursday, Dec 18</td><td>6:00 PM</td><td>Swamp Foxes</td><td>Koalas</td><td>CCP 3</td></tr>
+<tr><td>Thursday, Dec 18</td><td>6:00 PM</td><td>Bulldogs</td><td>Gators</td><td>CCP 4</td></tr>
+<!-- January 8 -->
+<tr class="new-date"><td>Thursday, Jan 8</td><td>6:00 PM</td><td>Paladins</td><td>Swamp Foxes</td><td>CCP 1</td></tr>
+<tr><td>Thursday, Jan 8</td><td>6:00 PM</td><td>Koalas</td><td>Bulldogs</td><td>CCP 2</td></tr>
+<tr><td>Thursday, Jan 8</td><td>6:00 PM</td><td>Fire Ants</td><td>Bearcats</td><td>CCP 3</td></tr>
+<tr><td>Thursday, Jan 8</td><td>6:00 PM</td><td>Gators</td><td>Cougars</td><td>CCP 4</td></tr>
+<!-- January 15 -->
+<tr class="new-date"><td>Thursday, Jan 15</td><td>6:00 PM</td><td>Paladins</td><td>Gators</td><td>CCP 1</td></tr>
+<tr><td>Thursday, Jan 15</td><td>6:00 PM</td><td>Koalas</td><td>Bearcats</td><td>CCP 2</td></tr>
+<tr><td>Thursday, Jan 15</td><td>6:00 PM</td><td>Bulldogs</td><td>Cougars</td><td>CCP 3</td></tr>
+<tr><td>Thursday, Jan 15</td><td>6:00 PM</td><td>Swamp Foxes</td><td>Fire Ants</td><td>CCP 4</td></tr>
+<!-- January 20 -->
+<tr class="new-date"><td>Tuesday, Jan 20</td><td>6:00 PM</td><td>Bearcats</td><td>Cougars</td><td>CCP 1</td></tr>
+<tr><td>Tuesday, Jan 20</td><td>6:00 PM</td><td>Fire Ants</td><td>Bulldogs</td><td>CCP 2</td></tr>
+<tr><td>Tuesday, Jan 20</td><td>6:00 PM</td><td>Gators</td><td>Swamp Foxes</td><td>CCP 3</td></tr>
+<tr><td>Tuesday, Jan 20</td><td>6:00 PM</td><td>Koalas</td><td>Paladins</td><td>CCP 4</td></tr>
+<!-- January 22 -->
+<tr class="new-date"><td>Thursday, Jan 22</td><td>6:00 PM</td><td>Cougars</td><td>Koalas</td><td>CCP 1</td></tr>
+<tr><td>Thursday, Jan 22</td><td>6:00 PM</td><td>Fire Ants</td><td>Gators</td><td>CCP 2</td></tr>
+<tr><td>Thursday, Jan 22</td><td>6:00 PM</td><td>Bulldogs</td><td>Paladins</td><td>CCP 3</td></tr>
+<tr><td>Thursday, Jan 22</td><td>6:00 PM</td><td>Swamp Foxes</td><td>Bearcats</td><td>CCP 4</td></tr>
+<!-- January 27 -->
+<tr class="new-date"><td>Tuesday, Jan 27</td><td>6:00 PM</td><td>Swamp Foxes</td><td>Bulldogs</td><td>CCP 1</td></tr>
+<tr><td>Tuesday, Jan 27</td><td>6:00 PM</td><td>Paladins</td><td>Cougars</td><td>CCP 2</td></tr>
+<tr><td>Tuesday, Jan 27</td><td>6:00 PM</td><td>Bearcats</td><td>Gators</td><td>CCP 3</td></tr>
+<tr><td>Tuesday, Jan 27</td><td>6:00 PM</td><td>Koalas</td><td>Fire Ants</td><td>CCP 4</td></tr>
+<!-- January 29 -->
+<tr class="new-date"><td>Thursday, Jan 29</td><td>6:00 PM</td><td>Gators</td><td>Koalas</td><td>CCP 1</td></tr>
+<tr><td>Thursday, Jan 29</td><td>6:00 PM</td><td>Cougars</td><td>Swamp Foxes</td><td>CCP 2</td></tr>
+<tr><td>Thursday, Jan 29</td><td>6:00 PM</td><td>Fire Ants</td><td>Paladins</td><td>CCP 3</td></tr>
+<tr><td>Thursday, Jan 29</td><td>6:00 PM</td><td>Bulldogs</td><td>Bearcats</td><td>CCP 4</td></tr>
+</tbody>
+</table>
+</div><div class="league-section" id="p1_l7_8">
+<div class="league-title">7–8 Basketball</div>
+<table>
+<thead>
+<tr>
+<th>Date</th><th>Time</th><th>Team</th><th>Team</th><th>Location</th>
+</tr>
+</thead>
+<tbody>
+<!-- December 10 -->
+<tr class="new-date"><td>Wednesday, Dec 10</td><td>6:00 PM</td><td>Terriers</td><td>Cobras</td><td>CCP 1</td></tr>
+<tr><td>Wednesday, Dec 10</td><td>6:00 PM</td><td>Pacers</td><td>Bantams</td><td>CCP 2</td></tr>
+<tr><td>Wednesday, Dec 10</td><td>6:30 PM</td><td>Trojans</td><td>Wolves</td><td>CCP 3</td></tr>
+<tr><td>Wednesday, Dec 10</td><td>6:30 PM</td><td>Spartans</td><td>Fleet</td><td>CCP 4</td></tr>
+<tr><td>Wednesday, Dec 10</td><td>7:15 PM</td><td>Panthers</td><td>Lancers</td><td>CCP 3</td></tr>
+<tr><td>Wednesday, Dec 10</td><td>7:15 PM</td><td>Tigers</td><td>Bruins</td><td>CCP 4</td></tr>
+<!-- December 17 -->
+<tr class="new-date"><td>Wednesday, Dec 17</td><td>6:00 PM</td><td>Fleet</td><td>Panthers</td><td>CCP 1</td></tr>
+<tr><td>Wednesday, Dec 17</td><td>6:00 PM</td><td>Cobras</td><td>Spartans</td><td>CCP 2</td></tr>
+<tr><td>Wednesday, Dec 17</td><td>6:00 PM</td><td>Bantams</td><td>Trojans</td><td>CCP 3</td></tr>
+<tr><td>Wednesday, Dec 17</td><td>6:00 PM</td><td>Wolves</td><td>Tigers</td><td>CCP 4</td></tr>
+<tr><td>Wednesday, Dec 17</td><td>6:45 PM</td><td>Bruins</td><td>Terriers</td><td>CCP 3</td></tr>
+<tr><td>Wednesday, Dec 17</td><td>6:45 PM</td><td>Lancers</td><td>Pacers</td><td>CCP 4</td></tr>
+<!-- January 7 -->
+<tr class="new-date"><td>Wednesday, Jan 7</td><td>6:00 PM</td><td>Panthers</td><td>Wolves</td><td>CCP 1</td></tr>
+<tr><td>Wednesday, Jan 7</td><td>6:00 PM</td><td>Pacers</td><td>Bruins</td><td>CCP 2</td></tr>
+<tr><td>Wednesday, Jan 7</td><td>6:00 PM</td><td>Lancers</td><td>Cobras</td><td>CCP 3</td></tr>
+<tr><td>Wednesday, Jan 7</td><td>6:00 PM</td><td>Fleet</td><td>Bantams</td><td>CCP 4</td></tr>
+<tr><td>Wednesday, Jan 7</td><td>6:45 PM</td><td>Terriers</td><td>Tigers</td><td>CCP 3</td></tr>
+<tr><td>Wednesday, Jan 7</td><td>6:45 PM</td><td>Spartans</td><td>Trojans</td><td>CCP 4</td></tr>
+<!-- January 14 -->
+<tr class="new-date"><td>Wednesday, Jan 14</td><td>6:00 PM</td><td>Tigers</td><td>Trojans</td><td>CCP 1</td></tr>
+<tr><td>Wednesday, Jan 14</td><td>6:00 PM</td><td>Terriers</td><td>Wolves</td><td>CCP 2</td></tr>
+<tr><td>Wednesday, Jan 14</td><td>6:00 PM</td><td>Spartans</td><td>Bruins</td><td>CCP 3</td></tr>
+<tr><td>Wednesday, Jan 14</td><td>6:00 PM</td><td>Bantams</td><td>Lancers</td><td>CCP 4</td></tr>
+<tr><td>Wednesday, Jan 14</td><td>6:45 PM</td><td>Pacers</td><td>Fleet</td><td>CCP 3</td></tr>
+<tr><td>Wednesday, Jan 14</td><td>6:45 PM</td><td>Panthers</td><td>Cobras</td><td>CCP 4</td></tr>
+<!-- January 19 -->
+<tr class="new-date"><td>Monday, Jan 19</td><td>6:00 PM</td><td>Trojans</td><td>Terriers</td><td>CCP 1</td></tr>
+<tr><td>Monday, Jan 19</td><td>6:00 PM</td><td>Fleet</td><td>Lancers</td><td>CCP 2</td></tr>
+<tr><td>Monday, Jan 19</td><td>6:00 PM</td><td>Cobras</td><td>Pacers</td><td>CCP 3</td></tr>
+<tr><td>Monday, Jan 19</td><td>6:00 PM</td><td>Bruins</td><td>Panthers</td><td>CCP 4</td></tr>
+<tr><td>Monday, Jan 19</td><td>6:45 PM</td><td>Tigers</td><td>Bantams</td><td>CCP 3</td></tr>
+<tr><td>Monday, Jan 19</td><td>6:45 PM</td><td>Wolves</td><td>Spartans</td><td>CCP 4</td></tr>
+<!-- January 21 -->
+<tr class="new-date"><td>Wednesday, Jan 21</td><td>6:00 PM</td><td>Fleet</td><td>Bruins</td><td>CCP 1</td></tr>
+<tr><td>Wednesday, Jan 21</td><td>6:00 PM</td><td>Lancers</td><td>Wolves</td><td>CCP 2</td></tr>
+<tr><td>Wednesday, Jan 21</td><td>6:00 PM</td><td>Panthers</td><td>Tigers</td><td>CCP 3</td></tr>
+<tr><td>Wednesday, Jan 21</td><td>6:00 PM</td><td>Pacers</td><td>Trojans</td><td>CCP 4</td></tr>
+<tr><td>Wednesday, Jan 21</td><td>6:45 PM</td><td>Spartans</td><td>Terriers</td><td>CCP 3</td></tr>
+<tr><td>Wednesday, Jan 21</td><td>6:45 PM</td><td>Bantams</td><td>Cobras</td><td>CCP 4</td></tr>
+<!-- January 26 -->
+<tr class="new-date"><td>Monday, Jan 26</td><td>6:00 PM</td><td>Spartans</td><td>Bantams</td><td>CCP 1</td></tr>
+<tr><td>Monday, Jan 26</td><td>6:00 PM</td><td>Terriers</td><td>Panthers</td><td>CCP 2</td></tr>
+<tr><td>Monday, Jan 26</td><td>6:00 PM</td><td>Tigers</td><td>Pacers</td><td>CCP 3</td></tr>
+<tr><td>Monday, Jan 26</td><td>6:00 PM</td><td>Bruins</td><td>Cobras</td><td>CCP 4</td></tr>
+<tr><td>Monday, Jan 26</td><td>6:45 PM</td><td>Wolves</td><td>Fleet</td><td>CCP 3</td></tr>
+<tr><td>Monday, Jan 26</td><td>6:45 PM</td><td>Trojans</td><td>Lancers</td><td>CCP 4</td></tr>
+<!-- January 28 -->
+<tr class="new-date"><td>Wednesday, Jan 28</td><td>6:00 PM</td><td>Wolves</td><td>Bruins</td><td>CCP 1</td></tr>
+<tr><td>Wednesday, Jan 28</td><td>6:00 PM</td><td>Spartans</td><td>Pacers</td><td>CCP 2</td></tr>
+<tr><td>Wednesday, Jan 28</td><td>6:00 PM</td><td>Tigers</td><td>Fleet</td><td>CCP 3</td></tr>
+<tr><td>Wednesday, Jan 28</td><td>6:00 PM</td><td>Terriers</td><td>Lancers</td><td>CCP 4</td></tr>
+<tr><td>Wednesday, Jan 28</td><td>6:45 PM</td><td>Panthers</td><td>Bantams</td><td>CCP 3</td></tr>
+<tr><td>Wednesday, Jan 28</td><td>6:45 PM</td><td>Trojans</td><td>Cobras</td><td>CCP 4</td></tr>
+</tbody>
+</table>
+</div><div class="league-section" id="p1_l9_10">
+<div class="league-title">9–10 Basketball</div>
+<table>
+<thead>
+<tr>
+<th>Date</th><th>Time</th><th>Team</th><th>Team</th><th>Location</th>
+</tr>
+</thead>
+<tbody>
+<tr class="new-date"><td>Saturday, Dec 13</td><td>9:00 AM</td><td>Bears</td><td>Zips</td><td>CCP 2</td></tr>
+<tr><td>Saturday, Dec 13</td><td>10:00 AM</td><td>Herd</td><td>Camels</td><td>CCP 2</td></tr>
+<tr><td>Saturday, Dec 13</td><td>11:00 AM</td><td>Owls</td><td>Toreros</td><td>CCP 2</td></tr>
+<tr><td>Saturday, Dec 13</td><td>12:00 PM</td><td>Anteaters</td><td>Lobos</td><td>CCP 2</td></tr>
+<tr><td>Saturday, Dec 13</td><td>1:00 PM</td><td>Billikens</td><td>Gauchos</td><td>CCP 2</td></tr>
+<tr><td>Saturday, Dec 13</td><td>2:00 PM</td><td>Dragons</td><td>Huskies</td><td>CCP 2</td></tr>
+<tr><td>Saturday, Dec 13</td><td>3:00 PM</td><td>Hoyas</td><td>Flyers</td><td>CCP 2</td></tr>
+<tr class="new-date"><td>Saturday, Dec 20</td><td>9:00 AM</td><td>Anteaters</td><td>Billikens</td><td>CCP 2</td></tr>
+<tr><td>Saturday, Dec 20</td><td>10:00 AM</td><td>Lobos</td><td>Dragons</td><td>CCP 2</td></tr>
+<tr><td>Saturday, Dec 20</td><td>11:00 AM</td><td>Camels</td><td>Huskies</td><td>CCP 2</td></tr>
+<tr><td>Saturday, Dec 20</td><td>12:00 PM</td><td>Herd</td><td>Owls</td><td>CCP 2</td></tr>
+<tr><td>Saturday, Dec 20</td><td>1:00 PM</td><td>Flyers</td><td>Toreros</td><td>CCP 2</td></tr>
+<tr><td>Saturday, Dec 20</td><td>2:00 PM</td><td>Zips</td><td>Hoyas</td><td>CCP 2</td></tr>
+<tr><td>Saturday, Dec 20</td><td>3:00 PM</td><td>Bears</td><td>Gauchos</td><td>CCP 2</td></tr>
+<tr class="new-date"><td>Saturday, Jan 10</td><td>9:00 AM</td><td>Flyers</td><td>Zips</td><td>CCP 2</td></tr>
+<tr><td>Saturday, Jan 10</td><td>10:00 AM</td><td>Owls</td><td>Lobos</td><td>CCP 2</td></tr>
+<tr><td>Saturday, Jan 10</td><td>11:00 AM</td><td>Toreros</td><td>Herd</td><td>CCP 2</td></tr>
+<tr><td>Saturday, Jan 10</td><td>12:00 PM</td><td>Gauchos</td><td>Huskies</td><td>CCP 2</td></tr>
+<tr><td>Saturday, Jan 10</td><td>1:00 PM</td><td>Billikens</td><td>Bears</td><td>CCP 2</td></tr>
+<tr><td>Saturday, Jan 10</td><td>2:00 PM</td><td>Dragons</td><td>Camels</td><td>CCP 2</td></tr>
+<tr><td>Saturday, Jan 10</td><td>3:00 PM</td><td>Hoyas</td><td>Anteaters</td><td>CCP 2</td></tr>
+<tr class="new-date"><td>Saturday, Jan 17</td><td>9:00 AM</td><td>Huskies</td><td>Owls</td><td>CCP 2</td></tr>
+<tr><td>Saturday, Jan 17</td><td>10:00 AM</td><td>Gauchos</td><td>Hoyas</td><td>CCP 2</td></tr>
+<tr><td>Saturday, Jan 17</td><td>11:00 AM</td><td>Billikens</td><td>Dragons</td><td>CCP 2</td></tr>
+<tr><td>Saturday, Jan 17</td><td>12:00 PM</td><td>Herd</td><td>Lobos</td><td>CCP 2</td></tr>
+<tr><td>Saturday, Jan 17</td><td>1:00 PM</td><td>Zips</td><td>Anteaters</td><td>CCP 2</td></tr>
+<tr><td>Saturday, Jan 17</td><td>2:00 PM</td><td>Flyers</td><td>Bears</td><td>CCP 2</td></tr>
+<tr><td>Saturday, Jan 17</td><td>3:00 PM</td><td>Toreros</td><td>Camels</td><td>CCP 2</td></tr>
+<tr class="new-date"><td>Saturday, Jan 24</td><td>9:00 AM</td><td>Bears</td><td>Anteaters</td><td>CCP 2</td></tr>
+<tr><td>Saturday, Jan 24</td><td>10:00 AM</td><td>Hoyas</td><td>Owls</td><td>CCP 2</td></tr>
+<tr><td>Saturday, Jan 24</td><td>11:00 AM</td><td>Zips</td><td>Billikens</td><td>CCP 2</td></tr>
+<tr><td>Saturday, Jan 24</td><td>12:00 PM</td><td>Camels</td><td>Lobos</td><td>CCP 2</td></tr>
+<tr><td>Saturday, Jan 24</td><td>1:00 PM</td><td>Flyers</td><td>Gauchos</td><td>CCP 2</td></tr>
+<tr><td>Saturday, Jan 24</td><td>2:00 PM</td><td>Dragons</td><td>Herd</td><td>CCP 2</td></tr>
+<tr><td>Saturday, Jan 24</td><td>3:00 PM</td><td>Huskies</td><td>Toreros</td><td>CCP 2</td></tr>
+<tr class="new-date"><td>Saturday, Jan 31</td><td>9:00 AM</td><td>Billikens</td><td>Hoyas</td><td>CCP 2</td></tr>
+<tr><td>Saturday, Jan 31</td><td>10:00 AM</td><td>Lobos</td><td>Toreros</td><td>CCP 2</td></tr>
+<tr><td>Saturday, Jan 31</td><td>11:00 AM</td><td>Herd</td><td>Huskies</td><td>CCP 2</td></tr>
+<tr><td>Saturday, Jan 31</td><td>12:00 PM</td><td>Anteaters</td><td>Flyers</td><td>CCP 2</td></tr>
+<tr><td>Saturday, Jan 31</td><td>1:00 PM</td><td>Dragons</td><td>Owls</td><td>CCP 2</td></tr>
+<tr><td>Saturday, Jan 31</td><td>2:00 PM</td><td>Gauchos</td><td>Zips</td><td>CCP 2</td></tr>
+<tr><td>Saturday, Jan 31</td><td>3:00 PM</td><td>Bears</td><td>Camels</td><td>CCP 2</td></tr>
+<tr class="new-date"><td>Saturday, Feb 7</td><td>9:00 AM</td><td>Toreros</td><td>Dragons</td><td>CCP 2</td></tr>
+<tr><td>Saturday, Feb 7</td><td>10:00 AM</td><td>Billikens</td><td>Flyers</td><td>CCP 2</td></tr>
+<tr><td>Saturday, Feb 7</td><td>11:00 AM</td><td>Owls</td><td>Camels</td><td>CCP 2</td></tr>
+<tr><td>Saturday, Feb 7</td><td>12:00 PM</td><td>Gauchos</td><td>Anteaters</td><td>CCP 2</td></tr>
+<tr><td>Saturday, Feb 7</td><td>1:00 PM</td><td>Zips</td><td>Herd</td><td>CCP 2</td></tr>
+<tr><td>Saturday, Feb 7</td><td>2:00 PM</td><td>Hoyas</td><td>Bears</td><td>CCP 2</td></tr>
+<tr><td>Saturday, Feb 7</td><td>3:00 PM</td><td>Huskies</td><td>Lobos</td><td>CCP 2</td></tr>
+</tbody>
+</table>
+</div><div class="league-section" id="p1_l9_11g">
+<div class="league-title">9–11 Girls Bridge</div>
+<table>
+<thead>
+<tr>
+<th>Date</th><th>Time</th><th>Team</th><th>Team</th><th>Location</th>
+</tr>
+</thead>
+<tbody>
+<tr class="new-date"><td>Saturday, Dec 13</td><td>4:00 PM</td><td>Eagles‑Giulietti</td><td>Eagles‑Speranza</td><td>CCP 2</td></tr>
+<tr><td>Saturday, Dec 13</td><td>5:00 PM</td><td>Eagles‑Hilton</td><td>Eagles‑Lane</td><td>CCP 1</td></tr>
+<tr><td>Saturday, Dec 13</td><td>5:00 PM</td><td>Eagles‑Thielbar</td><td>Eagles‑Todd</td><td>CCP 2</td></tr>
+<tr class="new-date"><td>Saturday, Dec 20</td><td>4:00 PM</td><td>Eagles‑Giulietti</td><td>Eagles‑Lane</td><td>CCP 2</td></tr>
+<tr><td>Saturday, Dec 20</td><td>5:00 PM</td><td>Eagles‑Todd</td><td>Eagles‑Speranza</td><td>CCP 1</td></tr>
+<tr><td>Saturday, Dec 20</td><td>5:00 PM</td><td>Eagles‑Thielbar</td><td>Eagles‑Hilton</td><td>CCP 2</td></tr>
+<tr class="new-date"><td>Saturday, Jan 10</td><td>4:00 PM</td><td>Eagles‑Speranza</td><td>Eagles‑Lane</td><td>CCP 2</td></tr>
+<tr><td>Saturday, Jan 10</td><td>5:00 PM</td><td>Eagles‑Giulietti</td><td>Eagles‑Thielbar</td><td>CCP 1</td></tr>
+<tr><td>Saturday, Jan 10</td><td>5:00 PM</td><td>Eagles‑Todd</td><td>Eagles‑Hilton</td><td>CCP 2</td></tr>
+<tr class="new-date"><td>Saturday, Jan 17</td><td>4:00 PM</td><td>Eagles‑Lane</td><td>Eagles‑Thielbar</td><td>CCP 2</td></tr>
+<tr><td>Saturday, Jan 17</td><td>5:00 PM</td><td>Eagles‑Todd</td><td>Eagles‑Giulietti</td><td>CCP 1</td></tr>
+<tr><td>Saturday, Jan 17</td><td>5:00 PM</td><td>Eagles‑Hilton</td><td>Eagles‑Speranza</td><td>CCP 2</td></tr>
+<tr class="new-date"><td>Saturday, Jan 24</td><td>4:00 PM</td><td>Eagles‑Lane</td><td>Eagles‑Todd</td><td>CCP 2</td></tr>
+<tr><td>Saturday, Jan 24</td><td>5:00 PM</td><td>Eagles‑Speranza</td><td>Eagles‑Thielbar</td><td>CCP 1</td></tr>
+<tr><td>Saturday, Jan 24</td><td>5:00 PM</td><td>Eagles‑Hilton</td><td>Eagles‑Giulietti</td><td>CCP 2</td></tr>
+<tr class="new-date"><td>Saturday, Jan 31</td><td>4:00 PM</td><td>Eagles‑Giulietti</td><td>Eagles‑Speranza</td><td>CCP 2</td></tr>
+<tr><td>Saturday, Jan 31</td><td>5:00 PM</td><td>Eagles‑Hilton</td><td>Eagles‑Lane</td><td>CCP 1</td></tr>
+<tr><td>Saturday, Jan 31</td><td>5:00 PM</td><td>Eagles‑Thielbar</td><td>Eagles‑Todd</td><td>CCP 2</td></tr>
+<tr class="new-date"><td>Saturday, Feb 7</td><td>5:00 PM</td><td>Eagles‑Speranza</td><td>Eagles‑Todd</td><td>CMS</td></tr>
+<tr><td>Saturday, Feb 7</td><td>6:00 PM</td><td>Eagles‑Lane</td><td>Eagles‑Giulietti</td><td>CMS</td></tr>
+<tr><td>Saturday, Feb 7</td><td>7:00 PM</td><td>Eagles‑Thielbar</td><td>Eagles‑Hilton</td><td>CMS</td></tr>
+</tbody>
+</table>
+</div><div class="league-section" id="p1_l11_12">
+<div class="league-title">11–12 Bridge Basketball</div>
+<table>
+<thead>
+<tr>
+<th>Date</th><th>Time</th><th>Team</th><th>Team</th><th>Location</th>
+</tr>
+</thead>
+<tbody>
+<tr class="new-date"><td>Saturday, Dec 13</td><td>9:00 AM</td><td>Eagles‑BREMER</td><td>Wildcats‑PAUL</td><td>CIS</td></tr>
+<tr><td>Saturday, Dec 13</td><td>10:00 AM</td><td>Eagles‑DINKINS</td><td>Eagles‑MOSES</td><td>CIS</td></tr>
+<tr><td>Saturday, Dec 13</td><td>11:00 AM</td><td>Eagles‑ORTIZ</td><td>Eagles‑MCDOWELL</td><td>CIS</td></tr>
+<tr><td>Saturday, Dec 13</td><td>12:00 PM</td><td>Eagles‑STERNENBERG</td><td>Eagles‑CROMER</td><td>CIS</td></tr>
+<tr><td>Saturday, Dec 13</td><td>1:00 PM</td><td>Eagles‑LEWTER</td><td>Eagles‑HERNANDEZ</td><td>CIS</td></tr>
+<tr><td>Saturday, Dec 13</td><td>2:00 PM</td><td>Eagles‑HEINZEN</td><td>Eagles‑SCHLOEMP</td><td>CIS</td></tr>
+<tr class="new-date"><td>Saturday, Dec 20</td><td>9:00 AM</td><td>Wildcats‑PAUL</td><td>Eagles‑DINKINS</td><td>CIS</td></tr>
+<tr><td>Saturday, Dec 20</td><td>10:00 AM</td><td>Eagles‑MCDOWELL</td><td>Eagles‑HEINZEN</td><td>CIS</td></tr>
+<tr><td>Saturday, Dec 20</td><td>11:00 AM</td><td>Eagles‑CROMER</td><td>Eagles‑LEWTER</td><td>CIS</td></tr>
+<tr><td>Saturday, Dec 20</td><td>12:00 PM</td><td>Eagles‑HERNANDEZ</td><td>Eagles‑BREMER</td><td>CIS</td></tr>
+<tr><td>Saturday, Dec 20</td><td>1:00 PM</td><td>Eagles‑MOSES</td><td>Eagles‑ORTIZ</td><td>CIS</td></tr>
+<tr><td>Saturday, Dec 20</td><td>2:00 PM</td><td>Eagles‑SCHLOEMP</td><td>Eagles‑STERNENBERG</td><td>CIS</td></tr>
+<tr class="new-date"><td>Saturday, Jan 10</td><td>9:00 AM</td><td>Eagles‑DINKINS</td><td>Eagles‑HERNANDEZ</td><td>CIS</td></tr>
+<tr><td>Saturday, Jan 10</td><td>10:00 AM</td><td>Wildcats-PAUL</td><td>Eagles‑MOSES</td><td>CIS</td></tr>
+<tr><td>Saturday, Jan 10</td><td>11:00 AM</td><td>Eagles‑BREMER</td><td>Eagles‑CROMER</td><td>CIS</td></tr>
+<tr><td>Saturday, Jan 10</td><td>12:00 PM</td><td>Eagles‑LEWTER</td><td>Eagles‑SCHLOEMP</td><td>CIS</td></tr>
+<tr><td>Saturday, Jan 10</td><td>1:00 PM</td><td>Eagles‑HEINZEN</td><td>Eagles‑ORTIZ</td><td>CIS</td></tr>
+<tr><td>Saturday, Jan 10</td><td>2:00 PM</td><td>Eagles-STERNENBERG</td><td>Eagles‑MCDOWELL</td><td>CIS</td></tr>
+<tr class="new-date"><td>Saturday, Jan 17</td><td>9:00 AM</td><td>Eagles‑CROMER</td><td>Eagles‑HERNANDEZ</td><td>CIS</td></tr>
+<tr><td>Saturday, Jan 17</td><td>10:00 AM</td><td>Eagles‑ORTIZ</td><td>Eagles‑BREMER</td><td>CIS</td></tr>
+<tr><td>Saturday, Jan 17</td><td>11:00 AM</td><td>Eagles‑MCDOWELL</td><td>Eagles‑DINKINS</td><td>CIS</td></tr>
+<tr><td>Saturday, Jan 17</td><td>12:00 PM</td><td>Eagles‑MOSES</td><td>Eagles‑STERNENBERG</td><td>CIS</td></tr>
+<tr><td>Saturday, Jan 17</td><td>1:00 PM</td><td>Eagles‑HEINZEN</td><td>Eagles‑LEWTER</td><td>CIS</td></tr>
+<tr><td>Saturday, Jan 17</td><td>2:00 PM</td><td>Eagles‑SCHLOEMP</td><td>Wildcats‑PAUL</td><td>CIS</td></tr>
+<tr class="new-date"><td>Saturday, Jan 24</td><td>9:00 AM</td><td>Wildcats‑PAUL</td><td>Eagles‑MCDOWELL</td><td>CIS</td></tr>
+<tr><td>Saturday, Jan 24</td><td>10:00 AM</td><td>Eagles‑CROMER</td><td>Eagles‑MOSES</td><td>CIS</td></tr>
+<tr><td>Saturday, Jan 24</td><td>11:00 AM</td><td>Eagles‑LEWTER/td&gt;<td>Eagles‑STERNENBERG</td><td>CIS</td></td></tr>
+<tr><td>Saturday, Jan 24</td><td>12:00 PM</td><td>Eagles‑BREMER</td><td>Eagles‑HEINZEN</td><td>CIS</td></tr>
+<tr><td>Saturday, Jan 24</td><td>1:00 PM</td><td>Eagles‑HERNANDEZ</td><td>Eagles‑SCHLOEMP</td><td>CIS</td></tr>
+<tr><td>Saturday, Jan 24</td><td>2:00 PM</td><td>Eagles‑DINKINS</td><td>Eagles‑ORTIZ</td><td>CIS</td></tr>
+<tr class="new-date"><td>Saturday, Jan 31</td><td>9:00 AM</td><td>Eagles‑MOSES</td><td>Eagles‑BREMER</td><td>CMS</td></tr>
+<tr><td>Saturday, Jan 31</td><td>10:00 AM</td><td>Eagles‑LEWTER</td><td>Eagles‑DINKINS</td><td>CMS</td></tr>
+<tr><td>Saturday, Jan 31</td><td>11:00 AM</td><td>Eagles‑STERNENBERG</td><td>Wildcats‑PAUL</td><td>CMS</td></tr>
+<tr><td>Saturday, Jan 31</td><td>12:00 PM</td><td>Eagles‑HEIZEN</td><td>Eagles‑HERNANDEZ</td><td>CMS</td></tr>
+<tr><td>Saturday, Jan 31</td><td>1:00 PM</td><td>Eagles‑MCDOWELL</td><td>Eagles‑SCHLOEMP</td><td>CMS</td></tr>
+<tr><td>Saturday, Jan 31</td><td>2:00 PM</td><td>Eagles‑ORTIZ</td><td>Eagles‑CROMER</td><td>CMS</td></tr>
+<tr class="new-date"><td>Saturday, Feb 7</td><td>9:00 AM</td><td>Eagles‑CROMER</td><td>Eagles‑HEINZEN</td><td>CIS</td></tr>
+<tr><td>Saturday, Feb 7</td><td>10:00 AM</td><td>Eagles‑MCDOWELL</td><td>Eagles‑MOSES</td><td>CIS</td></tr>
+<tr><td>Saturday, Feb 7</td><td>11:00 AM</td><td>Eagles‑DINKINS</td><td>Eagles‑BREMER</td><td>CIS</td></tr>
+<tr><td>Saturday, Feb 7</td><td>12:00 PM</td><td>Eagles‑HERNANDEZ</td><td>Eagles‑STERNENBERG</td><td>CIS</td></tr>
+<tr><td>Saturday, Feb 7</td><td>1:00 PM</td><td>Eagles‑SCHLOEMP</td><td>Eagles‑ORTIZ</td><td>CIS</td></tr>
+<tr><td>Saturday, Feb 7</td><td>2:00 PM</td><td>Wildcats‑PAUL</td><td>Eagles‑LEWTER</td><td>CIS</td></tr>
+</tbody>
+</table>
+</div><div class="league-section" id="p1_l12_14g">
+<div class="league-title">12–14 Girls Basketball</div>
+<table>
+<thead>
+<tr>
+<th>Date</th><th>Time</th><th>Team</th><th>Team</th><th>Location</th>
+</tr>
+</thead>
+<tbody>
+<tr class="new-date"><td>Saturday, Dec 13</td><td>3:00 PM</td><td>Eagles-Hilton</td><td>Yellow Jackets</td><td>CIS</td></tr>
+<tr><td>Saturday, Dec 13</td><td>4:00 PM</td><td>Eagles-McClary</td><td>Eagles-McAngus</td><td>CIS</td></tr>
+<tr class="new-date"><td>Saturday, Dec 20</td><td>2:00 PM</td><td>Silver Foxes</td><td>Eagles-Hilton</td><td>SOP1</td></tr>
+<tr><td>Saturday, Dec 20</td><td>3:00 PM</td><td>Yellow Jackets</td><td>Eagles-McClary</td><td>SOP1</td></tr>
+<tr class="new-date"><td>Saturday, Jan 10</td><td>3:00 PM</td><td>Eagles-McClary</td><td>Silver Foxes</td><td>CIS</td></tr>
+<tr><td>Saturday, Jan 10</td><td>4:00 PM</td><td>Eagles-McAngus</td><td>Yellow Jackets</td><td>CIS</td></tr>
+<tr class="new-date"><td>Saturday, Jan 17</td><td>2:00 PM</td><td>Silver Foxes</td><td>Eagles-McAngus</td><td>SOP1</td></tr>
+<tr><td>Saturday, Jan 17</td><td>3:00 PM</td><td>Eagles-McClary</td><td>Eagles-Hilton</td><td>CIS</td></tr>
+<tr class="new-date"><td>Wednesday, Jan 21</td><td>8:00 PM</td><td>Eagles-Hilton</td><td>Eagles-McAngus</td><td>CCP2</td></tr>
+<tr class="new-date"><td>Saturday, Jan 24</td><td>3:00 PM</td><td>Eagles-Hilton</td><td>Silver Foxes</td><td>CIS</td></tr>
+<tr><td>Saturday, Jan 24</td><td>4:00 PM</td><td>Yellow Jackets</td><td>Eagles-McClary</td><td>IMS</td></tr>
+<tr class="new-date"><td>Monday, Jan 26</td><td>8:00 PM</td><td>Yellow Jackets</td><td>Silver Foxes</td><td>SOP1</td></tr>
+<tr class="new-date"><td>Saturday, Jan 31</td><td>3:00 PM</td><td>Eagles-Hilton</td><td>Yellow Jackets</td><td>CMS</td></tr>
+<tr><td>Saturday, Jan 31</td><td>4:00 PM</td><td>Eagles-McAngus</td><td>Eagles-McClary</td><td>CMS</td></tr>
+<tr class="new-date"><td>Wednesday, Feb 4</td><td>7:00 PM</td><td>Silver Foxes</td><td>Yellow Jackets</td><td>SOP1</td></tr>
+<tr><td>Wednesday, Feb 4</td><td>8:00 PM</td><td>Eagles-McAngus</td><td>Eagles-Hilton</td><td>CCP2</td></tr>
+<tr class="new-date"><td>Saturday, Feb 7</td><td>4:00 PM</td><td>Yellow Jackets</td><td>Eagles-McAngus</td><td>IHS</td></tr>
+<tr><td>Saturday, Feb 7</td><td>5:00 PM</td><td>Silver Foxes</td><td>Eagles-McClary</td><td>IHS</td></tr>
+</tbody>
+</table>
+</div><div class="league-section" id="p1_l13_14">
+<div class="league-title">13–14 Basketball</div>
+<table>
+<thead>
+<tr>
+<th>Date</th><th>Time</th><th>Team</th><th>Team</th><th>Location</th>
+</tr>
+</thead>
+<tbody>
+<tr class="new-date"><td>Saturday, Dec 13</td><td>1:00 PM</td><td>Eagles-Hewitt</td><td>Eagles-Newman</td><td>CCP1</td></tr>
+<tr><td>Saturday, Dec 13</td><td>2:00 PM</td><td>Eagles-Luther</td><td>Eagles-Gravelle</td><td>CCP1</td></tr>
+<tr><td>Saturday, Dec 13</td><td>3:00 PM</td><td>Eagles-Coakley</td><td>Eagles-Davis</td><td>CCP1</td></tr>
+<tr><td>Saturday, Dec 13</td><td>4:00 PM</td><td>Eagles-Neal</td><td>Eagles-Lott</td><td>CCP1</td></tr>
+<tr class="new-date"><td>Saturday, Dec 20</td><td>1:00 PM</td><td>Eagles-Hewitt</td><td>Eagles-Coakley</td><td>CCP1</td></tr>
+<tr><td>Saturday, Dec 20</td><td>2:00 PM</td><td>Eagles-Gravelle</td><td>Eagles-Davis</td><td>CCP1</td></tr>
+<tr><td>Saturday, Dec 20</td><td>3:00 PM</td><td>Eagles-Newman</td><td>Eagles-Lott</td><td>CCP1</td></tr>
+<tr><td>Saturday, Dec 20</td><td>4:00 PM</td><td>Eagles-Luther</td><td>Eagles-Neal</td><td>CCP1</td></tr>
+<tr class="new-date"><td>Saturday, Jan 10</td><td>1:00 PM</td><td>Eagles-Lott</td><td>Eagles-Luther</td><td>CCP1</td></tr>
+<tr><td>Saturday, Jan 10</td><td>2:00 PM</td><td>Eagles-Coakley</td><td>Eagles-Gravelle</td><td>CCP1</td></tr>
+<tr><td>Saturday, Jan 10</td><td>3:00 PM</td><td>Eagles-Neal</td><td>Eagles-Hewitt</td><td>CCP1</td></tr>
+<tr><td>Saturday, Jan 10</td><td>4:00 PM</td><td>Eagles-Davis</td><td>Eagles-Newman</td><td>CCP1</td></tr>
+<tr class="new-date"><td>Saturday, Jan 17</td><td>1:00 PM</td><td>Eagles-Lott</td><td>Eagles-Gravelle</td><td>CCP1</td></tr>
+<tr><td>Saturday, Jan 17</td><td>2:00 PM</td><td>Eagles-Newman</td><td>Eagles-Coakley</td><td>CCP1</td></tr>
+<tr><td>Saturday, Jan 17</td><td>3:00 PM</td><td>Eagles-Davis</td><td>Eagles-Neal</td><td>CCP1</td></tr>
+<tr><td>Saturday, Jan 17</td><td>4:00 PM</td><td>Eagles-Luther</td><td>Eagles-Hewitt</td><td>CCP1</td></tr>
+<tr class="new-date"><td>Saturday, Jan 24</td><td>1:00 PM</td><td>Eagles-Coakley</td><td>Eagles-Luther</td><td>CCP1</td></tr>
+<tr><td>Saturday, Jan 24</td><td>2:00 PM</td><td>Eagles-Lott</td><td>Eagles-Davis</td><td>CCP1</td></tr>
+<tr><td>Saturday, Jan 24</td><td>3:00 PM</td><td>Eagles-Neal</td><td>Eagles-Newman</td><td>CCP1</td></tr>
+<tr><td>Saturday, Jan 24</td><td>4:00 PM</td><td>Eagles-Gravelle</td><td>Eagles-Hewitt</td><td>CCP1</td></tr>
+<tr class="new-date"><td>Saturday, Jan 31</td><td>1:00 PM</td><td>Eagles-Newman</td><td>Eagles-Gravelle</td><td>CCP1</td></tr>
+<tr><td>Saturday, Jan 31</td><td>2:00 PM</td><td>Eagles-Luther</td><td>Eagles-Davis</td><td>CCP1</td></tr>
+<tr><td>Saturday, Jan 31</td><td>3:00 PM</td><td>Eagles-Lott</td><td>Eagles-Hewitt</td><td>CCP1</td></tr>
+<tr><td>Saturday, Jan 31</td><td>4:00 PM</td><td>Eagles-Coakley</td><td>Eagles-Neal</td><td>CCP1</td></tr>
+<tr class="new-date"><td>Saturday, Feb 7</td><td>1:00 PM</td><td>Eagles-Newman</td><td>Eagles-Luther</td><td>CMS</td></tr>
+<tr><td>Saturday, Feb 7</td><td>2:00 PM</td><td>Eagles-Neal</td><td>Eagles-Gravelle</td><td>CMS</td></tr>
+<tr><td>Saturday, Feb 7</td><td>3:00 PM</td><td>Eagles-Davis</td><td>Eagles-Hewitt</td><td>CMS</td></tr>
+<tr><td>Saturday, Feb 7</td><td>4:00 PM</td><td>Eagles-Lott</td><td>Eagles-Coakley</td><td>CMS</td></tr>
+</tbody>
+</table>
+</div><div class="league-section" id="p1_l15_18">
+<div class="league-title">15–18 Basketball</div>
+<table>
+<thead>
+    <tr>
+        <th>Date</th><th>Time</th><th>Team</th><th>Team</th><th>Location</th>
+    </tr>
+</thead>
+
+<tbody>
+
+<tr class="new-date"><td>Saturday, Dec 13</td><td>9:00 AM</td><td>Pelicans</td><td>Rockets</td><td>CCP1</td></tr>
+<tr><td>Saturday, Dec 13</td><td>10:00 AM</td><td>Mavericks</td><td>Thunder</td><td>CCP1</td></tr>
+<tr><td>Saturday, Dec 13</td><td>11:00 AM</td><td>Kings</td><td>Warriors</td><td>CCP1</td></tr>
+<tr><td>Saturday, Dec 13</td><td>12:00 PM</td><td>Grizzlies</td><td>Celtics</td><td>CCP1</td></tr>
+
+<tr class="new-date"><td>Saturday, Dec 20</td><td>9:00 AM</td><td>Kings</td><td>Mavericks</td><td>CCP1</td></tr>
+<tr><td>Saturday, Dec 20</td><td>10:00 AM</td><td>Warriors</td><td>Rockets</td><td>CCP1</td></tr>
+<tr><td>Saturday, Dec 20</td><td>11:00 AM</td><td>Grizzlies</td><td>Pelicans</td><td>CCP1</td></tr>
+<tr><td>Saturday, Dec 20</td><td>12:00 PM</td><td>Celtics</td><td>Thunder</td><td>CCP1</td></tr>
+
+<tr class="new-date"><td>Saturday, Jan 10</td><td>9:00 AM</td><td>Thunder</td><td>Warriors</td><td>CCP1</td></tr>
+<tr><td>Saturday, Jan 10</td><td>10:00 AM</td><td>Pelicans</td><td>Kings</td><td>CCP1</td></tr>
+<tr><td>Saturday, Jan 10</td><td>11:00 AM</td><td>Mavericks</td><td>Celtics</td><td>CCP1</td></tr>
+<tr><td>Saturday, Jan 10</td><td>12:00 PM</td><td>Rockets</td><td>Grizzlies</td><td>CCP1</td></tr>
+
+<tr class="new-date"><td>Saturday, Jan 17</td><td>9:00 AM</td><td>Thunder</td><td>Pelicans</td><td>CCP1</td></tr>
+<tr><td>Saturday, Jan 17</td><td>10:00 AM</td><td>Celtics</td><td>Rockets</td><td>CCP1</td></tr>
+<tr><td>Saturday, Jan 17</td><td>11:00 AM</td><td>Grizzlies</td><td>Kings</td><td>CCP1</td></tr>
+<tr><td>Saturday, Jan 17</td><td>12:00 PM</td><td>Warriors</td><td>Mavericks</td><td>CCP1</td></tr>
+
+<tr class="new-date"><td>Saturday, Jan 24</td><td>9:00 AM</td><td>Celtics</td><td>Kings</td><td>CCP1</td></tr>
+<tr><td>Saturday, Jan 24</td><td>10:00 AM</td><td>Pelicans</td><td>Warriors</td><td>CCP1</td></tr>
+<tr><td>Saturday, Jan 24</td><td>11:00 AM</td><td>Rockets</td><td>Thunder</td><td>CCP1</td></tr>
+<tr><td>Saturday, Jan 24</td><td>12:00 PM</td><td>Mavericks</td><td>Grizzlies</td><td>CCP1</td></tr>
+
+<tr class="new-date"><td>Saturday, Jan 31</td><td>9:00 AM</td><td>Mavericks</td><td>Pelicans</td><td>CCP1</td></tr>
+<tr><td>Saturday, Jan 31</td><td>10:00 AM</td><td>Grizzlies</td><td>Thunder</td><td>CCP1</td></tr>
+<tr><td>Saturday, Jan 31</td><td>11:00 AM</td><td>Warriors</td><td>Celtics</td><td>CCP1</td></tr>
+<tr><td>Saturday, Jan 31</td><td>12:00 PM</td><td>Kings</td><td>Rockets</td><td>CCP1</td></tr>
+
+<tr class="new-date"><td>Saturday, Feb 7</td><td>9:00 AM</td><td>Warriors</td><td>Grizzlies</td><td>CCP1</td></tr>
+<tr><td>Saturday, Feb 7</td><td>10:00 AM</td><td>Rockets</td><td>Mavericks</td><td>CCP1</td></tr>
+<tr><td>Saturday, Feb 7</td><td>11:00 AM</td><td>Celtics</td><td>Pelicans</td><td>CCP1</td></tr>
+<tr><td>Saturday, Feb 7</td><td>12:00 PM</td><td>Thunder</td><td>Kings</td><td>CCP1</td></tr>
+
+</tbody>
+</table>
+<!-- ============================
+     PARK 2 (PLACEHOLDER)
+     Replace schedules below as needed.
+============================ -->
+
+</div><div class="league-section" id="p2_l12_14g">
+<div class="league-title">12–14 Girls Basketball</div>
+<table>
+<thead>
+<tr>
+<th>Date</th><th>Time</th><th>Team</th><th>Team</th><th>Location</th>
+</tr>
+</thead>
+<tbody>
+<tr class="new-date"><td>Saturday, Dec 13</td><td>3:00 PM</td><td>Eagles-Hilton</td><td>Yellow Jackets</td><td>CIS</td></tr>
+<tr><td>Saturday, Dec 13</td><td>4:00 PM</td><td>Eagles-McClary</td><td>Eagles-McAngus</td><td>CIS</td></tr>
+<tr class="new-date"><td>Saturday, Dec 20</td><td>2:00 PM</td><td>Silver Foxes</td><td>Eagles-Hilton</td><td>SOP1</td></tr>
+<tr><td>Saturday, Dec 20</td><td>3:00 PM</td><td>Yellow Jackets</td><td>Eagles-McClary</td><td>SOP1</td></tr>
+<tr class="new-date"><td>Saturday, Jan 10</td><td>3:00 PM</td><td>Eagles-McClary</td><td>Silver Foxes</td><td>CIS</td></tr>
+<tr><td>Saturday, Jan 10</td><td>4:00 PM</td><td>Eagles-McAngus</td><td>Yellow Jackets</td><td>CIS</td></tr>
+<tr class="new-date"><td>Saturday, Jan 17</td><td>2:00 PM</td><td>Silver Foxes</td><td>Eagles-McAngus</td><td>SOP1</td></tr>
+<tr><td>Saturday, Jan 17</td><td>3:00 PM</td><td>Eagles-McClary</td><td>Eagles-Hilton</td><td>CIS</td></tr>
+<tr class="new-date"><td>Wednesday, Jan 21</td><td>8:00 PM</td><td>Eagles-Hilton</td><td>Eagles-McAngus</td><td>CCP2</td></tr>
+<tr class="new-date"><td>Saturday, Jan 24</td><td>3:00 PM</td><td>Eagles-Hilton</td><td>Silver Foxes</td><td>CIS</td></tr>
+<tr><td>Saturday, Jan 24</td><td>4:00 PM</td><td>Yellow Jackets</td><td>Eagles-McClary</td><td>IMS</td></tr>
+<tr class="new-date"><td>Monday, Jan 26</td><td>8:00 PM</td><td>Yellow Jackets</td><td>Silver Foxes</td><td>SOP1</td></tr>
+<tr class="new-date"><td>Saturday, Jan 31</td><td>3:00 PM</td><td>Eagles-Hilton</td><td>Yellow Jackets</td><td>CMS</td></tr>
+<tr><td>Saturday, Jan 31</td><td>4:00 PM</td><td>Eagles-McAngus</td><td>Eagles-McClary</td><td>CMS</td></tr>
+<tr class="new-date"><td>Wednesday, Feb 4</td><td>7:00 PM</td><td>Silver Foxes</td><td>Yellow Jackets</td><td>SOP1</td></tr>
+<tr><td>Wednesday, Feb 4</td><td>8:00 PM</td><td>Eagles-McAngus</td><td>Eagles-Hilton</td><td>CCP2</td></tr>
+<tr class="new-date"><td>Saturday, Feb 7</td><td>4:00 PM</td><td>Yellow Jackets</td><td>Eagles-McAngus</td><td>IHS</td></tr>
+<tr><td>Saturday, Feb 7</td><td>5:00 PM</td><td>Silver Foxes</td><td>Eagles-McClary</td><td>IHS</td></tr>
+</tbody>
+</table>
+</div><div class="league-section" id="p2_l9_10">
+<div class="league-title">9–10 Basketball</div>
+<table>
+<thead>
+<tr>
+<th>Date</th><th>Time</th><th>Team</th><th>Team</th><th>Location</th>
+</tr>
+</thead>
+<tbody>
+<tr class="new-date"><td>Saturday, Dec 13</td><td>9:00 AM</td><td>Sixers</td><td>Suns</td><td>SOP 1</td></tr><tr><td>Saturday, Dec 13</td><td>10:00 AM</td><td>Hawks</td><td>MOLINA HEALTHCARE Lakers</td><td>SOP 1</td></tr><tr><td>Saturday, Dec 13</td><td>11:00 AM</td><td>Raptors</td><td>WAVE CRUISERS LLC Pacers</td><td>SOP 1</td></tr><tr class="new-date"><td>Saturday, Dec 20</td><td>9:00 AM</td><td>Sixers</td><td>Hawks</td><td>SOP 1</td></tr><tr><td>Saturday, Dec 20</td><td>10:00 AM</td><td>Suns</td><td>MOLINA HEALTHCARE Lakers</td><td>SOP 1</td></tr><tr><td>Saturday, Dec 20</td><td>11:00 AM</td><td>Raptors</td><td>HEALTHY BLUE Wolves</td><td>SOP 1</td></tr><tr class="new-date"><td>Saturday, Jan 10</td><td>9:00 AM</td><td>MOLINA HEALTHCARE Lakers</td><td>Sixers</td><td>SOP 1</td></tr><tr><td>Saturday, Jan 10</td><td>10:00 AM</td><td>WAVE CRUISERS LLC Pacers</td><td>Hawks</td><td>SOP 1</td></tr><tr><td>Saturday, Jan 10</td><td>11:00 AM</td><td>Suns</td><td>HEALTHY BLUE Wolves</td><td>SOP 1</td></tr><tr class="new-date"><td>Wednesday, Jan 14</td><td>8:00 PM</td><td>MOLINA HEALTHCARE Lakers</td><td>WAVE CRUISERS LLC Pacers</td><td>SOP 1</td></tr><tr class="new-date"><td>Saturday, Jan 17</td><td>9:00 AM</td><td>Suns</td><td>WAVE CRUISERS LLC Pacers</td><td>SOP 1</td></tr><tr><td>Saturday, Jan 17</td><td>10:00 AM</td><td>Hawks</td><td>HEALTHY BLUE Wolves</td><td>SOP 1</td></tr><tr><td>Saturday, Jan 17</td><td>11:00 AM</td><td>Raptors</td><td>Sixers</td><td>SOP 1</td></tr><tr class="new-date"><td>Wednesday, Jan 21</td><td>8:00 PM</td><td>Sixers</td><td>HEALTHY BLUE Wolves</td><td>SOP 1</td></tr><tr class="new-date"><td>Saturday, Jan 24</td><td>11:00 AM</td><td>Hawks</td><td>WAVE CRUISERS LLC Pacers</td><td>SOP 1</td></tr><tr><td>Saturday, Jan 24</td><td>12:00 PM</td><td>MOLINA HEALTHCARE Lakers</td><td>HEALTHY BLUE Wolves</td><td>SOP 1</td></tr><tr><td>Saturday, Jan 24</td><td>1:00 PM</td><td>Raptors</td><td>Sixers</td><td>SOP 1</td></tr><tr class="new-date"><td>Wednesday, Jan 28</td><td>8:00 PM</td><td>Suns</td><td>Raptors</td><td>SOP 1</td></tr><tr class="new-date"><td>Saturday, Jan 31</td><td>11:00 AM</td><td>MOLINA HEALTHCARE Lakers</td><td>Raptors</td><td>SOP 1</td></tr><tr><td>Saturday, Jan 31</td><td>12:00 PM</td><td>WAVE CRUISERS LLC Pacers</td><td>Sixers</td><td>SOP 1</td></tr><tr><td>Saturday, Jan 31</td><td>1:00 PM</td><td>Hawks</td><td>Suns</td><td>SOP 1</td></tr><tr class="new-date"><td>Wednesday, Feb 4</td><td>6:00 PM</td><td>HEALTHY BLUE Wolves</td><td>WAVE CRUISERS LLC Pacers</td><td>SOP 1</td></tr><tr class="new-date"><td>Saturday, Feb 7</td><td>11:00 AM</td><td>Sixers</td><td>Suns</td><td>SOP 1</td></tr><tr><td>Saturday, Feb 7</td><td>12:00 PM</td><td>Raptors</td><td>Hawks</td><td>SOP 1</td></tr><tr><td>Saturday, Feb 7</td><td>1:00 PM</td><td>HEALTHY BLUE Wolves</td><td>MOLINA HEALTHCARE Lakers</td><td>SOP 1</td></tr></tbody>
+</table>
+</div><div class="league-section" id="p2_l9_11g">
+<div class="league-title">9–11 Girls Bridge</div>
+<table>
+<thead>
+<tr>
+<th>Date</th><th>Time</th><th>Team</th><th>Team</th><th>Location</th>
+</tr>
+</thead>
+<tbody>
+<tr class="new-date"><td>Saturday, Dec 13</td><td>12:00 PM</td><td>MOLINA HEALTHCARE Yellow Jackets-Stephenson</td><td>Yellow Jackets-Goodman</td><td>SOP 1</td></tr><tr><td>Saturday, Dec 13</td><td>1:00 PM</td><td>Yellow Jackets-Simmons</td><td>Silver Foxes-Grissett</td><td>SOP 1</td></tr><tr class="new-date"><td>Saturday, Dec 20</td><td>12:00 PM</td><td>MOLINA HEALTHCARE Yellow Jackets-Stephenson</td><td>Yellow Jackets-Simmons</td><td>SOP 1</td></tr><tr><td>Saturday, Dec 20</td><td>1:00 PM</td><td>Yellow Jackets-Goodman</td><td>Silver Foxes-Grissett</td><td>SOP 1</td></tr><tr class="new-date"><td>Saturday, Jan 10</td><td>12:00 PM</td><td>Silver Foxes-Grissett</td><td>MOLINA HEALTHCARE Yellow Jackets-Stephenson</td><td>SOP 1</td></tr><tr><td>Saturday, Jan 10</td><td>1:00 PM</td><td>Yellow Jackets-Simmons</td><td>Yellow Jackets-Goodman</td><td>SOP 1</td></tr><tr class="new-date"><td>Saturday, Jan 17</td><td>12:00 PM</td><td>Yellow Jackets-Goodman</td><td>MOLINA HEALTHCARE Yellow Jackets-Stephenson</td><td>SOP 1</td></tr><tr><td>Saturday, Jan 17</td><td>1:00 PM</td><td>Silver Foxes-Grissett</td><td>Yellow Jackets-Simmons</td><td>SOP 1</td></tr><tr class="new-date"><td>Saturday, Jan 24</td><td>2:00 PM</td><td>Yellow Jackets-Simmons</td><td>MOLINA HEALTHCARE Yellow Jackets-Stephenson</td><td>IMS</td></tr><tr><td>Saturday, Jan 24</td><td>3:00 PM</td><td>Silver Foxes-Grissett</td><td>Yellow Jackets-Goodman</td><td>IMS</td></tr><tr class="new-date"><td>Saturday, Jan 31</td><td>2:00 PM</td><td>MOLINA HEALTHCARE Yellow Jackets-Stephenson</td><td>Silver Foxes-Grissett</td><td>DFMS</td></tr><tr><td>Saturday, Jan 31</td><td>3:00 PM</td><td>Yellow Jackets-Goodman</td><td>Yellow Jackets-Simmons</td><td>DFMS</td></tr><tr class="new-date"><td>Saturday, Feb 7</td><td>2:00 PM</td><td>Yellow Jackets-Simmons</td><td>Silver Foxes-Grissett</td><td>IHS</td></tr><tr><td>Saturday, Feb 7</td><td>3:00 PM</td><td>MOLINA HEALTHCARE Yellow Jackets-Stephenson</td><td>Yellow Jackets-Goodman</td><td>IHS</td></tr></tbody>
+</table>
+</div><div class="league-section" id="p2_l11_12">
+<div class="league-title">11–12 Basketball</div>
+<table>
+<thead>
+<tr>
+<th>Date</th><th>Time</th><th>Team</th><th>Team</th><th>Location</th>
+</tr>
+</thead>
+<tbody>
+<tr class="new-date"><td>Saturday, Dec 13</td><td>1:00 PM</td><td>HEALTHY BLUE Silver Foxes-Francis</td><td>Yellow Jackets-Allen</td><td>SOP 3</td></tr><tr><td>Saturday, Dec 13</td><td>2:00 PM</td><td>MOLINA HEALTHCARE Yellow Jackets-Brown</td><td>Yellow Jackets-Caldwell</td><td>SOP 3</td></tr><tr><td>Saturday, Dec 13</td><td>3:00 PM</td><td>DUNRITE AUTOMOTIVE Silver Foxes-Harris</td><td>Silver Foxes-Simmons</td><td>SOP 3</td></tr><tr class="new-date"><td>Saturday, Dec 20</td><td>1:00 PM</td><td>Yellow Jackets-Caldwell</td><td>HEALTHY BLUE Silver Foxes-Francis</td><td>SOP 3</td></tr><tr><td>Saturday, Dec 20</td><td>2:00 PM</td><td>DUNRITE AUTOMOTIVE Silver Foxes-Harris</td><td>MOLINA HEALTHCARE Yellow Jackets-Brown</td><td>SOP 3</td></tr><tr><td>Saturday, Dec 20</td><td>3:00 PM</td><td>Silver Foxes-Simmons</td><td>Yellow Jackets-Allen</td><td>SOP 3</td></tr><tr class="new-date"><td>Saturday, Jan 10</td><td>1:00 PM</td><td>Yellow Jackets-Caldwell</td><td>Yellow Jackets-Allen</td><td>SOP 3</td></tr><tr><td>Saturday, Jan 10</td><td>2:00 PM</td><td>DUNRITE AUTOMOTIVE Silver Foxes-Harris</td><td>HEALTHY BLUE Silver Foxes-Francis</td><td>SOP 3</td></tr><tr><td>Saturday, Jan 10</td><td>3:00 PM</td><td>MOLINA HEALTHCARE Yellow Jackets-Brown</td><td>Silver Foxes-Simmons</td><td>SOP 3</td></tr><tr class="new-date"><td>Saturday, Jan 17</td><td>1:00 PM</td><td>Yellow Jackets-Allen</td><td>MOLINA HEALTHCARE Yellow Jackets-Brown</td><td>SOP 3</td></tr><tr><td>Saturday, Jan 17</td><td>2:00 PM</td><td>Silver Foxes-Simmons</td><td>HEALTHY BLUE Silver Foxes-Francis</td><td>SOP 3</td></tr><tr><td>Saturday, Jan 17</td><td>3:00 PM</td><td>Yellow Jackets-Caldwell</td><td>DUNRITE AUTOMOTIVE Silver Foxes-Harris</td><td>SOP 3</td></tr><tr class="new-date"><td>Saturday, Jan 24</td><td>9:00 AM</td><td>Silver Foxes-Simmons</td><td>Yellow Jackets-Caldwell</td><td>IMS</td></tr><tr><td>Saturday, Jan 24</td><td>10:00 AM</td><td>HEALTHY BLUE Silver Foxes-Francis</td><td>MOLINA HEALTHCARE Yellow Jackets-Brown</td><td>IMS</td></tr><tr><td>Saturday, Jan 24</td><td>11:00 AM</td><td>Yellow Jackets-Allen</td><td>DUNRITE AUTOMOTIVE Silver Foxes-Harris</td><td>IMS</td></tr><tr class="new-date"><td>Saturday, Jan 31</td><td>9:00 AM</td><td>Yellow Jackets-Caldwell</td><td>MOLINA HEALTHCARE Yellow Jackets-Brown</td><td>DFMS</td></tr><tr><td>Saturday, Jan 31</td><td>10:00 AM</td><td>Silver Foxes-Simmons</td><td>DUNRITE AUTOMOTIVE Silver Foxes-Harris</td><td>DFMS</td></tr><tr><td>Saturday, Jan 31</td><td>11:00 AM</td><td>Yellow Jackets-Allen</td><td>HEALTHY BLUE Silver Foxes-Francis</td><td>DFMS</td></tr><tr class="new-date"><td>Saturday, Feb 7</td><td>9:00 AM</td><td>Silver Foxes-Simmons</td><td>Yellow Jackets-Allen</td><td>IHS</td></tr><tr><td>Saturday, Feb 7</td><td>10:00 AM</td><td>MOLINA HEALTHCARE Yellow Jackets-Brown</td><td>DUNRITE AUTOMOTIVE Silver Foxes-Harris</td><td>IHS</td></tr><tr><td>Saturday, Feb 7</td><td>11:00 AM</td><td>HEALTHY BLUE Silver Foxes-Francis</td><td>Yellow Jackets-Caldwell</td><td>IHS</td></tr></tbody>
+</table>
+</div><div class="league-section" id="p2_l13_14">
+<div class="league-title">13–14 Basketball</div>
+<table>
+<thead>
+<tr>
+<th>Date</th><th>Time</th><th>Team</th><th>Team</th><th>Location</th>
+</tr>
+</thead>
+<tbody>
+<tr class="new-date"><td>Saturday, Dec 13</td><td>11:00 AM</td><td>MOLINA HEALTHCARE Yellow Jackets-Gardner</td><td>Yellow Jackets-Raines</td><td>SOP 3</td></tr><tr><td>Saturday, Dec 13</td><td>12:00 PM</td><td>Owls</td><td>Silver Foxes</td><td>SOP 3</td></tr><tr class="new-date"><td>Saturday, Dec 20</td><td>11:00 AM</td><td>MOLINA HEALTHCARE Yellow Jackets-Gardner</td><td>Owls</td><td>SOP 3</td></tr><tr><td>Saturday, Dec 20</td><td>12:00 PM</td><td>Yellow Jackets-Raines</td><td>Silver Foxes</td><td>SOP 3</td></tr><tr class="new-date"><td>Saturday, Jan 10</td><td>11:00 AM</td><td>MOLINA HEALTHCARE Yellow Jackets-Gardner</td><td>Silver Foxes</td><td>SOP 3</td></tr><tr><td>Saturday, Jan 10</td><td>12:00 PM</td><td>Owls</td><td>Yellow Jackets-Raines</td><td>SOP 3</td></tr><tr class="new-date"><td>Saturday, Jan 17</td><td>11:00 AM</td><td>Silver Foxes</td><td>Owls</td><td>SOP 3</td></tr><tr><td>Saturday, Jan 17</td><td>12:00 PM</td><td>Yellow Jackets-Raines</td><td>MOLINA HEALTHCARE Yellow Jackets-Gardner</td><td>SOP 3</td></tr><tr class="new-date"><td>Saturday, Jan 24</td><td>12:00 PM</td><td>Silver Foxes</td><td>Yellow Jackets-Raines</td><td>IMS</td></tr><tr><td>Saturday, Jan 24</td><td>1:00 PM</td><td>Owls</td><td>MOLINA HEALTHCARE Yellow Jackets-Gardner</td><td>IMS</td></tr><tr class="new-date"><td>Saturday, Jan 31</td><td>12:00 PM</td><td>Yellow Jackets-Raines</td><td>Owls</td><td>DFMS</td></tr><tr><td>Saturday, Jan 31</td><td>1:00 PM</td><td>Silver Foxes</td><td>MOLINA HEALTHCARE Yellow Jackets-Gardner</td><td>DFMS</td></tr><tr class="new-date"><td>Saturday, Feb 7</td><td>12:00 PM</td><td>MOLINA HEALTHCARE Yellow Jackets-Gardner</td><td>Yellow Jackets-Raines</td><td>IHS</td></tr><tr><td>Saturday, Feb 7</td><td>1:00 PM</td><td>Owls</td><td>Silver Foxes</td><td>IHS</td></tr></tbody>
+</table>
+</div><div class="league-section" id="p2_l15_18">
+<div class="league-title">15–18 Basketball</div>
+<table>
+<thead>
+<tr>
+<th>Date</th><th>Time</th><th>Team</th><th>Team</th><th>Location</th>
+</tr>
+</thead>
+<tbody>
+</tr><tr class="new-date"><td>Saturday, Dec 13</td><td>9:00 AM</td><td>MOLINA HEATHCARE Storm</td><td>Warriors</td><td>SOP 3</td></tr><tr><td>Saturday, Dec 13</td><td>10:00 AM</td><td>Cavs</td><td>Bulls</td><td>SOP 3</td></tr><tr class="new-date"><td>Saturday, Dec 20</td><td>9:00 AM</td><td>Warriors</td><td>Bulls</td><td>SOP 3</td></tr><tr><td>Saturday, Dec 20</td><td>10:00 AM</td><td>Cavs</td><td>MOLINA HEATHCARE Storm</td><td>SOP 3</td></tr><tr class="new-date"><td>Saturday, Jan 10</td><td>9:00 AM</td><td>Warriors</td><td>Cavs</td><td>SOP 3</td></tr><tr><td>Saturday, Jan 10</td><td>10:00 AM</td><td>MOLINA HEATHCARE Storm</td><td>Bulls</td><td>SOP 3</td></tr><tr class="new-date"><td>Saturday, Jan 17</td><td>9:00 AM</td><td>Warriors</td><td>MOLINA HEATHCARE Storm</td><td>SOP 3</td></tr><tr><td>Saturday, Jan 17</td><td>10:00 AM</td><td>Cavs</td><td>Bulls</td><td>SOP 3</td></tr><tr class="new-date"><td>Saturday, Jan 24</td><td>9:00 AM</td><td>Warriors</td><td>Bulls</td><td>SOP 3</td></tr><tr><td>Saturday, Jan 24</td><td>10:00 AM</td><td>Cavs</td><td>MOLINA HEATHCARE Storm</td><td>SOP 3</td></tr><tr class="new-date"><td>Saturday, Jan 31</td><td>9:00 AM</td><td>Cavs</td><td>Warriors</td><td>SOP 3</td></tr><tr><td>Saturday, Jan 31</td><td>10:00 AM</td><td>MOLINA HEATHCARE Storm</td><td>Bulls</td><td>SOP 3</td></tr><tr class="new-date"><td>Saturday, Feb 7</td><td>9:00 AM</td><td>Warriors</td><td>MOLINA HEATHCARE Storm</td><td>SOP 3</td></tr><tr><td>Saturday, Feb 7</td><td>10:00 AM</td><td>Bulls</td><td>Cavs</td><td>SOP 3</td></tr></tbody>
+</table>
+</div><div class="league-section" id="p2_l7_8">
+<div class="league-title">7–8 Basketball</div>
+<table>
+<thead>
+<tr>
+<th>Date</th><th>Time</th><th>Team</th><th>Team</th><th>Location</th>
+</tr>
+</thead>
+<tbody>
+<tr class="new-date"><td>Wednesday, Dec 3</td><td>6:00 PM</td><td>Cavs</td><td>PEAK DENTAL Razorbacks</td><td>SOP 1AB</td></tr><tr><td>Wednesday, Dec 3</td><td>6:00 PM</td><td>Owls</td><td>Pirates</td><td>SOP 1CD</td></tr><tr><td>Wednesday, Dec 3</td><td>7:00 PM</td><td>Wolfpack</td><td>MOLINA HEALTHCARE Panthers</td><td>SOP 1AB</td></tr><tr><td>Wednesday, Dec 3</td><td>7:00 PM</td><td>Wildcats</td><td>HEALTHY BLUE Tar Heels</td><td>SOP 1CD</td></tr><tr class="new-date"><td>Wednesday, Dec 10</td><td>6:00 PM</td><td>Owls</td><td>Wolfpack</td><td>SOP 1AB</td></tr><tr><td>Wednesday, Dec 10</td><td>6:00 PM</td><td>Pirates</td><td>MOLINA HEALTHCARE Panthers</td><td>SOP 1CD</td></tr><tr><td>Wednesday, Dec 10</td><td>7:00 PM</td><td>Wildcats</td><td>Cavs</td><td>SOP 1AB</td></tr><tr><td>Wednesday, Dec 10</td><td>7:00 PM</td><td>PEAK DENTAL Razorbacks</td><td>HEALTHY BLUE Tar Heels</td><td>SOP 1CD</td></tr><tr class="new-date"><td>Wednesday, Dec 17</td><td>6:00 PM</td><td>Pirates</td><td>Wolfpack</td><td>SOP 1AB</td></tr><tr><td>Wednesday, Dec 17</td><td>6:00 PM</td><td>Wildcats</td><td>PEAK DENTAL Razorbacks</td><td>SOP 1CD</td></tr><tr><td>Wednesday, Dec 17</td><td>7:00 PM</td><td>HEALTHY BLUE Tar Heels</td><td>Cavs</td><td>SOP 1AB</td></tr><tr><td>Wednesday, Dec 17</td><td>7:00 PM</td><td>MOLINA HEALTHCARE Panthers</td><td>Owls</td><td>SOP 1CD</td></tr><tr class="new-date"><td>Wednesday, Jan 7</td><td>6:00 PM</td><td>Wolfpack</td><td>Wildcats</td><td>SOP 1AB</td></tr><tr><td>Wednesday, Jan 7</td><td>6:00 PM</td><td>PEAK DENTAL Razorbacks</td><td>Pirates</td><td>SOP 1CD</td></tr><tr><td>Wednesday, Jan 7</td><td>7:00 PM</td><td>Owls</td><td>HEALTHY BLUE Tar Heels</td><td>SOP 1AB</td></tr><tr><td>Wednesday, Jan 7</td><td>7:00 PM</td><td>MOLINA HEALTHCARE Panthers</td><td>Cavs</td><td>SOP 1CD</td></tr><tr class="new-date"><td>Wednesday, Jan 14</td><td>6:00 PM</td><td>Pirates</td><td>Cavs</td><td>SOP 1AB</td></tr><tr><td>Wednesday, Jan 14</td><td>6:00 PM</td><td>Owls</td><td>Wildcats</td><td>SOP 1CD</td></tr><tr><td>Wednesday, Jan 14</td><td>7:00 PM</td><td>Wolfpack</td><td>HEALTHY BLUE Tar Heels</td><td>SOP 1AB</td></tr><tr><td>Wednesday, Jan 14</td><td>7:00 PM</td><td>MOLINA HEALTHCARE Panthers</td><td>PEAK DENTAL Razorbacks</td><td>SOP 1CD</td></tr><tr class="new-date"><td>Wednesday, Jan 21</td><td>6:00 PM</td><td>HEALTHY BLUE Tar Heels</td><td>Pirates</td><td>SOP 1AB</td></tr><tr><td>Wednesday, Jan 21</td><td>6:00 PM</td><td>MOLINA HEALTHCARE Panthers</td><td>Wildcats</td><td>SOP 1CD</td></tr><tr><td>Wednesday, Jan 21</td><td>7:00 PM</td><td>Cavs</td><td>Wolfpack</td><td>SOP 1AB</td></tr><tr><td>Wednesday, Jan 21</td><td>7:00 PM</td><td>Owls</td><td>PEAK DENTAL Razorbacks</td><td>SOP 1CD</td></tr><tr class="new-date"><td>Monday, Jan 26</td><td>6:00 PM</td><td>Owls</td><td>Cavs</td><td>SOP 1AB</td></tr><tr><td>Monday, Jan 26</td><td>6:00 PM</td><td>Wolfpack</td><td>PEAK DENTAL Razorbacks</td><td>SOP 1CD</td></tr><tr><td>Monday, Jan 26</td><td>7:00 PM</td><td>Wildcats</td><td>Pirates</td><td>SOP 1AB</td></tr><tr><td>Monday, Jan 26</td><td>7:00 PM</td><td>MOLINA HEALTHCARE Panthers</td><td>HEALTHY BLUE Tar Heels</td><td>SOP 1CD</td></tr><tr class="new-date"><td>Wednesday, Jan 28</td><td>6:00 PM</td><td>Wolfpack</td><td>MOLINA HEALTHCARE Panthers</td><td>SOP 1AB</td></tr><tr><td>Wednesday, Jan 28</td><td>6:00 PM</td><td>Wildcats</td><td>HEALTHY BLUE Tar Heels</td><td>SOP 1CD</td></tr><tr><td>Wednesday, Jan 28</td><td>7:00 PM</td><td>PEAK DENTAL Razorbacks</td><td>Cavs</td><td>SOP 1AB</td></tr><tr><td>Wednesday, Jan 28</td><td>7:00 PM</td><td>Owls</td><td>Pirates</td><td>SOP 1CD</td></tr></tbody>
+</table>
+</div><div class="league-section" id="p2_l5_6">
+<div class="league-title">5–6 Basketball</div>
+<table>
+<thead>
+<tr>
+<th>Date</th><th>Time</th><th>Team</th><th>Team</th><th>Location</th>
+</tr>
+</thead>
+<tbody>
+<tr class="new-date"><td>Thursday, December 11</td><td>6:00 PM</td><td>Yellow Jackets</td><td>MOLINA HEALTHCARE Eagles</td><td>SOP 1AB</td></tr><tr><td>Thursday, December 11</td><td>6:00 PM</td><td>Cardinals</td><td>GREAT ENDEAVORS Gators</td><td>SOP 1CD</td></tr><tr class="new-date"><td>Thursday, December 18</td><td>6:00 PM</td><td>Yellow Jackets</td><td>GREAT ENDEAVORS Gators</td><td>SOP 1AB</td></tr><tr><td>Thursday, December 18</td><td>6:00 PM</td><td>MOLINA HEALTHCARE Eagles</td><td>Cardinals</td><td>SOP 1CD</td></tr><tr class="new-date"><td>Thursday, January 8</td><td>6:00 PM</td><td>GREAT ENDEAVORS Gators</td><td>MOLINA HEALTHCARE Eagles</td><td>SOP 1AB</td></tr><tr><td>Thursday, January 8</td><td>6:00 PM</td><td>Yellow Jackets</td><td>Cardinals</td><td>SOP 1CD</td></tr><tr class="new-date"><td>Thursday, January 15</td><td>6:00 PM</td><td>Cardinals</td><td>GREAT ENDEAVORS Gators</td><td>SOP 1AB</td></tr><tr><td>Thursday, January 15</td><td>6:00 PM</td><td>Yellow Jackets</td><td>MOLINA HEALTHCARE Eagles</td><td>SOP 1CD</td></tr><tr class="new-date"><td>Tuesday, January 20</td><td>6:00 PM</td><td>MOLINA HEALTHCARE Eagles</td><td>Cardinals</td><td>SOP 1AB</td></tr><tr><td>Tuesday, January 20</td><td>6:00 PM</td><td>Yellow Jackets</td><td>GREAT ENDEAVORS Gators</td><td>SOP 1CD</td></tr><tr class="new-date"><td>Thursday, January 22</td><td>6:00 PM</td><td>Cardinals</td><td>Yellow Jackets</td><td>SOP 1AB</td></tr><tr><td>Thursday, January 22</td><td>6:00 PM</td><td>GREAT ENDEAVORS Gators</td><td>MOLINA HEALTHCARE Eagles</td><td>SOP 1CD</td></tr><tr class="new-date"><td>Tuesday, January 27</td><td>6:00 PM</td><td>Yellow Jackets</td><td>MOLINA HEALTHCARE Eagles</td><td>SOP 1AB</td></tr><tr><td>Tuesday, January 27</td><td>6:00 PM</td><td>Cardinals</td><td>GREAT ENDEAVORS Gators</td><td>SOP 1CD</td></tr><tr class="new-date"><td>Thursday, January 29</td><td>6:00 PM</td><td>Yellow Jackets</td><td>GREAT ENDEAVORS Gators</td><td>SOP 1AB</td></tr><tr><td>Thursday, January 29</td><td>6:00 PM</td><td>MOLINA HEALTHCARE Eagles</td><td>Cardinals</td><td>SOP 1CD</td></tr></tbody>
+</table>
+</div></div>
+<script>
+(function(){
+  function qs(sel, root){ return (root||document).querySelector(sel); }
+  function qsa(sel, root){ return (root||document).querySelectorAll(sel); }
+
+  function showBadge(){
+    var b = document.getElementById("jsBadge");
+    if (b) b.style.display = "block";
+  }
+
+  function hideAllLeagues(){
+    var secs = qsa(".league-section");
+    for (var i=0;i<secs.length;i++){
+      secs[i].classList.remove("active");
+      secs[i].style.display = "none";
+    }
+  }
+
+  function clearActiveLinks(){
+    var links = qsa(".sidebar a");
+    for (var i=0;i<links.length;i++){
+      links[i].classList.remove("active-league");
+    }
+  }
+
+  function setWelcomeText(parkName){
+    var box = document.getElementById("welcomeBox");
+    if (!box) return;
+    var h = box.querySelector("h2");
+    var p = box.querySelector("p");
+    if (h) h.textContent = parkName ? ("Welcome to " + parkName + " Schedules") : "Welcome to the Winter Basketball Schedules Page";
+    if (p) p.textContent = parkName ? "Please select your league from the sidebar to view your schedule."
+                                    : "Please select a park, then a league, from the sidebar to view your schedule.";
+  }
+
+  window.showPark = function(parkId){
+    var box = document.getElementById("welcomeBox");
+    if (box) box.style.display = "block";
+
+    hideAllLeagues();
+    clearActiveLinks();
+
+    // hide all league groups then show requested
+    var groups = qsa(".league-group");
+    for (var i=0;i<groups.length;i++) groups[i].style.display = "none";
+    var g = document.getElementById("leagueGroup_" + parkId);
+    if (g) g.style.display = "block";
+
+    // active park styling
+    var parks = qsa(".park-link");
+    for (var j=0;j<parks.length;j++) parks[j].classList.remove("active-league");
+    var active = qs('.park-link[data-park="' + parkId + '"]');
+    if (active) active.classList.add("active-league");
+
+    var parkName = active ? (active.getAttribute("data-park-name") || "") : "";
+    setWelcomeText(parkName);
+  };
+
+  window.showLeague = function(sectionId){
+    var box = document.getElementById("welcomeBox");
+    if (box) box.style.display = "none";
+
+    hideAllLeagues();
+
+    var sec = document.getElementById(sectionId);
+    if (sec){
+      sec.style.display = "block";
+      sec.classList.add("active");
+      if (sec.scrollIntoView) sec.scrollIntoView({behavior:"smooth"});
+    }
+
+    clearActiveLinks();
+    var link = qs('.sidebar a[data-league="' + sectionId + '"]');
+    if (link) link.classList.add("active-league");
+  };
+
+  function buildDateHeadersOnce(){
+    var tables = qsa(".league-section table");
+    for (var t=0;t<tables.length;t++){
+      var table = tables[t];
+      var tbody = table.querySelector("tbody") || table;
+      var dateRows = tbody.querySelectorAll("tr.new-date");
+      var last = null;
+
+      for (var r=0;r<dateRows.length;r++){
+        var row = dateRows[r];
+        var first = row.querySelector("td");
+        var dateText = first ? ((first.innerText || first.textContent || "").trim()) : "";
+        if (!dateText) continue;
+        if (dateText === last) continue;
+
+        var prev = row.previousElementSibling;
+        if (prev && prev.classList && prev.classList.contains("week-header-row")) { last = dateText; continue; }
+
+        var hr = document.createElement("tr");
+        hr.className = "week-header-row";
+        var td = document.createElement("td");
+        td.colSpan = 5;
+        td.textContent = dateText;
+        hr.appendChild(td);
+        tbody.insertBefore(hr, row);
+        last = dateText;
+      }
+    }
+  }
+
+  function bindClicks(){
+    var parks = qsa(".park-link");
+    for (var i=0;i<parks.length;i++){
+      parks[i].addEventListener("click", function(e){
+        e.preventDefault();
+        var pid = this.getAttribute("data-park");
+        if (pid) window.showPark(pid);
+      });
+    }
+    var leagues = qsa(".league-link");
+    for (var j=0;j<leagues.length;j++){
+      leagues[j].addEventListener("click", function(e){
+        e.preventDefault();
+        var lid = this.getAttribute("data-league");
+        if (lid) window.showLeague(lid);
+      });
+    }
+  }
+
+  document.addEventListener("DOMContentLoaded", function(){
+    showBadge();
+    bindClicks();
+    buildDateHeadersOnce();
+
+    // initial state
+    var box = document.getElementById("welcomeBox");
+    if (box) box.style.display = "block";
+    setWelcomeText("");
+    hideAllLeagues();
+    var groups = qsa(".league-group");
+    for (var i=0;i<groups.length;i++) groups[i].style.display = "none";
+  });
+})();
+</script>
+</body>
+</html>
