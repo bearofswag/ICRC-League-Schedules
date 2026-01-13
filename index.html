@@ -222,12 +222,18 @@ th {
 tbody tr:nth-child(even) { background: #f1f8f2; }
 tbody tr:nth-child(odd)  { background: #ffffff; }
 
-/* New date separator */
 tr.new-date td {
-    border-top: 10px solid #9e9e9e;
+    padding-top: 18px;
+    padding-bottom: 14px;
+    background: #f3f8ff;
+    border-top: 14px solid #ffffff;
+    font-weight: 700;
+    color: #0073cf;
 }
-
-.week-header {
+tr.new-date td:first-child {
+    border-left: 6px solid #ffb703;
+}
+   .week-header {
     margin-top: 28px;
     margin-bottom: 10px;
 }
