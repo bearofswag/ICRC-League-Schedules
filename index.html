@@ -732,33 +732,194 @@ td:nth-child(2) {
 }
 
 @media (max-width: 900px) {
+    :root {
+        --thankyou-height: 34px;
+        --sponsor-height: 56px;
+        --topnav-height: 58px;
+        --sidebar-width: 100%;
+    }
+
+    body {
+        padding-top: calc(var(--thankyou-height) + var(--sponsor-height) + var(--topnav-height));
+    }
+
+    /* ============================
+       HEADER STACK
+    ============================ */
+    .sponsor-thankyou {
+        min-height: var(--thankyou-height);
+        padding: 6px 10px;
+        font-size: 0.78rem;
+        line-height: 1.2;
+        text-align: center;
+    }
+
+    .sponsor-banner {
+        min-height: var(--sponsor-height);
+        padding: 8px 10px;
+        overflow-x: auto;
+        overflow-y: hidden;
+        justify-content: flex-start;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .sponsor-banner::-webkit-scrollbar {
+        display: none;
+    }
+
+    .sponsor-logos {
+        animation: none;
+        width: max-content;
+        display: flex;
+        align-items: center;
+    }
+
+    .sponsor-logos img {
+        height: 34px;
+        margin: 0 14px;
+        opacity: 0.95;
+    }
+
+    .topnav {
+        top: calc(var(--thankyou-height) + var(--sponsor-height));
+        min-height: var(--topnav-height);
+        padding: 10px 12px;
+        gap: 10px;
+        flex-wrap: nowrap;
+    }
+
+    .topnav-left {
+        gap: 10px;
+        min-width: 0;
+    }
+
+    .topnav-logo {
+        height: 30px;
+        padding: 4px;
+        border-radius: 6px;
+    }
+
+    .topnav-title {
+        font-size: 1rem;
+        letter-spacing: 0.3px;
+        line-height: 1.1;
+    }
+
+    .topnav-right {
+        display: none;
+    }
+
+    /* ============================
+       SIDEBAR / LAYOUT
+    ============================ */
     .sidebar {
-        position: static;
+        position: relative;
+        top: 0;
         width: 100%;
         height: auto;
+        margin-top: 12px;
         border-right: none;
         border-bottom: 1px solid #dde5ea;
+        border-radius: 14px;
+        overflow: hidden;
+        z-index: 1;
     }
 
     .content {
         margin-left: 0;
-        padding: 24px 18px 50px 18px;
-    }
-
-    .league-section {
-        padding: 22px 18px;
+        padding: 18px 14px 40px 14px;
     }
 
     .welcome-box {
         padding: 26px 22px;
+        margin: 18px auto 28px auto;
     }
 
+    .welcome-box h2 {
+        font-size: 1.6rem;
+    }
+
+    .welcome-box p {
+        font-size: 0.96rem;
+    }
+
+    .league-section {
+        padding: 22px 18px;
+        margin-bottom: 34px;
+    }
+
+    .league-header {
+        gap: 12px;
+        margin-bottom: 18px;
+    }
+
+    .league-title {
+        font-size: 1.55rem;
+        padding: 12px 16px;
+    }
+
+    .league-meta {
+        font-size: 0.72rem;
+        padding: 7px 10px;
+    }
+
+    .league-subtext {
+        margin: -4px 0 16px 0;
+        font-size: 0.88rem;
+        line-height: 1.4;
+    }
+
+    /* ============================
+       SIDEBAR LINKS
+    ============================ */
+    .sidebar h3 {
+        font-size: 0.92rem;
+    }
+
+    .sidebar .park-link,
+    .sidebar .league-link {
+        font-size: 0.95rem;
+    }
+
+    .sidebar .league-link {
+        padding: 9px 10px;
+    }
+
+    /* ============================
+       TABLES
+    ============================ */
     table {
         font-size: 0.92rem;
     }
 
     th {
         font-size: 0.72rem;
+        padding: 12px 10px;
+    }
+
+    td {
+        padding: 13px 10px;
+    }
+
+    th:nth-child(1), td:nth-child(1) { width: 96px; }
+    th:nth-child(2), td:nth-child(2) { width: auto; }
+    th:nth-child(3), td:nth-child(3) { width: 145px; }
+
+    .week-date {
+        font-size: 0.94rem;
+        padding: 10px 14px;
+    }
+
+    /* ============================
+       MATCHUP / PILLS
+    ============================ */
+    .matchup {
+        white-space: normal;
+        flex-wrap: wrap;
+        row-gap: 4px;
+        padding: 10px 14px;
+        gap: 10px;
+        min-height: auto;
     }
 
     .away-team,
@@ -766,15 +927,24 @@ td:nth-child(2) {
         font-size: 0.92rem;
     }
 
-    .matchup {
-    white-space: normal;
-    flex-wrap: wrap;
-    row-gap: 6px;
-}
+    .matchup-sep {
+        font-size: 0.68rem;
+    }
 
-.location-pill {
-    white-space: normal;
-}
+    .time-pill {
+        padding: 8px 12px;
+        font-size: 0.84rem;
+    }
+
+    .location-pill {
+        padding: 8px 12px;
+        font-size: 0.82rem;
+        white-space: normal;
+    }
+
+    .schedule-empty {
+        font-size: 0.92rem;
+    }
 }
 </style>
 </head>
