@@ -4,62 +4,138 @@
 <head>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <meta charset="utf-8"/>
-<title>ICRC Winter Basketball Schedules</title>
+<title>ICRC Spring Athletics Schedules</title>
 <style>
 /* ============================
    GLOBAL
 ============================ */
+:root {
+    --thankyou-height: 30px;
+    --sponsor-height: 72px;
+    --topnav-height: 66px;
+    --header-total: calc(var(--thankyou-height) + var(--sponsor-height) + var(--topnav-height));
+
+    --sidebar-width: 240px;
+    --content-left-gap: 40px;
+
+    --brand-blue: #126FAF;
+    --brand-blue-dark: #0C5688;
+    --brand-blue-deep: #0A3E63;
+    --brand-blue-light: #EAF4FB;
+
+    --brand-green: #57B947;
+    --brand-green-dark: #3F9432;
+    --brand-green-light: #EEF8EA;
+
+    --brand-gold: #F0B323;
+
+    --text-main: #1E2A33;
+    --text-muted: #667685;
+    --text-soft: #7A8894;
+
+    --line-soft: #D9E4EC;
+    --line-light: #EDF2F7;
+
+    --bg-page: #EEF3F8;
+    --bg-card: #FFFFFF;
+    --bg-soft: #F8FBFE;
+}
+
 body {
     margin: 0;
     font-family: "Segoe UI", Arial, sans-serif;
-    background: #f4f7fb; /* soft gray-blue */
-    color: #2b2b2b;      /* slate text */
+    background: var(--bg-page);
+    color: var(--text-main);
+    padding-top: var(--header-total);
+    box-sizing: border-box;
 }
 
-/* Wrapper that reserves real layout space */
-.top-stack {
-    height: 140px;
-    width: 100%;
+*,
+*::before,
+*::after {
+    box-sizing: inherit;
+}
+
+.top-stack,
+.sponsor-text {
+    display: none;
 }
 
 /* ============================
-   SPONSOR BANNER
+   SPONSOR / HEADER STACK
 ============================ */
-.sponsor-banner {
+.sponsor-wrapper {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
-    background: #ffffff;
-    padding: 6px 18px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 20px;
-    border-bottom: 1px solid #dde5ea;
     z-index: 9999;
 }
 
-.sponsor-text {
-    font-size: 20px;
-    font-weight: 600;
-    color: #2b2b2b;
+.sponsor-thankyou {
+    width: 100%;
+    min-height: var(--thankyou-height);
+    background: linear-gradient(to right, var(--brand-blue-dark), var(--brand-blue));
+    color: #ffffff;
+    text-align: center;
+    padding: 7px 14px;
+    font-size: 0.9rem;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+    border-bottom: 1px solid rgba(255,255,255,0.15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: inset 0 -1px 0 rgba(255,255,255,0.08);
+    position: relative;
+}
+
+.sponsor-thankyou::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background: rgba(255,255,255,0.25);
+}
+
+.sponsor-banner {
+    width: 100%;
+    min-height: var(--sponsor-height);
+    background: #ffffff;
+    padding: 8px 0;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    border-bottom: 1px solid #dde5ea;
+}
+
+.sponsor-logos {
+    display: flex;
+    align-items: center;
     white-space: nowrap;
+    width: max-content;
+    animation: scroll-logos 55s linear infinite;
 }
 
 .sponsor-logos img {
-    height: 40px;
+    height: 52px;
     object-fit: contain;
-    opacity: 0.85;
+    opacity: 0.95;
+    margin: 0 24px;
     transition: opacity 0.2s ease, transform 0.2s ease;
+    flex-shrink: 0;
 }
 
 .sponsor-logos img:hover {
     opacity: 1;
-    transform: scale(1.05);
+    transform: scale(1.1);
 }
-.sponsor-banner img {
-    margin: 0 12px; /* horizontal spacing */
+
+@keyframes scroll-logos {
+    0%   { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
 }
 
 /* ============================
@@ -67,46 +143,58 @@ body {
 ============================ */
 .topnav {
     position: fixed;
-    top: 57px; /* sits directly under the sponsor banner */
+    top: calc(var(--thankyou-height) + var(--sponsor-height));
     left: 0;
     width: 100%;
-    background: #0073cf;
+    min-height: var(--topnav-height);
+    background: var(--brand-blue);
     color: white;
     padding: 12px 18px;
     display: flex;
     align-items: center;
     justify-content: space-between;
     z-index: 9998;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.12);
+    box-shadow: 0 2px 6px rgba(0,0,0,0.15);
 }
 
 .topnav-left {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 18px;
+}
+
+.topnav-right {
+    display: flex;
+    align-items: center;
+    margin-right: 24px;
+}
+
+.topnav-right img {
+    margin-left: 12px;
 }
 
 .topnav-logo {
     height: 38px;
     width: auto;
     object-fit: contain;
-    background: #ffffff;          /* white background behind logo */
-    padding: 6px;                 /* space around the logo */
-    border-radius: 8px;           /* smooth rounded corners */
-    box-shadow: 0 1px 3px rgba(0,0,0,0.15); /* subtle shadow */
+    background: #ffffff;
+    padding: 6px;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.15);
+    border: 2px solid var(--brand-green);
     animation: logoPop 0.6s ease-out;
-    border: 2px solid #4caf50; /* EPA green */
 }
 
 @keyframes logoPop {
-    0% { transform: scale(0.85); opacity: 0; }
-    60% { transform: scale(1.05); opacity: 1; }
+    0%   { transform: scale(0.85); opacity: 0; }
+    60%  { transform: scale(1.05); opacity: 1; }
     100% { transform: scale(1); }
 }
 
 .topnav-title {
-    font-size: 1.75rem;
+    font-size: 1.45rem;
     font-weight: 700;
+    letter-spacing: 0.9px;
 }
 
 /* ============================
@@ -114,52 +202,209 @@ body {
 ============================ */
 .sidebar {
     position: fixed;
-    top: 135px;
+    top: var(--header-total);
     left: 0;
-    width: 220px;
-    height: calc(100% - 140px);
-    background: #ffffff;
-    border-right: 1px solid #dde5ea;
-    padding: 18px;
+    width: var(--sidebar-width);
+    height: calc(100vh - var(--header-total));
+    background: linear-gradient(to bottom, #ffffff, #fbfdff);
+    border-right: 1px solid #dbe5ee;
+    padding: 18px 16px 22px 16px;
     overflow-y: auto;
+    overflow-x: hidden;
+    box-shadow: inset -1px 0 0 rgba(255,255,255,0.6);
 }
 
 .sidebar h3 {
+    margin: 0 0 10px 0;
+    color: var(--brand-green-dark);
+    font-size: 0.96rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.sidebar h3 + .park-link,
+.sidebar h3 + .league-group {
     margin-top: 0;
-    color: #4caf50; /* EPA green */
-    font-size: 1.2rem;
-    font-weight: 700;
 }
 
 .sidebar a {
     display: block;
-    padding: 8px 0;
+    cursor: pointer;
     color: #2b2b2b;
     text-decoration: none;
+    transition:
+        color 0.2s ease,
+        background 0.2s ease,
+        padding-left 0.2s ease,
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+/* Top-level park links */
+.sidebar .park-link {
     font-size: 1rem;
-    transition: color 0.2s ease, padding-left 0.2s ease;
+    font-weight: 800;
+    color: var(--brand-blue);
+    margin-top: 8px;
+    padding: 10px 12px;
+    border-radius: 10px;
+    background: linear-gradient(to bottom, #f8fbfe, #f1f6fb);
+    border: 1px solid #dce7ef;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.9);
 }
 
-.sidebar a:hover {
-    color: #4caf50;
-    padding-left: 6px;
-    font-weight: 600;
-}
-
-.sidebar a.active-league {
-    background: #e8f5e9;
-    border-left: 4px solid #4caf50;
+.sidebar .park-link:hover {
+    color: var(--brand-green-dark);
+    background: linear-gradient(to bottom, #f1f9ec, #ebf6e4);
     padding-left: 12px;
-    font-weight: 700;
-    color: #4caf50;
+}
+
+.sidebar .park-link.active-league {
+    background: linear-gradient(to right, #eef8ea, #f7fbf4);
+    border-left: 4px solid var(--brand-green);
+    border-top: 1px solid #d7e8cf;
+    border-right: 1px solid #d7e8cf;
+    border-bottom: 1px solid #d7e8cf;
+    color: var(--brand-green-dark);
+    font-weight: 800;
+    padding-left: 12px;
+    border-radius: 0 10px 10px 0;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.85);
+}
+
+/* League groups */
+.sidebar .league-group {
+    margin: 8px 0 20px 4px;
+    border-left: 2px solid #dde8f0;
+    padding-left: 10px;
+}
+
+/* League links */
+.sidebar .league-link {
+    font-size: 0.96rem;
+    font-weight: 600;
+    color: #32414d;
+    padding: 7px 10px;
+    margin: 2px 0;
+    border-radius: 8px;
+}
+
+.sidebar .league-link {
+    display: block;
+    font-size: 0.94rem;
+    font-weight: 600;
+    color: #32414d;
+    padding: 7px 10px;
+    margin: 2px 0;
+    border-radius: 8px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.sidebar .league-link.active-league {
+    background: linear-gradient(to right, #e8f6e2, #f5fbf1);
+    border-left: 4px solid var(--brand-green);
+    color: var(--brand-green-dark);
+    font-weight: 800;
+    padding-left: 12px;
+    border-radius: 0 10px 10px 0;
+    box-shadow:
+        inset 0 1px 0 rgba(255,255,255,0.9),
+        0 1px 3px rgba(87,185,71,0.08);
+}
+
+/* Optional scrollbar polish for Chromium/WebKit */
+.sidebar::-webkit-scrollbar {
+    width: 10px;
+}
+
+.sidebar::-webkit-scrollbar-track {
+    background: #f2f6fa;
+    border-radius: 999px;
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+    background: #cfdce7;
+    border-radius: 999px;
+    border: 2px solid #f2f6fa;
+}
+
+.sidebar::-webkit-scrollbar-thumb:hover {
+    background: #bfd0de;
 }
 
 /* ============================
    MAIN CONTENT
 ============================ */
 .content {
-    margin-left: 260px;
-    padding: 24px 36px 50px 36px;
+    margin-left: calc(var(--sidebar-width) + 26px);
+    padding: 26px 30px 60px 0;
+}
+
+/* ============================
+   WELCOME BOX
+============================ */
+.welcome-box {
+    position: relative;
+    background:
+        linear-gradient(to bottom right, rgba(18,111,175,0.05), rgba(87,185,71,0.05)),
+        #ffffff;
+    padding: 42px 46px;
+    border-radius: 24px;
+    box-shadow:
+        0 18px 40px rgba(0,0,0,0.08),
+        0 3px 10px rgba(12, 86, 136, 0.05);
+    text-align: center;
+    max-width: 760px;
+    margin: 24px auto 42px auto;
+    border: 1px solid #dfe8ef;
+    overflow: hidden;
+}
+
+.welcome-box::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+        radial-gradient(circle at top right, rgba(18,111,175,0.10), transparent 32%),
+        radial-gradient(circle at bottom left, rgba(87,185,71,0.10), transparent 28%);
+    pointer-events: none;
+}
+
+.welcome-logo {
+    position: relative;
+    z-index: 1;
+    width: 132px;
+    margin-bottom: 22px;
+    filter: drop-shadow(0 4px 10px rgba(12, 86, 136, 0.10));
+}
+
+.welcome-box h2 {
+    position: relative;
+    z-index: 1;
+    margin: 0 0 14px 0;
+    font-size: 2rem;
+    font-weight: 800;
+    line-height: 1.1;
+    color: var(--brand-blue-dark);
+    letter-spacing: 0.2px;
+}
+
+.welcome-box p {
+    position: relative;
+    z-index: 1;
+    margin: 0 auto;
+    max-width: 560px;
+    font-size: 1.02rem;
+    line-height: 1.6;
+    color: var(--text-muted);
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(6px); }
+    to   { opacity: 1; transform: translateY(0); }
 }
 
 /* ============================
@@ -167,255 +412,300 @@ body {
 ============================ */
 .league-section {
     display: none;
-    margin-bottom: 50px;
-    background: white;
-    padding: 28px;
-    border-radius: 14px;
-    box-shadow: 0 4px 14px rgba(0,0,0,0.08);
-    scroll-margin-top: 160px;
+    margin-bottom: 54px;
+    background: linear-gradient(to bottom right, rgba(18,111,175,0.035), rgba(87,185,71,0.025)), #ffffff;
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow:
+        0 14px 34px rgba(0,0,0,0.06),
+        0 2px 6px rgba(12, 86, 136, 0.04);
+    scroll-margin-top: calc(var(--header-total) + 20px);
+    border: 1px solid #dfe8ef;
 }
 
 .league-section.active {
     display: block;
+    animation: sectionFade 0.22s ease;
+}
+
+@keyframes sectionFade {
+    from { opacity: 0; transform: translateY(4px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.league-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 18px;
+    margin-bottom: 24px;
+    padding: 0 0 6px 0;
+    flex-wrap: wrap;
 }
 
 .league-title {
-    font-size: 1.85rem;
-    font-weight: 700;
-    color: #0073cf;
-    margin-bottom: 18px;
-    border-left: 8px solid #ffb703; /* gold accent */
-    padding-left: 12px;
-}
-
-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
-    font-size: 1rem;
-    table-layout: fixed;
-}
-
-th, td {
-    padding: 10px 12px;
-    text-align: left;
-    border-bottom: 3px solid #e0e0e0;
-}
-
-th:nth-child(1), td:nth-child(1) { width: 200px; } /* Date */
-th:nth-child(2), td:nth-child(2) { width: 120px; } /* Time */
-th:nth-child(3), td:nth-child(3) { width: 180px; } /* Team A */
-th:nth-child(4), td:nth-child(4) { width: 180px; } /* Team B */
-th:nth-child(5), td:nth-child(5) { width: 120px; } /* Location */
-
-th {
-    background: #e3f2fd;
-    color: #0073cf;
-    font-weight: 700;
-    border-bottom: 4px solid #c7dfff;
-}
-
-tbody tr:nth-child(even) { background: #f1f8f2; }
-tbody tr:nth-child(odd)  { background: #ffffff; }
-
-tr.new-date td {
-    border-top: 10px;#0073cf
-}
-
-.locations {
-    margin-top: 20px;
-    padding-top: 15px;
-    border-top: 1px solid #dde5ea;
-}
-
-.locations h3 {
-    font-size: .8rem;
-    color: #4caf50;
-    margin-bottom: 10px;
-}
-
-.locations ul {
-    list-style: none;
-    padding-left: 0;
+    display: inline-flex;
+    align-items: center;
+    padding: 14px 20px;
+    border-radius: 18px;
+    background:
+        linear-gradient(to right, rgba(87,185,71,0.08), rgba(87,185,71,0.08)) left/8px 100% no-repeat,
+        linear-gradient(to right, #f8fbfe, #eef5fa);
+    border: 1px solid #d8e4ed;
+    color: var(--brand-blue-dark);
+    font-size: 1.95rem;
+    font-weight: 800;
+    letter-spacing: 0.2px;
+    line-height: 1.05;
     margin: 0;
+    box-shadow:
+        inset 0 1px 0 rgba(255,255,255,0.92),
+        0 4px 10px rgba(12, 86, 136, 0.06);
 }
 
-.locations li {
-    margin-bottom: 6px;
-    font-size: 0.8rem;
-    color: #2b2b2b;
-}
-/* =========================================
-   1. Row hover highlight
-========================================= */
-tbody tr:hover {
-    background: #eaf6ff;
-    transition: background 0.15s ease;
-}
-
-/* =========================================
-   4. Subtle background tint for each week
-   (applies to rows after each weekly header)
-========================================= */
-.week-header + table tbody tr,
-.week-header + tbody tr {
-    background: #fafafa;
-}
-
-/* =========================================
-   5. Left border accent on the table
-========================================= */
-table {
-    border-left: 4px solid #0073cf;
-    padding-left: 6px;
-}
-
-/* =========================================
-   6. Soft drop shadow around the table
-========================================= */
-table {
-    box-shadow: 0 2px 6px rgba(0,0,0,0.08);
-    border-radius: 4px;
-    overflow: hidden; /* keeps rounded corners clean */
-}
-
-/* =========================================
-   10. Topnav scroll shadow
-========================================= */
-.topnav {
-    box-shadow: 0 2px 6px rgba(0,0,0,0.15);
-}
-
-/* =========================================
-   1. Row hover highlight
-========================================= */
-tbody tr:hover {
-    background: #eaf6ff;
-    transition: background 0.15s ease;
-}
-
-/* =========================================
-   5. Left border accent on the table
-========================================= */
-table {
-    border-left: 4px solid #0073cf;
-    padding-left: 6px;
-}
-
-/* =========================================
-   6. Soft drop shadow around the table
-========================================= */
-table {
-    box-shadow: 0 2px 6px rgba(0,0,0,0.08);
-    border-radius: 4px;
-    overflow: hidden; /* keeps rounded corners clean */
-}
-
-/* =========================================
-   10. Topnav scroll shadow
-========================================= */
-.topnav {
-    box-shadow: 0 2px 6px rgba(0,0,0,0.15);
-}
-/* Letter spacing for team names */
-td:nth-child(3),
-td:nth-child(4) {
-    letter-spacing: 0.3px;
-}
-
-/* Gradient header background */
-th {
-    background: linear-gradient(to bottom, #eaf4ff, #d9eaff);
-}
-th:first-child {
-    border-top-left-radius: 6px;
-}
-th:last-child {
-    border-top-right-radius: 6px;
-}
-.week-date {
-    box-shadow: 0 1px 4px rgba(0,0,0,0.08);
-}
-table, th, td {
-    line-height: 1.35;
-}
-th {
+.league-meta {
+    display: inline-flex;
+    align-items: center;
+    padding: 8px 12px;
+    border-radius: 999px;
+    background: #f4f8fc;
+    border: 1px solid #d9e5ee;
+    color: var(--brand-blue-dark);
+    font-size: 0.78rem;
+    font-weight: 800;
+    letter-spacing: 0.7px;
     text-transform: uppercase;
-    letter-spacing: 0.5px;
-    font-size: 0.85rem;
-}
-.week-header {
-    margin-bottom: 14px;
-}
-/* Welcome box styling */
-.welcome-box {
-    background: #ffffff;
-    padding: 30px 40px;
-    border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-    text-align: center;
-    max-width: 800px;
-    margin: 40px auto;
-    animation: fadeIn 0.4s ease;
+    line-height: 1;
 }
 
-/* Logo styling */
-.welcome-logo {
-    width: 200px;
-    margin-bottom: 20px;
+.league-subtext {
+    margin: -8px 0 20px 0;
+    font-size: 0.92rem;
+    color: var(--text-muted);
+    font-weight: 700;
+    letter-spacing: 0.1px;
 }
-
-/* Fade-in animation */
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(6px); }
-    to   { opacity: 1; transform: translateY(0); }
-}
-
 
 /* ============================
-   PARK + LEAGUE NAV HELPERS
+   TABLES
 ============================ */
-.sidebar .park-link {
-    font-weight: 700;
-    color: #0073cf;
-    margin-top: 8px;
-}
-.sidebar .park-link:hover {
-    color: #4caf50;
-}
-
-.sidebar .league-group {
-    margin-left: 10px;
-    margin-bottom: 14px;
-    border-left: 2px solid #e6eef3;
-    padding-left: 10px;
-}
-
-.sidebar .league-link {
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin-top: 20px;
     font-size: 0.98rem;
+    line-height: 1.4;
+    background: #ffffff;
+    border: 1px solid #cfdce7;
+    border-left: 5px solid var(--brand-blue);
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.07);
 }
 
-.sidebar .league-link.active-league {
-    /* reuse existing active style */
+th,
+td {
+    text-align: left;
+    vertical-align: middle;
 }
 
+th {
+    background: linear-gradient(to bottom, #e8f0f7, #dfeaf3);
+    color: var(--brand-blue-dark);
+    font-weight: 800;
+    border-bottom: 1px solid #d2dee8;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 0.75rem;
+    padding: 13px 12px;
+}
 
-.sidebar a { cursor: pointer; }
+td {
+    padding: 15px 12px;
+    border-bottom: 1px solid var(--line-light);
+    color: var(--text-main);
+}
 
-/* Week headers inside tables (preferred) */
-.week-header-row td{
-    background: #f0f4f7;
-    font-size: 1.25rem;
+th:nth-child(1), td:nth-child(1) { width: 115px; }
+th:nth-child(2), td:nth-child(2) { width: 58%; }
+th:nth-child(3), td:nth-child(3) { width: 27%; }
+
+td:nth-child(2) {
+    color: var(--text-main);
+    padding-right: 8px;
+}
+
+td:nth-child(3) {
+    color: var(--text-muted);
+    font-size: 0.94rem;
+    text-align: left;
+    padding-left: 8px;
+}
+
+tbody tr:nth-child(even) {
+    background: #fbfdff;
+}
+
+tbody tr:nth-child(odd) {
+    background: #ffffff;
+}
+
+tbody tr {
+    transition: background 0.15s ease, transform 0.15s ease;
+}
+
+tbody tr:hover {
+    background: #f3f8fd;
+    box-shadow: inset 0 0 0 9999px rgba(18,111,175,0.03);
+}
+
+tbody tr:last-child td {
+    border-bottom: none;
+}
+
+td:nth-child(1) {
+    color: var(--text-muted);
+    font-size: 0.94rem;
+}
+
+/* ============================
+   WEEK HEADERS
+============================ */
+.week-header {
+    margin-top: 30px;
+    margin-bottom: 14px;
+}
+
+.week-date {
+    display: inline-block;
+    font-size: 1.02rem;
+    font-weight: 800;
+    color: #ffffff;
+    background: linear-gradient(to right, var(--brand-blue-dark), var(--brand-blue));
+    padding: 11px 18px;
+    border-radius: 999px;
+    letter-spacing: 0.4px;
+    box-shadow:
+        inset 0 1px 0 rgba(255,255,255,0.18),
+        0 5px 12px rgba(12, 86, 136, 0.18);
+}
+
+.week-header + table {
+    margin-top: 12px;
+}
+
+table + .week-header {
+    margin-top: 26px;
+}
+
+/* ============================
+   MATCHUP / PILLS
+============================ */
+.matchup {
+    display: inline-flex;
+    align-items: center;
+    gap: 14px;
+    flex-wrap: nowrap;
+    white-space: nowrap;
+    padding: 10px 18px;
+    border-radius: 999px;
+    background: linear-gradient(to right, #f3f8f1 0%, #f6f9fc 45%, #eef5fb 100%);
+    border: 1px solid #cfdce7;
+    box-shadow:
+        inset 0 1px 0 rgba(255,255,255,0.92),
+        0 1px 3px rgba(12, 86, 136, 0.08);
+    position: relative;
+}
+
+.away-team,
+.home-team {
+    font-size: 1rem;
+    line-height: 1.2;
+    min-width: 0;
+    font-weight: 800;
+    position: relative;
+    z-index: 1;
+}
+
+.away-team {
+    color: var(--brand-green);
+}
+
+.home-team {
+    color: var(--brand-blue);
+    padding-left: 2px;
+}
+
+.matchup-sep {
+    font-size: 0.72rem;
+    font-weight: 900;
+    color: var(--text-soft);
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    flex-shrink: 0;
+    position: relative;
+    z-index: 2;
+    padding: 0 4px;
+    background: rgba(255,255,255,0.8);
+    border-radius: 999px;
+}
+
+td:nth-child(2) {
+    vertical-align: middle;
+}
+
+.matchup {
+    min-height: 44px;
+}
+
+.time-pill {
+    display: inline-block;
+    padding: 9px 14px;
+    border-radius: 999px;
+    font-size: 0.9rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    line-height: 1;
+    background: var(--brand-blue-light);
+    color: var(--brand-blue-dark);
+    border: 1px solid #CFE0EC;
+    box-shadow: 0 1px 3px rgba(12, 86, 136, 0.08);
+}
+
+.location-pill {
+    display: inline-block;
+    padding: 8px 14px;
+    border-radius: 999px;
+    font-size: 0.86rem;
+    font-weight: 800;
+    letter-spacing: 0.15px;
+    line-height: 1.2;
+    background: var(--brand-green-light);
+    color: var(--brand-green-dark);
+    border: 1px solid #D5E9CC;
+    white-space: nowrap;
+    box-shadow: 0 1px 3px rgba(63, 148, 50, 0.08);
+}
+
+.schedule-empty {
+    display: inline-flex;
+    align-items: center;
+    padding: 12px 16px;
+    border-radius: 14px;
+    background: #f7fafc;
+    border: 1px solid #dce7ef;
+    color: var(--brand-blue-dark);
     font-weight: 700;
-    color: #123a63;
-    padding: 10px 12px;
-    border-top: 6px solid #ddd;
-    border-bottom: 6px solid #ddd;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.85);
 }
 
-/* JS status badge */
-.js-badge{
-    display:none;
+/* ============================
+   JS STATUS BADGE
+============================ */
+.js-badge {
+    display: none;
     margin: 8px 0 12px;
     padding: 8px 10px;
     background: #e8f4ff;
@@ -424,798 +714,563 @@ th {
     border-radius: 8px;
     font-size: 0.95rem;
 }
+
 /* ============================
-   MOBILE OPTIMIZATION (CSS ONLY)
+   RESPONSIVE
 ============================ */
-@media (max-width: 768px) {
+@media (max-width: 1100px) {
+    .content {
+        margin-left: calc(var(--sidebar-width) + 24px);
+        padding-right: 20px;
+    }
 
-  /* Make the fixed header area shorter */
-  .top-stack { height: 110px; } /* was 140px */
-
-  .sponsor-banner{
-    padding: 6px 10px;
-    gap: 10px;
-  }
-  .sponsor-text{
-    font-size: 14px;
-    white-space: normal;   /* allow wrap */
-    text-align: center;
-  }
-  .sponsor-logos img{
-    height: 26px;          /* smaller logos */
-  }
-
-  .topnav{
-    top: 48px;             /* pull up under smaller sponsor banner */
-    padding: 10px 12px;
-  }
-  .topnav-title{
-    font-size: 1.05rem;    /* prevent overflow */
-    line-height: 1.15;
-  }
-  .topnav-logo{
-    height: 28px;
-    padding: 4px;
-  }
-
-  /* Turn the sidebar into a normal block (stacked above content) */
-  .sidebar{
-    position: static;      /* was fixed */
-    width: auto;
-    height: auto;
-    padding: 12px 14px;
-    border-right: none;
-    border-bottom: 1px solid #dde5ea;
-    overflow: visible;
-  }
-
-  /* Content should take full width */
-  .content{
-    margin-left: 0;        /* was 260px */
-    padding: 14px 12px 40px;
-  }
-
-  .league-section{
-    padding: 16px;
-    border-radius: 12px;
-  }
-
-  .league-title{
-    font-size: 1.35rem;
-  }
-
-  /* Tables: allow horizontal scroll instead of squishing columns */
-  table{
-    display: block;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    table-layout: auto;    /* stop forcing fixed column widths */
-    font-size: 0.95rem;
-  }
-
-  th, td{
-    white-space: nowrap;   /* keeps columns readable; user can scroll */
-    padding: 10px 10px;
-  }
-
-  /* Week header row: slightly smaller so it fits */
-  .week-header-row td{
-    font-size: 1.05rem;
-  }
+    th,
+    td {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
 }
 
-/* Extra-tight phones */
-@media (max-width: 420px){
-  .sponsor-logos{ display:none; } /* keep sponsor text, hide logos */
-  .top-stack { height: 95px; }
-  th, td { padding: 9px 8px; }
+@media (max-width: 900px) {
+    .sidebar {
+        position: static;
+        width: 100%;
+        height: auto;
+        border-right: none;
+        border-bottom: 1px solid #dde5ea;
+    }
+
+    .content {
+        margin-left: 0;
+        padding: 24px 18px 50px 18px;
+    }
+
+    .league-section {
+        padding: 22px 18px;
+    }
+
+    .welcome-box {
+        padding: 26px 22px;
+    }
+
+    table {
+        font-size: 0.92rem;
+    }
+
+    th {
+        font-size: 0.72rem;
+    }
+
+    .away-team,
+    .home-team {
+        font-size: 0.92rem;
+    }
+
+    .matchup {
+    white-space: normal;
+    flex-wrap: wrap;
+    row-gap: 6px;
 }
 
+.location-pill {
+    white-space: normal;
+}
+}
 </style>
 </head>
 <body>
-<!-- Wrapper that reserves real space -->
-<div class="top-stack">
-<div class="sponsor-banner">
-<span class="sponsor-text">Thank you to our sponsors!</span>
-<div class="sponsor-logos">
-<img alt="Sponsor 1" src="sponsor1.png"/>
-<img alt="Sponsor 2" src="sponsor2.png"/>
-<img alt="Sponsor 3" src="sponsor3.png"/>
-<img alt="Sponsor 4" src="sponsor4.png"/>
-<img alt="Sponsor 5" src="sponsor5.png"/>
-<img alt="Sponsor 6" src="sponsor6.png"/>
-<img alt="Sponsor 7" src="sponsor7.png"/> 
-<img alt="Sponsor 8" src="sponsor8.png"/>
-<img alt="Sponsor 9" src="sponsor9.png"/>   
-
+<div class="sponsor-wrapper">
+  <div class="sponsor-thankyou"> THANK YOU TO OUR GENEROUS COMMUNITY SPONSORS
 </div>
+  <div class="sponsor-banner">
+    <div class="sponsor-logos">
+    <!-- Original set -->
+    <img src="sponsor1.png" alt="Sponsor 1">
+    <img src="sponsor2.png" alt="Sponsor 2">
+    <img src="sponsor3.png" alt="Sponsor 3">
+    <img src="sponsor4.png" alt="Sponsor 4">
+    <img src="sponsor5.png" alt="Sponsor 5">
+    <img src="sponsor6.png" alt="Sponsor 6">
+    <img src="sponsor7.png" alt="Sponsor 7">
+    <img src="sponsor8.png" alt="Sponsor 8">
+    <img src="sponsor9.png" alt="Sponsor 9">
+    <img src="sponsor10.png" alt="Sponsor 10">
+    <img src="sponsor11.png" alt="Sponsor 11">
+    <img src="sponsor12.png" alt="Sponsor 12">
+    <img src="sponsor13.png" alt="Sponsor 13">
+    <img src="sponsor14.png" alt="Sponsor 14">
+    <img src="sponsor15.png" alt="Sponsor 15">
+    <img src="sponsor16.png" alt="Sponsor 16">
+    <img src="sponsor17.png" alt="Sponsor 17">
+    <img src="sponsor18.png" alt="Sponsor 18">
+    <img src="sponsor19.png" alt="Sponsor 19">
+    <img src="sponsor20.png" alt="Sponsor 20">
+    <img src="sponsor21.png" alt="Sponsor 21">
+    <img src="sponsor22.png" alt="Sponsor 22">
+    <!-- Duplicate set for seamless loop -->
+    <img src="sponsor1.png" alt="Sponsor 1">
+    <img src="sponsor2.png" alt="Sponsor 2">
+    <img src="sponsor3.png" alt="Sponsor 3">
+    <img src="sponsor4.png" alt="Sponsor 4">
+    <img src="sponsor5.png" alt="Sponsor 5">
+    <img src="sponsor6.png" alt="Sponsor 6">
+    <img src="sponsor7.png" alt="Sponsor 7">
+    <img src="sponsor8.png" alt="Sponsor 8">
+    <img src="sponsor9.png" alt="Sponsor 9">
+    <img src="sponsor10.png" alt="Sponsor 10">
+    <img src="sponsor11.png" alt="Sponsor 11">
+    <img src="sponsor12.png" alt="Sponsor 12">
+    <img src="sponsor13.png" alt="Sponsor 13">
+    <img src="sponsor14.png" alt="Sponsor 14">
+    <img src="sponsor15.png" alt="Sponsor 15">
+    <img src="sponsor16.png" alt="Sponsor 16">
+    <img src="sponsor17.png" alt="Sponsor 17">
+    <img src="sponsor18.png" alt="Sponsor 18">
+    <img src="sponsor19.png" alt="Sponsor 19">
+    <img src="sponsor20.png" alt="Sponsor 20">
+    <img src="sponsor21.png" alt="Sponsor 21">
+    <img src="sponsor22.png" alt="Sponsor 22">
+  </div>
 </div>
-<!-- ⭐ UPDATED TOPNAV WITH LOGO -->
 <div class="topnav">
-<!-- New flex container for logo + title -->
-<div class="topnav-left">
-<img alt="League Logo" class="topnav-logo" src="your-logo.png"/>
-<div class="topnav-title">ICRC Winter Basketball Schedules</div>
-</div>
+  <div class="topnav-left">
+    <img alt="League Logo" class="topnav-logo" src="your-logo.png" />
+    <div class="topnav-title">ICRC Spring Athletic Schedules</div>
+  </div>
+
+  <div class="topnav-right">
+    <img alt="Sponsor Logo 1" class="topnav-logo" src="mlsgo.png" />
+    <img alt="Sponsor Logo 2" class="topnav-logo" src="nflflag.png" />
+    <img alt="Sponsor Logo 3" class="topnav-logo" src="braves.png" />
+  </div>
 </div>
 </div>
 <!-- Sidebar -->
 <div class="sidebar">
-<h3>Parks</h3>
-<a class="park-link" data-park="p1" data-park-name="Crooked Creek Park" href="#">Crooked Creek Park</a>
-<a class="park-link" data-park="p2" data-park-name="Seven Oaks Park" href="#">Seven Oaks Park</a>
-<h3 style="margin-top:18px;">Leagues</h3>
-<div class="league-group" id="leagueGroup_p1" style="display:none;">
-<a class="league-link" data-league="p1_l5_6" href="#">5–6 Basketball</a>
-<a class="league-link" data-league="p1_l7_8" href="#">7–8 Basketball</a>
-<a class="league-link" data-league="p1_l9_10" href="#">9–10 Basketball</a>
-<a class="league-link" data-league="p1_l9_11g" href="#">9–11 Girls Bridge Basketball</a>
-<a class="league-link" data-league="p1_l11_12" href="#">11–12 Bridge Basketball</a>
-<a class="league-link" data-league="p1_l12_14g" href="#">12–14 Girls Bridge Basketball</a>
-<a class="league-link" data-league="p1_l13_14" href="#">13–14 Bridge Basketball</a>
-<a class="league-link" data-league="p1_l15_18" href="#">15–18 Basketball</a>
+  <h3>Parks</h3>
+  <a class="park-link" data-park="p1" data-park-name="Chapin" href="#">Chapin</a>
+  <a class="park-link" data-park="p2" data-park-name="Irmo" href="#">Irmo</a>
+
+  <h3 style="margin-top:18px;">Leagues</h3>
+
+  <div class="league-group" id="leagueGroup_p1" style="display:none;">
+    <a class="league-link" data-league="p1_s4-5" href="#">4-5 Soccer</a>
+    <a class="league-link" data-league="p1_s6-7" href="#">6-7 Soccer</a>
+    <a class="league-link" data-league="p1_s8-9" href="#">8-9 Soccer</a>
+    <a class="league-link" data-league="p1_s10-11" href="#">10-11 Soccer</a>
+    <a class="league-link" data-league="p1_s12-14" href="#">12-14 Soccer</a>
+    <a class="league-link" data-league="p1_f9-10" href="#">9-10 Flag Football</a>
+    <a class="league-link" data-league="p1_f11-12" href="#">11-12 Flag Football</a>
+    <a class="league-link" data-league="p1_f13-14" href="#">13-14 Flag Football</a>
+    <a class="league-link" data-league="p1_b3-4" href="#">3-4 Tee Ball</a>
+    <a class="league-link" data-league="p1_b5-6" href="#">5-6 Coach Pitch</a>
+    <a class="league-link" data-league="p1_b7-8" href="#">7-8 Machine Pitch</a>
+    <a class="league-link" data-league="p1_b9-11" href="#">9-11 Baseball</a>
+    <a class="league-link" data-league="p1_s9-11" href="#">9-11 Softball</a>
+  </div>
+
+  <div class="league-group" id="leagueGroup_p2" style="display:none;">
+    <a class="league-link" data-league="p2_s4-5" href="#">4-5 Soccer</a>
+    <a class="league-link" data-league="p2_s6-7" href="#">6-7 Soccer</a>
+    <a class="league-link" data-league="p2_s8-9" href="#">8-9 Soccer</a>
+    <a class="league-link" data-league="p2_s10-11" href="#">10-11 Soccer</a>
+    <a class="league-link" data-league="p2_s12-14" href="#">12-14 Soccer</a>
+    <a class="league-link" data-league="p2_f9-10" href="#">9-10 Flag Football</a>
+    <a class="league-link" data-league="p2_f11-12" href="#">11-12 Flag Football</a>
+    <a class="league-link" data-league="p2_f13-14" href="#">13-14 Flag Football</a>
+    <a class="league-link" data-league="p2_b3-4" href="#">3-4 Tee Ball</a>
+    <a class="league-link" data-league="p2_b5-6" href="#">5-6 Coach Pitch</a>
+    <a class="league-link" data-league="p2_b7-8" href="#">7-8 Machine Pitch</a>
+    <a class="league-link" data-league="p2_b9-11" href="#">9-11 Baseball</a>
+    <a class="league-link" data-league="p2_s9-11" href="#">9-11 Softball</a>
+  </div>
 </div>
-<div class="league-group" id="leagueGroup_p2" style="display:none;">
-<a class="league-link" data-league="p2_l5_6" href="#">5–6 Basketball</a>
-<a class="league-link" data-league="p2_l7_8" href="#">7–8 Basketball</a>
-<a class="league-link" data-league="p2_l9_10" href="#">9–10 Basketball</a>
-<a class="league-link" data-league="p2_l9_11g" href="#">9–11 Girls Bridge Basketball </a>
-<a class="league-link" data-league="p2_l11_12" href="#">11–12 Bridge Basketball</a>
-<a class="league-link" data-league="p2_l12_14g" href="#">12–14 Girls Bridge Basketball</a>
-<a class="league-link" data-league="p2_l13_14" href="#">13–14 Bridge Basketball</a>
-<a class="league-link" data-league="p2_l15_18" href="#">15–18 Basketball</a>
-</div>
-<div class="locations">
-<h3>Location Key</h3>
-<ul>
-<li><strong>CCP</strong> – Crooked Creek Park</li>
-<li><strong>CIS</strong> – Chapin Intermediate School</li>
-<li><strong>CMS</strong> – Chapin Middle School</li>
-<li><strong>DFMS</strong> - Dutch Fork Middle School</li>
-<li><strong>IMS</strong> – Irmo Middle School</li>
-<li><strong>IHS</strong> – Irmo High School</li>
-<li><strong>SOP</strong> - Seven Oaks Park</li>
-</ul>
-</div>
-</div>
+
 <div class="welcome-box" id="welcomeBox">
-<img alt="League Logo" class="welcome-logo" src="your-logo.png"/>
-<h2>Welcome to the Winter Basketball Schedules Page</h2>
-<p>Please select a park, then a league, from the sidebar to view your schedule.</p>
+  <img alt="League Logo" class="welcome-logo" src="your-logo.png" />
+  <h2>Welcome to the Spring Athletics Schedules Page</h2>
+  <p>Please select a side of the district, then a league, from the sidebar to view your schedule.</p>
 </div>
+
 <!-- Main Content -->
 <div class="content">
-<div class="league-section" id="p1_l5_6">
-<div class="league-title">5–6 Basketball</div>
-<table>
-<thead>
-<tr>
-<th>Date</th><th>Time</th><th>Team</th><th>Team</th><th>Location</th>
-</tr>
-</thead>
-<tbody>
-<!-- December 11 -->
-<tr class="new-date"><td>Thursday, Dec 11</td><td>6:00 PM</td><td>Gators</td><td>Koalas</td><td>CCP 1</td></tr>
-<tr><td>Thursday, Dec 11</td><td>6:00 PM</td><td>Cougars</td><td>Swamp Foxes</td><td>CCP 2</td></tr>
-<tr><td>Thursday, Dec 11</td><td>6:15 PM</td><td>Fire Ants</td><td>Paladins</td><td>CCP 3</td></tr>
-<tr><td>Thursday, Dec 11</td><td>6:15 PM</td><td>Bulldogs</td><td>Bearcats</td><td>CCP 4</td></tr>
-<!-- December 18 -->
-<tr class="new-date"><td>Thursday, Dec 18</td><td>6:00 PM</td><td>Cougars</td><td>Fire Ants</td><td>CCP 1</td></tr>
-<tr><td>Thursday, Dec 18</td><td>6:00 PM</td><td>Bearcats</td><td>Paladins</td><td>CCP 2</td></tr>
-<tr><td>Thursday, Dec 18</td><td>6:00 PM</td><td>Swamp Foxes</td><td>Koalas</td><td>CCP 3</td></tr>
-<tr><td>Thursday, Dec 18</td><td>6:00 PM</td><td>Bulldogs</td><td>Gators</td><td>CCP 4</td></tr>
-<!-- January 8 -->
-<tr class="new-date"><td>Thursday, Jan 8</td><td>6:00 PM</td><td>Paladins</td><td>Swamp Foxes</td><td>CCP 1</td></tr>
-<tr><td>Thursday, Jan 8</td><td>6:00 PM</td><td>Koalas</td><td>Bulldogs</td><td>CCP 2</td></tr>
-<tr><td>Thursday, Jan 8</td><td>6:00 PM</td><td>Fire Ants</td><td>Bearcats</td><td>CCP 3</td></tr>
-<tr><td>Thursday, Jan 8</td><td>6:00 PM</td><td>Gators</td><td>Cougars</td><td>CCP 4</td></tr>
-<!-- January 15 -->
-<tr class="new-date"><td>Thursday, Jan 15</td><td>6:00 PM</td><td>Paladins</td><td>Gators</td><td>CCP 1</td></tr>
-<tr><td>Thursday, Jan 15</td><td>6:00 PM</td><td>Koalas</td><td>Bearcats</td><td>CCP 2</td></tr>
-<tr><td>Thursday, Jan 15</td><td>6:00 PM</td><td>Bulldogs</td><td>Cougars</td><td>CCP 3</td></tr>
-<tr><td>Thursday, Jan 15</td><td>6:00 PM</td><td>Swamp Foxes</td><td>Fire Ants</td><td>CCP 4</td></tr>
-<!-- January 20 -->
-<tr class="new-date"><td>Tuesday, Jan 20</td><td>6:00 PM</td><td>Bearcats</td><td>Cougars</td><td>CCP 1</td></tr>
-<tr><td>Tuesday, Jan 20</td><td>6:00 PM</td><td>Fire Ants</td><td>Bulldogs</td><td>CCP 2</td></tr>
-<tr><td>Tuesday, Jan 20</td><td>6:00 PM</td><td>Gators</td><td>Swamp Foxes</td><td>CCP 3</td></tr>
-<tr><td>Tuesday, Jan 20</td><td>6:00 PM</td><td>Koalas</td><td>Paladins</td><td>CCP 4</td></tr>
-<!-- January 22 -->
-<tr class="new-date"><td>Thursday, Jan 22</td><td>6:00 PM</td><td>Cougars</td><td>Koalas</td><td>CCP 1</td></tr>
-<tr><td>Thursday, Jan 22</td><td>6:00 PM</td><td>Fire Ants</td><td>Gators</td><td>CCP 2</td></tr>
-<tr><td>Thursday, Jan 22</td><td>6:00 PM</td><td>Bulldogs</td><td>Paladins</td><td>CCP 3</td></tr>
-<tr><td>Thursday, Jan 22</td><td>6:00 PM</td><td>Swamp Foxes</td><td>Bearcats</td><td>CCP 4</td></tr>
-<!-- January 27 -->
-<tr class="new-date"><td>Tuesday, Jan 27</td><td>6:00 PM</td><td>Swamp Foxes</td><td>Bulldogs</td><td>CCP 1</td></tr>
-<tr><td>Tuesday, Jan 27</td><td>6:00 PM</td><td>Paladins</td><td>Cougars</td><td>CCP 2</td></tr>
-<tr><td>Tuesday, Jan 27</td><td>6:00 PM</td><td>Bearcats</td><td>Gators</td><td>CCP 3</td></tr>
-<tr><td>Tuesday, Jan 27</td><td>6:00 PM</td><td>Koalas</td><td>Fire Ants</td><td>CCP 4</td></tr>
-<!-- January 29 -->
-<tr class="new-date"><td>Thursday, Jan 29</td><td>6:00 PM</td><td>Gators</td><td>Koalas</td><td>CCP 1</td></tr>
-<tr><td>Thursday, Jan 29</td><td>6:00 PM</td><td>Cougars</td><td>Swamp Foxes</td><td>CCP 2</td></tr>
-<tr><td>Thursday, Jan 29</td><td>6:00 PM</td><td>Fire Ants</td><td>Paladins</td><td>CCP 3</td></tr>
-<tr><td>Thursday, Jan 29</td><td>6:00 PM</td><td>Bulldogs</td><td>Bearcats</td><td>CCP 4</td></tr>
-</tbody>
-</table>
-</div><div class="league-section" id="p1_l7_8">
-<div class="league-title">7–8 Basketball</div>
-<table>
-<thead>
-<tr>
-<th>Date</th><th>Time</th><th>Team</th><th>Team</th><th>Location</th>
-</tr>
-</thead>
-<tbody>
-<!-- December 10 -->
-<tr class="new-date"><td>Wednesday, Dec 10</td><td>6:00 PM</td><td>Terriers</td><td>Cobras</td><td>CCP 1</td></tr>
-<tr><td>Wednesday, Dec 10</td><td>6:00 PM</td><td>Pacers</td><td>Bantams</td><td>CCP 2</td></tr>
-<tr><td>Wednesday, Dec 10</td><td>6:30 PM</td><td>Trojans</td><td>Wolves</td><td>CCP 3</td></tr>
-<tr><td>Wednesday, Dec 10</td><td>6:30 PM</td><td>Spartans</td><td>Fleet</td><td>CCP 4</td></tr>
-<tr><td>Wednesday, Dec 10</td><td>7:15 PM</td><td>Panthers</td><td>Lancers</td><td>CCP 3</td></tr>
-<tr><td>Wednesday, Dec 10</td><td>7:15 PM</td><td>Tigers</td><td>Bruins</td><td>CCP 4</td></tr>
-<!-- December 17 -->
-<tr class="new-date"><td>Wednesday, Dec 17</td><td>6:00 PM</td><td>Fleet</td><td>Panthers</td><td>CCP 1</td></tr>
-<tr><td>Wednesday, Dec 17</td><td>6:00 PM</td><td>Cobras</td><td>Spartans</td><td>CCP 2</td></tr>
-<tr><td>Wednesday, Dec 17</td><td>6:00 PM</td><td>Bantams</td><td>Trojans</td><td>CCP 3</td></tr>
-<tr><td>Wednesday, Dec 17</td><td>6:00 PM</td><td>Wolves</td><td>Tigers</td><td>CCP 4</td></tr>
-<tr><td>Wednesday, Dec 17</td><td>6:45 PM</td><td>Bruins</td><td>Terriers</td><td>CCP 3</td></tr>
-<tr><td>Wednesday, Dec 17</td><td>6:45 PM</td><td>Lancers</td><td>Pacers</td><td>CCP 4</td></tr>
-<!-- January 7 -->
-<tr class="new-date"><td>Wednesday, Jan 7</td><td>6:00 PM</td><td>Panthers</td><td>Wolves</td><td>CCP 1</td></tr>
-<tr><td>Wednesday, Jan 7</td><td>6:00 PM</td><td>Pacers</td><td>Bruins</td><td>CCP 2</td></tr>
-<tr><td>Wednesday, Jan 7</td><td>6:00 PM</td><td>Lancers</td><td>Cobras</td><td>CCP 3</td></tr>
-<tr><td>Wednesday, Jan 7</td><td>6:00 PM</td><td>Fleet</td><td>Bantams</td><td>CCP 4</td></tr>
-<tr><td>Wednesday, Jan 7</td><td>6:45 PM</td><td>Terriers</td><td>Tigers</td><td>CCP 3</td></tr>
-<tr><td>Wednesday, Jan 7</td><td>6:45 PM</td><td>Spartans</td><td>Trojans</td><td>CCP 4</td></tr>
-<!-- January 14 -->
-<tr class="new-date"><td>Wednesday, Jan 14</td><td>6:00 PM</td><td>Tigers</td><td>Trojans</td><td>CCP 1</td></tr>
-<tr><td>Wednesday, Jan 14</td><td>6:00 PM</td><td>Terriers</td><td>Wolves</td><td>CCP 2</td></tr>
-<tr><td>Wednesday, Jan 14</td><td>6:00 PM</td><td>Spartans</td><td>Bruins</td><td>CCP 3</td></tr>
-<tr><td>Wednesday, Jan 14</td><td>6:00 PM</td><td>Bantams</td><td>Lancers</td><td>CCP 4</td></tr>
-<tr><td>Wednesday, Jan 14</td><td>6:45 PM</td><td>Pacers</td><td>Fleet</td><td>CCP 3</td></tr>
-<tr><td>Wednesday, Jan 14</td><td>6:45 PM</td><td>Panthers</td><td>Cobras</td><td>CCP 4</td></tr>
-<!-- January 19 -->
-<tr class="new-date"><td>Monday, Jan 19</td><td>6:00 PM</td><td>Trojans</td><td>Terriers</td><td>CCP 1</td></tr>
-<tr><td>Monday, Jan 19</td><td>6:00 PM</td><td>Fleet</td><td>Lancers</td><td>CCP 2</td></tr>
-<tr><td>Monday, Jan 19</td><td>6:00 PM</td><td>Cobras</td><td>Pacers</td><td>CCP 3</td></tr>
-<tr><td>Monday, Jan 19</td><td>6:00 PM</td><td>Bruins</td><td>Panthers</td><td>CCP 4</td></tr>
-<tr><td>Monday, Jan 19</td><td>6:45 PM</td><td>Tigers</td><td>Bantams</td><td>CCP 3</td></tr>
-<tr><td>Monday, Jan 19</td><td>6:45 PM</td><td>Wolves</td><td>Spartans</td><td>CCP 4</td></tr>
-<!-- January 21 -->
-<tr class="new-date"><td>Wednesday, Jan 21</td><td>6:00 PM</td><td>Fleet</td><td>Bruins</td><td>CCP 1</td></tr>
-<tr><td>Wednesday, Jan 21</td><td>6:00 PM</td><td>Lancers</td><td>Wolves</td><td>CCP 2</td></tr>
-<tr><td>Wednesday, Jan 21</td><td>6:00 PM</td><td>Panthers</td><td>Tigers</td><td>CCP 3</td></tr>
-<tr><td>Wednesday, Jan 21</td><td>6:00 PM</td><td>Pacers</td><td>Trojans</td><td>CCP 4</td></tr>
-<tr><td>Wednesday, Jan 21</td><td>6:45 PM</td><td>Spartans</td><td>Terriers</td><td>CCP 3</td></tr>
-<tr><td>Wednesday, Jan 21</td><td>6:45 PM</td><td>Bantams</td><td>Cobras</td><td>CCP 4</td></tr>
-<!-- January 26 -->
-<tr class="new-date"><td>Monday, Jan 26</td><td>6:00 PM</td><td>Spartans</td><td>Bantams</td><td>CCP 1</td></tr>
-<tr><td>Monday, Jan 26</td><td>6:00 PM</td><td>Terriers</td><td>Panthers</td><td>CCP 2</td></tr>
-<tr><td>Monday, Jan 26</td><td>6:00 PM</td><td>Tigers</td><td>Pacers</td><td>CCP 3</td></tr>
-<tr><td>Monday, Jan 26</td><td>6:00 PM</td><td>Bruins</td><td>Cobras</td><td>CCP 4</td></tr>
-<tr><td>Monday, Jan 26</td><td>6:45 PM</td><td>Wolves</td><td>Fleet</td><td>CCP 3</td></tr>
-<tr><td>Monday, Jan 26</td><td>6:45 PM</td><td>Trojans</td><td>Lancers</td><td>CCP 4</td></tr>
-<!-- January 28 -->
-<tr class="new-date"><td>Wednesday, Jan 28</td><td>6:00 PM</td><td>Wolves</td><td>Bruins</td><td>CCP 1</td></tr>
-<tr><td>Wednesday, Jan 28</td><td>6:00 PM</td><td>Spartans</td><td>Pacers</td><td>CCP 2</td></tr>
-<tr><td>Wednesday, Jan 28</td><td>6:00 PM</td><td>Tigers</td><td>Fleet</td><td>CCP 3</td></tr>
-<tr><td>Wednesday, Jan 28</td><td>6:00 PM</td><td>Terriers</td><td>Lancers</td><td>CCP 4</td></tr>
-<tr><td>Wednesday, Jan 28</td><td>6:45 PM</td><td>Panthers</td><td>Bantams</td><td>CCP 3</td></tr>
-<tr><td>Wednesday, Jan 28</td><td>6:45 PM</td><td>Trojans</td><td>Cobras</td><td>CCP 4</td></tr>
-</tbody>
-</table>
-</div><div class="league-section" id="p1_l9_10">
-<div class="league-title">9–10 Basketball</div>
-<table>
-<thead>
-<tr>
-<th>Date</th><th>Time</th><th>Team</th><th>Team</th><th>Location</th>
-</tr>
-</thead>
-<tbody>
-<tr class="new-date"><td>Saturday, Dec 13</td><td>9:00 AM</td><td>Bears</td><td>Zips</td><td>CCP 2</td></tr>
-<tr><td>Saturday, Dec 13</td><td>10:00 AM</td><td>Herd</td><td>Camels</td><td>CCP 2</td></tr>
-<tr><td>Saturday, Dec 13</td><td>11:00 AM</td><td>Owls</td><td>Toreros</td><td>CCP 2</td></tr>
-<tr><td>Saturday, Dec 13</td><td>12:00 PM</td><td>Anteaters</td><td>Lobos</td><td>CCP 2</td></tr>
-<tr><td>Saturday, Dec 13</td><td>1:00 PM</td><td>Billikens</td><td>Gauchos</td><td>CCP 2</td></tr>
-<tr><td>Saturday, Dec 13</td><td>2:00 PM</td><td>Dragons</td><td>Huskies</td><td>CCP 2</td></tr>
-<tr><td>Saturday, Dec 13</td><td>3:00 PM</td><td>Hoyas</td><td>Flyers</td><td>CCP 2</td></tr>
-<tr class="new-date"><td>Saturday, Dec 20</td><td>9:00 AM</td><td>Anteaters</td><td>Billikens</td><td>CCP 2</td></tr>
-<tr><td>Saturday, Dec 20</td><td>10:00 AM</td><td>Lobos</td><td>Dragons</td><td>CCP 2</td></tr>
-<tr><td>Saturday, Dec 20</td><td>11:00 AM</td><td>Camels</td><td>Huskies</td><td>CCP 2</td></tr>
-<tr><td>Saturday, Dec 20</td><td>12:00 PM</td><td>Herd</td><td>Owls</td><td>CCP 2</td></tr>
-<tr><td>Saturday, Dec 20</td><td>1:00 PM</td><td>Flyers</td><td>Toreros</td><td>CCP 2</td></tr>
-<tr><td>Saturday, Dec 20</td><td>2:00 PM</td><td>Zips</td><td>Hoyas</td><td>CCP 2</td></tr>
-<tr><td>Saturday, Dec 20</td><td>3:00 PM</td><td>Bears</td><td>Gauchos</td><td>CCP 2</td></tr>
-<tr class="new-date"><td>Saturday, Jan 10</td><td>9:00 AM</td><td>Flyers</td><td>Zips</td><td>CCP 2</td></tr>
-<tr><td>Saturday, Jan 10</td><td>10:00 AM</td><td>Owls</td><td>Lobos</td><td>CCP 2</td></tr>
-<tr><td>Saturday, Jan 10</td><td>11:00 AM</td><td>Toreros</td><td>Herd</td><td>CCP 2</td></tr>
-<tr><td>Saturday, Jan 10</td><td>12:00 PM</td><td>Gauchos</td><td>Huskies</td><td>CCP 2</td></tr>
-<tr><td>Saturday, Jan 10</td><td>1:00 PM</td><td>Billikens</td><td>Bears</td><td>CCP 2</td></tr>
-<tr><td>Saturday, Jan 10</td><td>2:00 PM</td><td>Dragons</td><td>Camels</td><td>CCP 2</td></tr>
-<tr><td>Saturday, Jan 10</td><td>3:00 PM</td><td>Hoyas</td><td>Anteaters</td><td>CCP 2</td></tr>
-<tr class="new-date"><td>Saturday, Jan 17</td><td>9:00 AM</td><td>Huskies</td><td>Owls</td><td>CCP 2</td></tr>
-<tr><td>Saturday, Jan 17</td><td>10:00 AM</td><td>Gauchos</td><td>Hoyas</td><td>CCP 2</td></tr>
-<tr><td>Saturday, Jan 17</td><td>11:00 AM</td><td>Billikens</td><td>Dragons</td><td>CCP 2</td></tr>
-<tr><td>Saturday, Jan 17</td><td>12:00 PM</td><td>Herd</td><td>Lobos</td><td>CCP 2</td></tr>
-<tr><td>Saturday, Jan 17</td><td>1:00 PM</td><td>Zips</td><td>Anteaters</td><td>CCP 2</td></tr>
-<tr><td>Saturday, Jan 17</td><td>2:00 PM</td><td>Flyers</td><td>Bears</td><td>CCP 2</td></tr>
-<tr><td>Saturday, Jan 17</td><td>3:00 PM</td><td>Toreros</td><td>Camels</td><td>CCP 2</td></tr>
-<tr class="new-date"><td>Saturday, Jan 24</td><td>9:00 AM</td><td>Bears</td><td>Anteaters</td><td>CCP 2</td></tr>
-<tr><td>Saturday, Jan 24</td><td>10:00 AM</td><td>Hoyas</td><td>Owls</td><td>CCP 2</td></tr>
-<tr><td>Saturday, Jan 24</td><td>11:00 AM</td><td>Zips</td><td>Billikens</td><td>CCP 2</td></tr>
-<tr><td>Saturday, Jan 24</td><td>12:00 PM</td><td>Camels</td><td>Lobos</td><td>CCP 2</td></tr>
-<tr><td>Saturday, Jan 24</td><td>1:00 PM</td><td>Flyers</td><td>Gauchos</td><td>CCP 2</td></tr>
-<tr><td>Saturday, Jan 24</td><td>2:00 PM</td><td>Dragons</td><td>Herd</td><td>CCP 2</td></tr>
-<tr><td>Saturday, Jan 24</td><td>3:00 PM</td><td>Huskies</td><td>Toreros</td><td>CCP 2</td></tr>
-<tr class="new-date"><td>Saturday, Jan 31</td><td>9:00 AM</td><td>Billikens</td><td>Hoyas</td><td>CCP 2</td></tr>
-<tr><td>Saturday, Jan 31</td><td>10:00 AM</td><td>Lobos</td><td>Toreros</td><td>CCP 2</td></tr>
-<tr><td>Saturday, Jan 31</td><td>11:00 AM</td><td>Herd</td><td>Huskies</td><td>CCP 2</td></tr>
-<tr><td>Saturday, Jan 31</td><td>12:00 PM</td><td>Anteaters</td><td>Flyers</td><td>CCP 2</td></tr>
-<tr><td>Saturday, Jan 31</td><td>1:00 PM</td><td>Dragons</td><td>Owls</td><td>CCP 2</td></tr>
-<tr><td>Saturday, Jan 31</td><td>2:00 PM</td><td>Gauchos</td><td>Zips</td><td>CCP 2</td></tr>
-<tr><td>Saturday, Jan 31</td><td>3:00 PM</td><td>Bears</td><td>Camels</td><td>CCP 2</td></tr>
-<tr class="new-date"><td>Saturday, Feb 7</td><td>9:00 AM</td><td>Toreros</td><td>Dragons</td><td>CCP 2</td></tr>
-<tr><td>Saturday, Feb 7</td><td>10:00 AM</td><td>Billikens</td><td>Flyers</td><td>CCP 2</td></tr>
-<tr><td>Saturday, Feb 7</td><td>11:00 AM</td><td>Owls</td><td>Camels</td><td>CCP 2</td></tr>
-<tr><td>Saturday, Feb 7</td><td>12:00 PM</td><td>Gauchos</td><td>Anteaters</td><td>CCP 2</td></tr>
-<tr><td>Saturday, Feb 7</td><td>1:00 PM</td><td>Zips</td><td>Herd</td><td>CCP 2</td></tr>
-<tr><td>Saturday, Feb 7</td><td>2:00 PM</td><td>Hoyas</td><td>Bears</td><td>CCP 2</td></tr>
-<tr><td>Saturday, Feb 7</td><td>3:00 PM</td><td>Huskies</td><td>Lobos</td><td>CCP 2</td></tr>
-</tbody>
-</table>
-</div><div class="league-section" id="p1_l9_11g">
-<div class="league-title">9–11 Girls Bridge Basketball</div>
-<table>
-<thead>
-<tr>
-<th>Date</th><th>Time</th><th>Team</th><th>Team</th><th>Location</th>
-</tr>
-</thead>
-<tbody>
-<tr class="new-date"><td>Saturday, Dec 13</td><td>4:00 PM</td><td>Eagles‑Giulietti</td><td>Eagles‑Speranza</td><td>CCP 2</td></tr>
-<tr><td>Saturday, Dec 13</td><td>5:00 PM</td><td>Eagles‑Hilton</td><td>Eagles‑Lane</td><td>CCP 1</td></tr>
-<tr><td>Saturday, Dec 13</td><td>5:00 PM</td><td>Eagles‑Thielbar</td><td>Eagles‑Todd</td><td>CCP 2</td></tr>
-<tr class="new-date"><td>Saturday, Dec 20</td><td>4:00 PM</td><td>Eagles‑Giulietti</td><td>Eagles‑Lane</td><td>CCP 2</td></tr>
-<tr><td>Saturday, Dec 20</td><td>5:00 PM</td><td>Eagles‑Todd</td><td>Eagles‑Speranza</td><td>CCP 1</td></tr>
-<tr><td>Saturday, Dec 20</td><td>5:00 PM</td><td>Eagles‑Thielbar</td><td>Eagles‑Hilton</td><td>CCP 2</td></tr>
-<tr class="new-date"><td>Saturday, Jan 10</td><td>4:00 PM</td><td>Eagles‑Speranza</td><td>Eagles‑Lane</td><td>CCP 2</td></tr>
-<tr><td>Saturday, Jan 10</td><td>5:00 PM</td><td>Eagles‑Giulietti</td><td>Eagles‑Thielbar</td><td>CCP 1</td></tr>
-<tr><td>Saturday, Jan 10</td><td>5:00 PM</td><td>Eagles‑Todd</td><td>Eagles‑Hilton</td><td>CCP 2</td></tr>
-<tr class="new-date"><td>Saturday, Jan 17</td><td>4:00 PM</td><td>Eagles‑Lane</td><td>Eagles‑Thielbar</td><td>CCP 2</td></tr>
-<tr><td>Saturday, Jan 17</td><td>5:00 PM</td><td>Eagles‑Todd</td><td>Eagles‑Giulietti</td><td>CCP 1</td></tr>
-<tr><td>Saturday, Jan 17</td><td>5:00 PM</td><td>Eagles‑Hilton</td><td>Eagles‑Speranza</td><td>CCP 2</td></tr>
-<tr class="new-date"><td>Saturday, Jan 24</td><td>4:00 PM</td><td>Eagles‑Lane</td><td>Eagles‑Todd</td><td>CCP 2</td></tr>
-<tr><td>Saturday, Jan 24</td><td>5:00 PM</td><td>Eagles‑Speranza</td><td>Eagles‑Thielbar</td><td>CCP 1</td></tr>
-<tr><td>Saturday, Jan 24</td><td>5:00 PM</td><td>Eagles‑Hilton</td><td>Eagles‑Giulietti</td><td>CCP 2</td></tr>
-<tr class="new-date"><td>Saturday, Jan 31</td><td>4:00 PM</td><td>Eagles‑Giulietti</td><td>Eagles‑Speranza</td><td>CCP 2</td></tr>
-<tr><td>Saturday, Jan 31</td><td>5:00 PM</td><td>Eagles‑Hilton</td><td>Eagles‑Lane</td><td>CCP 1</td></tr>
-<tr><td>Saturday, Jan 31</td><td>5:00 PM</td><td>Eagles‑Thielbar</td><td>Eagles‑Todd</td><td>CCP 2</td></tr>
-<tr class="new-date"><td>Saturday, Feb 7</td><td>5:00 PM</td><td>Eagles‑Speranza</td><td>Eagles‑Todd</td><td>CMS</td></tr>
-<tr><td>Saturday, Feb 7</td><td>6:00 PM</td><td>Eagles‑Lane</td><td>Eagles‑Giulietti</td><td>CMS</td></tr>
-<tr><td>Saturday, Feb 7</td><td>7:00 PM</td><td>Eagles‑Thielbar</td><td>Eagles‑Hilton</td><td>CMS</td></tr>
-</tbody>
-</table>
-</div><div class="league-section" id="p1_l11_12">
-<div class="league-title">11–12 Bridge Basketball</div>
-<table>
-<thead>
-<tr>
-<th>Date</th><th>Time</th><th>Team</th><th>Team</th><th>Location</th>
-</tr>
-</thead>
-<tbody>
-<tr class="new-date"><td>Saturday, Dec 13</td><td>9:00 AM</td><td>Eagles‑BREMER</td><td>Wildcats‑PAUL</td><td>CIS</td></tr>
-<tr><td>Saturday, Dec 13</td><td>10:00 AM</td><td>Eagles‑DINKINS</td><td>Eagles‑MOSES</td><td>CIS</td></tr>
-<tr><td>Saturday, Dec 13</td><td>11:00 AM</td><td>Eagles‑ORTIZ</td><td>Eagles‑MCDOWELL</td><td>CIS</td></tr>
-<tr><td>Saturday, Dec 13</td><td>12:00 PM</td><td>Eagles‑STERNENBERG</td><td>Eagles‑CROMER</td><td>CIS</td></tr>
-<tr><td>Saturday, Dec 13</td><td>1:00 PM</td><td>Eagles‑LEWTER</td><td>Eagles‑HERNANDEZ</td><td>CIS</td></tr>
-<tr><td>Saturday, Dec 13</td><td>2:00 PM</td><td>Eagles‑HEINZEN</td><td>Eagles‑SCHLOEMP</td><td>CIS</td></tr>
-<tr class="new-date"><td>Saturday, Dec 20</td><td>9:00 AM</td><td>Wildcats‑PAUL</td><td>Eagles‑DINKINS</td><td>CIS</td></tr>
-<tr><td>Saturday, Dec 20</td><td>10:00 AM</td><td>Eagles‑MCDOWELL</td><td>Eagles‑HEINZEN</td><td>CIS</td></tr>
-<tr><td>Saturday, Dec 20</td><td>11:00 AM</td><td>Eagles‑CROMER</td><td>Eagles‑LEWTER</td><td>CIS</td></tr>
-<tr><td>Saturday, Dec 20</td><td>12:00 PM</td><td>Eagles‑HERNANDEZ</td><td>Eagles‑BREMER</td><td>CIS</td></tr>
-<tr><td>Saturday, Dec 20</td><td>1:00 PM</td><td>Eagles‑MOSES</td><td>Eagles‑ORTIZ</td><td>CIS</td></tr>
-<tr><td>Saturday, Dec 20</td><td>2:00 PM</td><td>Eagles‑SCHLOEMP</td><td>Eagles‑STERNENBERG</td><td>CIS</td></tr>
-<tr class="new-date"><td>Saturday, Jan 10</td><td>9:00 AM</td><td>Eagles‑DINKINS</td><td>Eagles‑HERNANDEZ</td><td>CIS</td></tr>
-<tr><td>Saturday, Jan 10</td><td>10:00 AM</td><td>Wildcats-PAUL</td><td>Eagles‑MOSES</td><td>CIS</td></tr>
-<tr><td>Saturday, Jan 10</td><td>11:00 AM</td><td>Eagles‑BREMER</td><td>Eagles‑CROMER</td><td>CIS</td></tr>
-<tr><td>Saturday, Jan 10</td><td>12:00 PM</td><td>Eagles‑LEWTER</td><td>Eagles‑SCHLOEMP</td><td>CIS</td></tr>
-<tr><td>Saturday, Jan 10</td><td>1:00 PM</td><td>Eagles‑HEINZEN</td><td>Eagles‑ORTIZ</td><td>CIS</td></tr>
-<tr><td>Saturday, Jan 10</td><td>2:00 PM</td><td>Eagles-STERNENBERG</td><td>Eagles‑MCDOWELL</td><td>CIS</td></tr>
-<tr class="new-date"><td>Saturday, Jan 17</td><td>9:00 AM</td><td>Eagles‑CROMER</td><td>Eagles‑HERNANDEZ</td><td>CIS</td></tr>
-<tr><td>Saturday, Jan 17</td><td>10:00 AM</td><td>Eagles‑ORTIZ</td><td>Eagles‑BREMER</td><td>CIS</td></tr>
-<tr><td>Saturday, Jan 17</td><td>11:00 AM</td><td>Eagles‑MCDOWELL</td><td>Eagles‑DINKINS</td><td>CIS</td></tr>
-<tr><td>Saturday, Jan 17</td><td>12:00 PM</td><td>Eagles‑MOSES</td><td>Eagles‑STERNENBERG</td><td>CIS</td></tr>
-<tr><td>Saturday, Jan 17</td><td>1:00 PM</td><td>Eagles‑HEINZEN</td><td>Eagles‑LEWTER</td><td>CIS</td></tr>
-<tr><td>Saturday, Jan 17</td><td>2:00 PM</td><td>Eagles‑SCHLOEMP</td><td>Wildcats‑PAUL</td><td>CIS</td></tr>
-<tr class="new-date"><td>Saturday, Jan 24</td><td>9:00 AM</td><td>Wildcats‑PAUL</td><td>Eagles‑MCDOWELL</td><td>CIS</td></tr>
-<tr><td>Saturday, Jan 24</td><td>10:00 AM</td><td>Eagles‑CROMER</td><td>Eagles‑MOSES</td><td>CIS</td></tr>
-<tr><td>Saturday, Jan 24</td><td>11:00 AM</td><td>Eagles‑LEWTER/td&gt;<td>Eagles‑STERNENBERG</td><td>CIS</td></td></tr>
-<tr><td>Saturday, Jan 24</td><td>12:00 PM</td><td>Eagles‑BREMER</td><td>Eagles‑HEINZEN</td><td>CIS</td></tr>
-<tr><td>Saturday, Jan 24</td><td>1:00 PM</td><td>Eagles‑HERNANDEZ</td><td>Eagles‑SCHLOEMP</td><td>CIS</td></tr>
-<tr><td>Saturday, Jan 24</td><td>2:00 PM</td><td>Eagles‑DINKINS</td><td>Eagles‑ORTIZ</td><td>CIS</td></tr>
-<tr class="new-date"><td>Saturday, Jan 31</td><td>9:00 AM</td><td>Eagles‑MOSES</td><td>Eagles‑BREMER</td><td>CMS</td></tr>
-<tr><td>Saturday, Jan 31</td><td>10:00 AM</td><td>Eagles‑LEWTER</td><td>Eagles‑DINKINS</td><td>CMS</td></tr>
-<tr><td>Saturday, Jan 31</td><td>11:00 AM</td><td>Eagles‑STERNENBERG</td><td>Wildcats‑PAUL</td><td>CMS</td></tr>
-<tr><td>Saturday, Jan 31</td><td>12:00 PM</td><td>Eagles‑HEIZEN</td><td>Eagles‑HERNANDEZ</td><td>CMS</td></tr>
-<tr><td>Saturday, Jan 31</td><td>1:00 PM</td><td>Eagles‑MCDOWELL</td><td>Eagles‑SCHLOEMP</td><td>CMS</td></tr>
-<tr><td>Saturday, Jan 31</td><td>2:00 PM</td><td>Eagles‑ORTIZ</td><td>Eagles‑CROMER</td><td>CMS</td></tr>
-<tr class="new-date"><td>Saturday, Feb 7</td><td>9:00 AM</td><td>Eagles‑CROMER</td><td>Eagles‑HEINZEN</td><td>CIS</td></tr>
-<tr><td>Saturday, Feb 7</td><td>10:00 AM</td><td>Eagles‑MCDOWELL</td><td>Eagles‑MOSES</td><td>CIS</td></tr>
-<tr><td>Saturday, Feb 7</td><td>11:00 AM</td><td>Eagles‑DINKINS</td><td>Eagles‑BREMER</td><td>CIS</td></tr>
-<tr><td>Saturday, Feb 7</td><td>12:00 PM</td><td>Eagles‑HERNANDEZ</td><td>Eagles‑STERNENBERG</td><td>CIS</td></tr>
-<tr><td>Saturday, Feb 7</td><td>1:00 PM</td><td>Eagles‑SCHLOEMP</td><td>Eagles‑ORTIZ</td><td>CIS</td></tr>
-<tr><td>Saturday, Feb 7</td><td>2:00 PM</td><td>Wildcats‑PAUL</td><td>Eagles‑LEWTER</td><td>CIS</td></tr>
-</tbody>
-</table>
-</div><div class="league-section" id="p1_l12_14g">
-<div class="league-title">12–14 Girls Bridge Basketball</div>
-<table>
-<thead>
-<tr>
-<th>Date</th><th>Time</th><th>Team</th><th>Team</th><th>Location</th>
-</tr>
-</thead>
-<tbody>
-<tr class="new-date"><td>Saturday, Dec 13</td><td>3:00 PM</td><td>Eagles-Hilton</td><td>Yellow Jackets</td><td>CIS</td></tr>
-<tr><td>Saturday, Dec 13</td><td>4:00 PM</td><td>Eagles-McClary</td><td>Eagles-McAngus</td><td>CIS</td></tr>
-<tr class="new-date"><td>Saturday, Dec 20</td><td>2:00 PM</td><td>Silver Foxes</td><td>Eagles-Hilton</td><td>SOP1</td></tr>
-<tr><td>Saturday, Dec 20</td><td>3:00 PM</td><td>Yellow Jackets</td><td>Eagles-McClary</td><td>SOP1</td></tr>
-<tr class="new-date"><td>Saturday, Jan 10</td><td>3:00 PM</td><td>Eagles-McClary</td><td>Silver Foxes</td><td>CIS</td></tr>
-<tr><td>Saturday, Jan 10</td><td>4:00 PM</td><td>Eagles-McAngus</td><td>Yellow Jackets</td><td>CIS</td></tr>
-<tr class="new-date"><td>Saturday, Jan 17</td><td>2:00 PM</td><td>Silver Foxes</td><td>Eagles-McAngus</td><td>SOP1</td></tr>
-<tr><td>Saturday, Jan 17</td><td>3:00 PM</td><td>Eagles-McClary</td><td>Eagles-Hilton</td><td>CIS</td></tr>
-<tr class="new-date"><td>Wednesday, Jan 21</td><td>8:00 PM</td><td>Eagles-Hilton</td><td>Eagles-McAngus</td><td>CCP2</td></tr>
-<tr class="new-date"><td>Saturday, Jan 24</td><td>3:00 PM</td><td>Eagles-Hilton</td><td>Silver Foxes</td><td>CIS</td></tr>
-<tr><td>Saturday, Jan 24</td><td>4:00 PM</td><td>Yellow Jackets</td><td>Eagles-McClary</td><td>IMS</td></tr>
-<tr class="new-date"><td>Monday, Jan 26</td><td>8:00 PM</td><td>Yellow Jackets</td><td>Silver Foxes</td><td>SOP1</td></tr>
-<tr class="new-date"><td>Saturday, Jan 31</td><td>3:00 PM</td><td>Eagles-Hilton</td><td>Yellow Jackets</td><td>CMS</td></tr>
-<tr><td>Saturday, Jan 31</td><td>4:00 PM</td><td>Eagles-McAngus</td><td>Eagles-McClary</td><td>CMS</td></tr>
-<tr class="new-date"><td>Wednesday, Feb 4</td><td>7:00 PM</td><td>Silver Foxes</td><td>Yellow Jackets</td><td>SOP1</td></tr>
-<tr><td>Wednesday, Feb 4</td><td>8:00 PM</td><td>Eagles-McAngus</td><td>Eagles-Hilton</td><td>CCP2</td></tr>
-<tr class="new-date"><td>Saturday, Feb 7</td><td>4:00 PM</td><td>Yellow Jackets</td><td>Eagles-McAngus</td><td>IHS</td></tr>
-<tr><td>Saturday, Feb 7</td><td>5:00 PM</td><td>Silver Foxes</td><td>Eagles-McClary</td><td>IHS</td></tr>
-</tbody>
-</table>
-</div><div class="league-section" id="p1_l13_14">
-<div class="league-title">13–14 Basketball</div>
-<table>
-<thead>
-<tr>
-<th>Date</th><th>Time</th><th>Team</th><th>Team</th><th>Location</th>
-</tr>
-</thead>
-<tbody>
-<tr class="new-date"><td>Saturday, Dec 13</td><td>1:00 PM</td><td>Eagles-Hewitt</td><td>Eagles-Newman</td><td>CCP1</td></tr>
-<tr><td>Saturday, Dec 13</td><td>2:00 PM</td><td>Eagles-Luther</td><td>Eagles-Gravelle</td><td>CCP1</td></tr>
-<tr><td>Saturday, Dec 13</td><td>3:00 PM</td><td>Eagles-Coakley</td><td>Eagles-Davis</td><td>CCP1</td></tr>
-<tr><td>Saturday, Dec 13</td><td>4:00 PM</td><td>Eagles-Neal</td><td>Eagles-Lott</td><td>CCP1</td></tr>
-<tr class="new-date"><td>Saturday, Dec 20</td><td>1:00 PM</td><td>Eagles-Hewitt</td><td>Eagles-Coakley</td><td>CCP1</td></tr>
-<tr><td>Saturday, Dec 20</td><td>2:00 PM</td><td>Eagles-Gravelle</td><td>Eagles-Davis</td><td>CCP1</td></tr>
-<tr><td>Saturday, Dec 20</td><td>3:00 PM</td><td>Eagles-Newman</td><td>Eagles-Lott</td><td>CCP1</td></tr>
-<tr><td>Saturday, Dec 20</td><td>4:00 PM</td><td>Eagles-Luther</td><td>Eagles-Neal</td><td>CCP1</td></tr>
-<tr class="new-date"><td>Saturday, Jan 10</td><td>1:00 PM</td><td>Eagles-Lott</td><td>Eagles-Luther</td><td>CCP1</td></tr>
-<tr><td>Saturday, Jan 10</td><td>2:00 PM</td><td>Eagles-Coakley</td><td>Eagles-Gravelle</td><td>CCP1</td></tr>
-<tr><td>Saturday, Jan 10</td><td>3:00 PM</td><td>Eagles-Neal</td><td>Eagles-Hewitt</td><td>CCP1</td></tr>
-<tr><td>Saturday, Jan 10</td><td>4:00 PM</td><td>Eagles-Davis</td><td>Eagles-Newman</td><td>CCP1</td></tr>
-<tr class="new-date"><td>Saturday, Jan 17</td><td>1:00 PM</td><td>Eagles-Lott</td><td>Eagles-Gravelle</td><td>CCP1</td></tr>
-<tr><td>Saturday, Jan 17</td><td>2:00 PM</td><td>Eagles-Newman</td><td>Eagles-Coakley</td><td>CCP1</td></tr>
-<tr><td>Saturday, Jan 17</td><td>3:00 PM</td><td>Eagles-Davis</td><td>Eagles-Neal</td><td>CCP1</td></tr>
-<tr><td>Saturday, Jan 17</td><td>4:00 PM</td><td>Eagles-Luther</td><td>Eagles-Hewitt</td><td>CCP1</td></tr>
-<tr class="new-date"><td>Saturday, Jan 24</td><td>1:00 PM</td><td>Eagles-Coakley</td><td>Eagles-Luther</td><td>CCP1</td></tr>
-<tr><td>Saturday, Jan 24</td><td>2:00 PM</td><td>Eagles-Lott</td><td>Eagles-Davis</td><td>CCP1</td></tr>
-<tr><td>Saturday, Jan 24</td><td>3:00 PM</td><td>Eagles-Neal</td><td>Eagles-Newman</td><td>CCP1</td></tr>
-<tr><td>Saturday, Jan 24</td><td>4:00 PM</td><td>Eagles-Gravelle</td><td>Eagles-Hewitt</td><td>CCP1</td></tr>
-<tr class="new-date"><td>Saturday, Jan 31</td><td>1:00 PM</td><td>Eagles-Newman</td><td>Eagles-Gravelle</td><td>CCP1</td></tr>
-<tr><td>Saturday, Jan 31</td><td>2:00 PM</td><td>Eagles-Luther</td><td>Eagles-Davis</td><td>CCP1</td></tr>
-<tr><td>Saturday, Jan 31</td><td>3:00 PM</td><td>Eagles-Lott</td><td>Eagles-Hewitt</td><td>CCP1</td></tr>
-<tr><td>Saturday, Jan 31</td><td>4:00 PM</td><td>Eagles-Coakley</td><td>Eagles-Neal</td><td>CCP1</td></tr>
-<tr class="new-date"><td>Saturday, Feb 7</td><td>1:00 PM</td><td>Eagles-Newman</td><td>Eagles-Luther</td><td>CMS</td></tr>
-<tr><td>Saturday, Feb 7</td><td>2:00 PM</td><td>Eagles-Neal</td><td>Eagles-Gravelle</td><td>CMS</td></tr>
-<tr><td>Saturday, Feb 7</td><td>3:00 PM</td><td>Eagles-Davis</td><td>Eagles-Hewitt</td><td>CMS</td></tr>
-<tr><td>Saturday, Feb 7</td><td>4:00 PM</td><td>Eagles-Lott</td><td>Eagles-Coakley</td><td>CMS</td></tr>
-</tbody>
-</table>
-</div><div class="league-section" id="p1_l15_18">
-<div class="league-title">15–18 Basketball</div>
-<table>
-<thead>
-    <tr>
-        <th>Date</th><th>Time</th><th>Team</th><th>Team</th><th>Location</th>
-    </tr>
-</thead>
+  <div class="league-section" id="p1_s4-5"><div class="league-header"><div class="league-title">4-5 Soccer</div><div class="league-meta">Season Schedule</div></div><div class="league-subtext">TEAM LISTED FIRST WILL WEAR LIGHTER COLORED JERSEY</div><div class="schedule-render" data-league="p1_s4-5"></div></div>
+  <div class="league-section" id="p1_s6-7"><div class="league-header"><div class="league-title">6-7 Soccer</div><div class="league-meta">Season Schedule</div></div><div class="league-subtext">TEAM LISTED FIRST WILL WEAR LIGHTER COLORED JERSEY</div><div class="schedule-render" data-league="p1_s6-7"></div></div>
+  <div class="league-section" id="p1_s8-9"><div class="league-header"><div class="league-title">8-9 Soccer</div><div class="league-meta">Season Schedule</div></div><div class="league-subtext">TEAM LISTED FIRST WILL WEAR LIGHTER COLORED JERSEY</div><div class="schedule-render" data-league="p1_s8-9"></div></div>
+  <div class="league-section" id="p1_s10-11"><div class="league-header"><div class="league-title">10-11 Soccer</div><div class="league-meta">Season Schedule</div></div><div class="league-subtext">TEAM LISTED FIRST WILL WEAR LIGHTER COLORED JERSEY</div><div class="schedule-render" data-league="p1_s10-11"></div></div>
+  <div class="league-section" id="p1_s12-14"><div class="league-header"><div class="league-title">12-14 Soccer</div><div class="league-meta">Season Schedule</div></div><div class="league-subtext">TEAM LISTED FIRST WILL WEAR LIGHTER COLORED JERSEY</div><div class="schedule-render" data-league="p1_s12-14"></div></div>
+  <div class="league-section" id="p1_f9-10"><div class="league-header"><div class="league-title">9-10 Flag Football</div><div class="league-meta">Season Schedule</div></div><div class="league-subtext">TEAM LISTED FIRST WILL WEAR LIGHTER COLORED JERSEY</div><div class="schedule-render" data-league="p1_f9-10"></div></div>
+  <div class="league-section" id="p1_f11-12"><div class="league-header"><div class="league-title">11-12 Flag Football</div><div class="league-meta">Season Schedule</div></div><div class="league-subtext">TEAM LISTED FIRST WILL WEAR LIGHTER COLORED JERSEY</div><div class="schedule-render" data-league="p1_f11-12"></div></div>
+  <div class="league-section" id="p1_f13-14"><div class="league-header"><div class="league-title">13-14 Flag Football</div><div class="league-meta">Season Schedule</div></div><div class="league-subtext">TEAM LISTED FIRST WILL WEAR LIGHTER COLORED JERSEY</div><div class="schedule-render" data-league="p1_f13-14"></div></div>
+  <div class="league-section" id="p1_b3-4"><div class="league-header"><div class="league-title">3-4 Tee Ball</div><div class="league-meta">Season Schedule</div></div><div class="schedule-render" data-league="p1_b3-4"></div></div>
+  <div class="league-section" id="p1_b5-6"><div class="league-header"><div class="league-title">5-6 Coach Pitch</div><div class="league-meta">Season Schedule</div></div><div class="schedule-render" data-league="p1_b5-6"></div></div>
+  <div class="league-section" id="p1_b7-8"><div class="league-header"><div class="league-title">7-8 Machine Pitch</div><div class="league-meta">Season Schedule</div></div><div class="schedule-render" data-league="p1_b7-8"></div></div>
+  <div class="league-section" id="p1_b9-11"><div class="league-header"><div class="league-title">9-11 Baseball</div><div class="league-meta">Season Schedule</div></div><div class="schedule-render" data-league="p1_b9-11"></div></div>
+  <div class="league-section" id="p1_s9-11"><div class="league-header"><div class="league-title">9-11 Softball</div><div class="league-meta">Season Schedule</div></div><div class="schedule-render" data-league="p1_s9-11"></div></div>
 
-<tbody>
+  <div class="league-section" id="p2_s4-5"><div class="league-header"><div class="league-title">4-5 Soccer</div><div class="league-meta">Season Schedule</div></div><div class="league-subtext">TEAM LISTED FIRST WILL WEAR LIGHTER COLORED JERSEY</div><div class="schedule-render" data-league="p2_s4-5"></div></div>
+  <div class="league-section" id="p2_s6-7"><div class="league-header"><div class="league-title">6-7 Soccer</div><div class="league-meta">Season Schedule</div></div><div class="league-subtext">TEAM LISTED FIRST WILL WEAR LIGHTER COLORED JERSEY</div><div class="schedule-render" data-league="p2_s6-7"></div></div>
+  <div class="league-section" id="p2_s8-9"><div class="league-header"><div class="league-title">8-9 Soccer</div><div class="league-meta">Season Schedule</div></div><div class="league-subtext">TEAM LISTED FIRST WILL WEAR LIGHTER COLORED JERSEY</div><div class="schedule-render" data-league="p2_s8-9"></div></div>
+  <div class="league-section" id="p2_s10-11"><div class="league-header"><div class="league-title">10-11 Soccer</div><div class="league-meta">Season Schedule</div></div><div class="league-subtext">TEAM LISTED FIRST WILL WEAR LIGHTER COLORED JERSEY</div><div class="schedule-render" data-league="p2_s10-11"></div></div>
+  <div class="league-section" id="p2_s12-14"><div class="league-header"><div class="league-title">12-14 Soccer</div><div class="league-meta">Season Schedule</div></div><div class="league-subtext">TEAM LISTED FIRST WILL WEAR LIGHTER COLORED JERSEY</div><div class="schedule-render" data-league="p2_s12-14"></div></div>
+  <div class="league-section" id="p2_f9-10"><div class="league-header"><div class="league-title">9-10 Flag Football</div><div class="league-meta">Season Schedule</div><div class="league-subtext">TEAM LISTED FIRST WILL WEAR LIGHTER COLORED JERSEY</div></div><div class="schedule-render" data-league="p2_f9-10"></div></div>
+  <div class="league-section" id="p2_f11-12"><div class="league-header"><div class="league-title">11-12 Flag Football</div><div class="league-meta">Season Schedule</div><div class="league-subtext">TEAM LISTED FIRST WILL WEAR LIGHTER COLORED JERSEY</div></div><div class="schedule-render" data-league="p2_f11-12"></div></div>
+  <div class="league-section" id="p2_f13-14"><div class="league-header"><div class="league-title">13-14 Flag Football</div><div class="league-meta">Season Schedule</div><div class="league-subtext">TEAM LISTED FIRST WILL WEAR LIGHTER COLORED JERSEY</div></div><div class="schedule-render" data-league="p2_f13-14"></div></div>
+  <div class="league-section" id="p2_b3-4"><div class="league-header"><div class="league-title">3-4 Tee Ball</div><div class="league-meta">Season Schedule</div></div><div class="schedule-render" data-league="p2_b3-4"></div></div>
+  <div class="league-section" id="p2_b5-6"><div class="league-header"><div class="league-title">5-6 Coach Pitch</div><div class="league-meta">Season Schedule</div></div><div class="schedule-render" data-league="p2_b5-6"></div></div>
+  <div class="league-section" id="p2_b7-8"><div class="league-header"><div class="league-title">7-8 Machine Pitch</div><div class="league-meta">Season Schedule</div></div><div class="schedule-render" data-league="p2_b7-8"></div></div>
+  <div class="league-section" id="p2_b9-11"><div class="league-header"><div class="league-title">9-11 Baseball</div><div class="league-meta">Season Schedule</div></div><div class="schedule-render" data-league="p2_b9-11"></div></div>
+  <div class="league-section" id="p2_s9-11"><div class="league-header"><div class="league-title">9-11 Softball</div><div class="league-meta">Season Schedule</div></div><div class="schedule-render" data-league="p2_s9-11"></div></div>
+</div>
 
-<tr class="new-date"><td>Saturday, Dec 13</td><td>9:00 AM</td><td>Pelicans</td><td>Rockets</td><td>CCP1</td></tr>
-<tr><td>Saturday, Dec 13</td><td>10:00 AM</td><td>Mavericks</td><td>Thunder</td><td>CCP1</td></tr>
-<tr><td>Saturday, Dec 13</td><td>11:00 AM</td><td>Kings</td><td>Warriors</td><td>CCP1</td></tr>
-<tr><td>Saturday, Dec 13</td><td>12:00 PM</td><td>Grizzlies</td><td>Celtics</td><td>CCP1</td></tr>
-
-<tr class="new-date"><td>Saturday, Dec 20</td><td>9:00 AM</td><td>Kings</td><td>Mavericks</td><td>CCP1</td></tr>
-<tr><td>Saturday, Dec 20</td><td>10:00 AM</td><td>Warriors</td><td>Rockets</td><td>CCP1</td></tr>
-<tr><td>Saturday, Dec 20</td><td>11:00 AM</td><td>Grizzlies</td><td>Pelicans</td><td>CCP1</td></tr>
-<tr><td>Saturday, Dec 20</td><td>12:00 PM</td><td>Celtics</td><td>Thunder</td><td>CCP1</td></tr>
-
-<tr class="new-date"><td>Saturday, Jan 10</td><td>9:00 AM</td><td>Thunder</td><td>Warriors</td><td>CCP1</td></tr>
-<tr><td>Saturday, Jan 10</td><td>10:00 AM</td><td>Pelicans</td><td>Kings</td><td>CCP1</td></tr>
-<tr><td>Saturday, Jan 10</td><td>11:00 AM</td><td>Mavericks</td><td>Celtics</td><td>CCP1</td></tr>
-<tr><td>Saturday, Jan 10</td><td>12:00 PM</td><td>Rockets</td><td>Grizzlies</td><td>CCP1</td></tr>
-
-<tr class="new-date"><td>Saturday, Jan 17</td><td>9:00 AM</td><td>Thunder</td><td>Pelicans</td><td>CCP1</td></tr>
-<tr><td>Saturday, Jan 17</td><td>10:00 AM</td><td>Celtics</td><td>Rockets</td><td>CCP1</td></tr>
-<tr><td>Saturday, Jan 17</td><td>11:00 AM</td><td>Grizzlies</td><td>Kings</td><td>CCP1</td></tr>
-<tr><td>Saturday, Jan 17</td><td>12:00 PM</td><td>Warriors</td><td>Mavericks</td><td>CCP1</td></tr>
-
-<tr class="new-date"><td>Saturday, Jan 24</td><td>9:00 AM</td><td>Celtics</td><td>Kings</td><td>CCP1</td></tr>
-<tr><td>Saturday, Jan 24</td><td>10:00 AM</td><td>Pelicans</td><td>Warriors</td><td>CCP1</td></tr>
-<tr><td>Saturday, Jan 24</td><td>11:00 AM</td><td>Rockets</td><td>Thunder</td><td>CCP1</td></tr>
-<tr><td>Saturday, Jan 24</td><td>12:00 PM</td><td>Mavericks</td><td>Grizzlies</td><td>CCP1</td></tr>
-
-<tr class="new-date"><td>Saturday, Jan 31</td><td>9:00 AM</td><td>Mavericks</td><td>Pelicans</td><td>CCP1</td></tr>
-<tr><td>Saturday, Jan 31</td><td>10:00 AM</td><td>Grizzlies</td><td>Thunder</td><td>CCP1</td></tr>
-<tr><td>Saturday, Jan 31</td><td>11:00 AM</td><td>Warriors</td><td>Celtics</td><td>CCP1</td></tr>
-<tr><td>Saturday, Jan 31</td><td>12:00 PM</td><td>Kings</td><td>Rockets</td><td>CCP1</td></tr>
-
-<tr class="new-date"><td>Saturday, Feb 7</td><td>9:00 AM</td><td>Warriors</td><td>Grizzlies</td><td>CCP1</td></tr>
-<tr><td>Saturday, Feb 7</td><td>10:00 AM</td><td>Rockets</td><td>Mavericks</td><td>CCP1</td></tr>
-<tr><td>Saturday, Feb 7</td><td>11:00 AM</td><td>Celtics</td><td>Pelicans</td><td>CCP1</td></tr>
-<tr><td>Saturday, Feb 7</td><td>12:00 PM</td><td>Thunder</td><td>Kings</td><td>CCP1</td></tr>
-
-</tbody>
-</table>
-<!-- ============================
-     PARK 2 (PLACEHOLDER)
-     Replace schedules below as needed.
-============================ -->
-
-</div><div class="league-section" id="p2_l12_14g">
-<div class="league-title">12–14 Girls Bridge Basketball</div>
-<table>
-<thead>
-<tr>
-<th>Date</th><th>Time</th><th>Team</th><th>Team</th><th>Location</th>
-</tr>
-</thead>
-<tbody>
-<tr class="new-date"><td>Saturday, Dec 13</td><td>3:00 PM</td><td>Eagles-Hilton</td><td>Yellow Jackets</td><td>CIS</td></tr>
-<tr><td>Saturday, Dec 13</td><td>4:00 PM</td><td>Eagles-McClary</td><td>Eagles-McAngus</td><td>CIS</td></tr>
-<tr class="new-date"><td>Saturday, Dec 20</td><td>2:00 PM</td><td>Silver Foxes</td><td>Eagles-Hilton</td><td>SOP1</td></tr>
-<tr><td>Saturday, Dec 20</td><td>3:00 PM</td><td>Yellow Jackets</td><td>Eagles-McClary</td><td>SOP1</td></tr>
-<tr class="new-date"><td>Saturday, Jan 10</td><td>3:00 PM</td><td>Eagles-McClary</td><td>Silver Foxes</td><td>CIS</td></tr>
-<tr><td>Saturday, Jan 10</td><td>4:00 PM</td><td>Eagles-McAngus</td><td>Yellow Jackets</td><td>CIS</td></tr>
-<tr class="new-date"><td>Saturday, Jan 17</td><td>2:00 PM</td><td>Silver Foxes</td><td>Eagles-McAngus</td><td>SOP1</td></tr>
-<tr><td>Saturday, Jan 17</td><td>3:00 PM</td><td>Eagles-McClary</td><td>Eagles-Hilton</td><td>CIS</td></tr>
-<tr class="new-date"><td>Wednesday, Jan 21</td><td>8:00 PM</td><td>Eagles-Hilton</td><td>Eagles-McAngus</td><td>CCP2</td></tr>
-<tr class="new-date"><td>Saturday, Jan 24</td><td>3:00 PM</td><td>Eagles-Hilton</td><td>Silver Foxes</td><td>CIS</td></tr>
-<tr><td>Saturday, Jan 24</td><td>4:00 PM</td><td>Yellow Jackets</td><td>Eagles-McClary</td><td>IMS</td></tr>
-<tr class="new-date"><td>Monday, Jan 26</td><td>8:00 PM</td><td>Yellow Jackets</td><td>Silver Foxes</td><td>SOP1</td></tr>
-<tr class="new-date"><td>Saturday, Jan 31</td><td>3:00 PM</td><td>Eagles-Hilton</td><td>Yellow Jackets</td><td>CMS</td></tr>
-<tr><td>Saturday, Jan 31</td><td>4:00 PM</td><td>Eagles-McAngus</td><td>Eagles-McClary</td><td>CMS</td></tr>
-<tr class="new-date"><td>Wednesday, Feb 4</td><td>7:00 PM</td><td>Silver Foxes</td><td>Yellow Jackets</td><td>SOP1</td></tr>
-<tr><td>Wednesday, Feb 4</td><td>8:00 PM</td><td>Eagles-McAngus</td><td>Eagles-Hilton</td><td>CCP2</td></tr>
-<tr class="new-date"><td>Saturday, Feb 7</td><td>4:00 PM</td><td>Yellow Jackets</td><td>Eagles-McAngus</td><td>IHS</td></tr>
-<tr><td>Saturday, Feb 7</td><td>5:00 PM</td><td>Silver Foxes</td><td>Eagles-McClary</td><td>IHS</td></tr>
-</tbody>
-</table>
-</div><div class="league-section" id="p2_l9_10">
-<div class="league-title">9–10 Basketball</div>
-<table>
-<thead>
-<tr>
-<th>Date</th><th>Time</th><th>Team</th><th>Team</th><th>Location</th>
-</tr>
-</thead>
-<tbody>
-<tr class="new-date"><td>Saturday, Dec 13</td><td>9:00 AM</td><td>Sixers</td><td>Suns</td><td>SOP 1</td></tr><tr><td>Saturday, Dec 13</td><td>10:00 AM</td><td>Hawks</td><td>MOLINA HEALTHCARE Lakers</td><td>SOP 1</td></tr><tr><td>Saturday, Dec 13</td><td>11:00 AM</td><td>Raptors</td><td>WAVE CRUISERS LLC Pacers</td><td>SOP 1</td></tr><tr class="new-date"><td>Saturday, Dec 20</td><td>9:00 AM</td><td>Sixers</td><td>Hawks</td><td>SOP 1</td></tr><tr><td>Saturday, Dec 20</td><td>10:00 AM</td><td>Suns</td><td>MOLINA HEALTHCARE Lakers</td><td>SOP 1</td></tr><tr><td>Saturday, Dec 20</td><td>11:00 AM</td><td>Raptors</td><td>HEALTHY BLUE Wolves</td><td>SOP 1</td></tr><tr class="new-date"><td>Saturday, Jan 10</td><td>9:00 AM</td><td>MOLINA HEALTHCARE Lakers</td><td>Sixers</td><td>SOP 1</td></tr><tr><td>Saturday, Jan 10</td><td>10:00 AM</td><td>WAVE CRUISERS LLC Pacers</td><td>Hawks</td><td>SOP 1</td></tr><tr><td>Saturday, Jan 10</td><td>11:00 AM</td><td>Suns</td><td>HEALTHY BLUE Wolves</td><td>SOP 1</td></tr><tr class="new-date"><td>Wednesday, Jan 14</td><td>8:00 PM</td><td>MOLINA HEALTHCARE Lakers</td><td>WAVE CRUISERS LLC Pacers</td><td>SOP 1</td></tr><tr class="new-date"><td>Saturday, Jan 17</td><td>9:00 AM</td><td>Suns</td><td>WAVE CRUISERS LLC Pacers</td><td>SOP 1</td></tr><tr><td>Saturday, Jan 17</td><td>10:00 AM</td><td>Hawks</td><td>HEALTHY BLUE Wolves</td><td>SOP 1</td></tr><tr><td>Saturday, Jan 17</td><td>11:00 AM</td><td>Raptors</td><td>Sixers</td><td>SOP 1</td></tr><tr class="new-date"><td>Wednesday, Jan 21</td><td>8:00 PM</td><td>Sixers</td><td>HEALTHY BLUE Wolves</td><td>SOP 1</td></tr><tr class="new-date"><td>Saturday, Jan 24</td><td>11:00 AM</td><td>Hawks</td><td>WAVE CRUISERS LLC Pacers</td><td>SOP 1</td></tr><tr><td>Saturday, Jan 24</td><td>12:00 PM</td><td>MOLINA HEALTHCARE Lakers</td><td>HEALTHY BLUE Wolves</td><td>SOP 1</td></tr><tr><td>Saturday, Jan 24</td><td>1:00 PM</td><td>Raptors</td><td>Sixers</td><td>SOP 1</td></tr><tr class="new-date"><td>Wednesday, Jan 28</td><td>8:00 PM</td><td>Suns</td><td>Raptors</td><td>SOP 1</td></tr><tr class="new-date"><td>Saturday, Jan 31</td><td>11:00 AM</td><td>MOLINA HEALTHCARE Lakers</td><td>Raptors</td><td>SOP 1</td></tr><tr><td>Saturday, Jan 31</td><td>12:00 PM</td><td>WAVE CRUISERS LLC Pacers</td><td>Sixers</td><td>SOP 1</td></tr><tr><td>Saturday, Jan 31</td><td>1:00 PM</td><td>Hawks</td><td>Suns</td><td>SOP 1</td></tr><tr class="new-date"><td>Wednesday, Feb 4</td><td>6:00 PM</td><td>HEALTHY BLUE Wolves</td><td>WAVE CRUISERS LLC Pacers</td><td>SOP 1</td></tr><tr class="new-date"><td>Saturday, Feb 7</td><td>11:00 AM</td><td>Sixers</td><td>Suns</td><td>SOP 1</td></tr><tr><td>Saturday, Feb 7</td><td>12:00 PM</td><td>Raptors</td><td>Hawks</td><td>SOP 1</td></tr><tr><td>Saturday, Feb 7</td><td>1:00 PM</td><td>HEALTHY BLUE Wolves</td><td>MOLINA HEALTHCARE Lakers</td><td>SOP 1</td></tr></tbody>
-</table>
-</div><div class="league-section" id="p2_l9_11g">
-<div class="league-title">9–11 Girls Bridge Basketball</div>
-<table>
-<thead>
-<tr>
-<th>Date</th><th>Time</th><th>Team</th><th>Team</th><th>Location</th>
-</tr>
-</thead>
-<tbody>
-<tr class="new-date"><td>Saturday, Dec 13</td><td>12:00 PM</td><td>MOLINA HEALTHCARE Yellow Jackets-Stephenson</td><td>Yellow Jackets-Goodman</td><td>SOP 1</td></tr><tr><td>Saturday, Dec 13</td><td>1:00 PM</td><td>Yellow Jackets-Simmons</td><td>Silver Foxes-Grissett</td><td>SOP 1</td></tr><tr class="new-date"><td>Saturday, Dec 20</td><td>12:00 PM</td><td>MOLINA HEALTHCARE Yellow Jackets-Stephenson</td><td>Yellow Jackets-Simmons</td><td>SOP 1</td></tr><tr><td>Saturday, Dec 20</td><td>1:00 PM</td><td>Yellow Jackets-Goodman</td><td>Silver Foxes-Grissett</td><td>SOP 1</td></tr><tr class="new-date"><td>Saturday, Jan 10</td><td>12:00 PM</td><td>Silver Foxes-Grissett</td><td>MOLINA HEALTHCARE Yellow Jackets-Stephenson</td><td>SOP 1</td></tr><tr><td>Saturday, Jan 10</td><td>1:00 PM</td><td>Yellow Jackets-Simmons</td><td>Yellow Jackets-Goodman</td><td>SOP 1</td></tr><tr class="new-date"><td>Saturday, Jan 17</td><td>12:00 PM</td><td>Yellow Jackets-Goodman</td><td>MOLINA HEALTHCARE Yellow Jackets-Stephenson</td><td>SOP 1</td></tr><tr><td>Saturday, Jan 17</td><td>1:00 PM</td><td>Silver Foxes-Grissett</td><td>Yellow Jackets-Simmons</td><td>SOP 1</td></tr><tr class="new-date"><td>Saturday, Jan 24</td><td>2:00 PM</td><td>Yellow Jackets-Simmons</td><td>MOLINA HEALTHCARE Yellow Jackets-Stephenson</td><td>IMS</td></tr><tr><td>Saturday, Jan 24</td><td>3:00 PM</td><td>Silver Foxes-Grissett</td><td>Yellow Jackets-Goodman</td><td>IMS</td></tr><tr class="new-date"><td>Saturday, Jan 31</td><td>2:00 PM</td><td>MOLINA HEALTHCARE Yellow Jackets-Stephenson</td><td>Silver Foxes-Grissett</td><td>DFMS</td></tr><tr><td>Saturday, Jan 31</td><td>3:00 PM</td><td>Yellow Jackets-Goodman</td><td>Yellow Jackets-Simmons</td><td>DFMS</td></tr><tr class="new-date"><td>Saturday, Feb 7</td><td>2:00 PM</td><td>Yellow Jackets-Simmons</td><td>Silver Foxes-Grissett</td><td>IHS</td></tr><tr><td>Saturday, Feb 7</td><td>3:00 PM</td><td>MOLINA HEALTHCARE Yellow Jackets-Stephenson</td><td>Yellow Jackets-Goodman</td><td>IHS</td></tr></tbody>
-</table>
-</div><div class="league-section" id="p2_l11_12">
-<div class="league-title">11–12 Bridge Basketball</div>
-<table>
-<thead>
-<tr>
-<th>Date</th><th>Time</th><th>Team</th><th>Team</th><th>Location</th>
-</tr>
-</thead>
-<tbody>
-<tr class="new-date"><td>Saturday, Dec 13</td><td>1:00 PM</td><td>HEALTHY BLUE Silver Foxes-Francis</td><td>Yellow Jackets-Allen</td><td>SOP 3</td></tr><tr><td>Saturday, Dec 13</td><td>2:00 PM</td><td>MOLINA HEALTHCARE Yellow Jackets-Brown</td><td>Yellow Jackets-Caldwell</td><td>SOP 3</td></tr><tr><td>Saturday, Dec 13</td><td>3:00 PM</td><td>DUNRITE AUTOMOTIVE Silver Foxes-Harris</td><td>Silver Foxes-Simmons</td><td>SOP 3</td></tr><tr class="new-date"><td>Saturday, Dec 20</td><td>1:00 PM</td><td>Yellow Jackets-Caldwell</td><td>HEALTHY BLUE Silver Foxes-Francis</td><td>SOP 3</td></tr><tr><td>Saturday, Dec 20</td><td>2:00 PM</td><td>DUNRITE AUTOMOTIVE Silver Foxes-Harris</td><td>MOLINA HEALTHCARE Yellow Jackets-Brown</td><td>SOP 3</td></tr><tr><td>Saturday, Dec 20</td><td>3:00 PM</td><td>Silver Foxes-Simmons</td><td>Yellow Jackets-Allen</td><td>SOP 3</td></tr><tr class="new-date"><td>Saturday, Jan 10</td><td>1:00 PM</td><td>Yellow Jackets-Caldwell</td><td>Yellow Jackets-Allen</td><td>SOP 3</td></tr><tr><td>Saturday, Jan 10</td><td>2:00 PM</td><td>DUNRITE AUTOMOTIVE Silver Foxes-Harris</td><td>HEALTHY BLUE Silver Foxes-Francis</td><td>SOP 3</td></tr><tr><td>Saturday, Jan 10</td><td>3:00 PM</td><td>MOLINA HEALTHCARE Yellow Jackets-Brown</td><td>Silver Foxes-Simmons</td><td>SOP 3</td></tr><tr class="new-date"><td>Saturday, Jan 17</td><td>1:00 PM</td><td>Yellow Jackets-Allen</td><td>MOLINA HEALTHCARE Yellow Jackets-Brown</td><td>SOP 3</td></tr><tr><td>Saturday, Jan 17</td><td>2:00 PM</td><td>Silver Foxes-Simmons</td><td>HEALTHY BLUE Silver Foxes-Francis</td><td>SOP 3</td></tr><tr><td>Saturday, Jan 17</td><td>3:00 PM</td><td>Yellow Jackets-Caldwell</td><td>DUNRITE AUTOMOTIVE Silver Foxes-Harris</td><td>SOP 3</td></tr><tr class="new-date"><td>Saturday, Jan 24</td><td>9:00 AM</td><td>Silver Foxes-Simmons</td><td>Yellow Jackets-Caldwell</td><td>IMS</td></tr><tr><td>Saturday, Jan 24</td><td>10:00 AM</td><td>HEALTHY BLUE Silver Foxes-Francis</td><td>MOLINA HEALTHCARE Yellow Jackets-Brown</td><td>IMS</td></tr><tr><td>Saturday, Jan 24</td><td>11:00 AM</td><td>Yellow Jackets-Allen</td><td>DUNRITE AUTOMOTIVE Silver Foxes-Harris</td><td>IMS</td></tr><tr class="new-date"><td>Saturday, Jan 31</td><td>9:00 AM</td><td>Yellow Jackets-Caldwell</td><td>MOLINA HEALTHCARE Yellow Jackets-Brown</td><td>DFMS</td></tr><tr><td>Saturday, Jan 31</td><td>10:00 AM</td><td>Silver Foxes-Simmons</td><td>DUNRITE AUTOMOTIVE Silver Foxes-Harris</td><td>DFMS</td></tr><tr><td>Saturday, Jan 31</td><td>11:00 AM</td><td>Yellow Jackets-Allen</td><td>HEALTHY BLUE Silver Foxes-Francis</td><td>DFMS</td></tr><tr class="new-date"><td>Saturday, Feb 7</td><td>9:00 AM</td><td>Silver Foxes-Simmons</td><td>Yellow Jackets-Allen</td><td>IHS</td></tr><tr><td>Saturday, Feb 7</td><td>10:00 AM</td><td>MOLINA HEALTHCARE Yellow Jackets-Brown</td><td>DUNRITE AUTOMOTIVE Silver Foxes-Harris</td><td>IHS</td></tr><tr><td>Saturday, Feb 7</td><td>11:00 AM</td><td>HEALTHY BLUE Silver Foxes-Francis</td><td>Yellow Jackets-Caldwell</td><td>IHS</td></tr></tbody>
-</table>
-</div><div class="league-section" id="p2_l13_14">
-<div class="league-title">13–14 Bridge Basketball</div>
-<table>
-<thead>
-<tr>
-<th>Date</th><th>Time</th><th>Team</th><th>Team</th><th>Location</th>
-</tr>
-</thead>
-<tbody>
-<tr class="new-date"><td>Saturday, Dec 13</td><td>11:00 AM</td><td>MOLINA HEALTHCARE Yellow Jackets-Gardner</td><td>Yellow Jackets-Raines</td><td>SOP 3</td></tr><tr><td>Saturday, Dec 13</td><td>12:00 PM</td><td>Owls</td><td>Silver Foxes</td><td>SOP 3</td></tr><tr class="new-date"><td>Saturday, Dec 20</td><td>11:00 AM</td><td>MOLINA HEALTHCARE Yellow Jackets-Gardner</td><td>Owls</td><td>SOP 3</td></tr><tr><td>Saturday, Dec 20</td><td>12:00 PM</td><td>Yellow Jackets-Raines</td><td>Silver Foxes</td><td>SOP 3</td></tr><tr class="new-date"><td>Saturday, Jan 10</td><td>11:00 AM</td><td>MOLINA HEALTHCARE Yellow Jackets-Gardner</td><td>Silver Foxes</td><td>SOP 3</td></tr><tr><td>Saturday, Jan 10</td><td>12:00 PM</td><td>Owls</td><td>Yellow Jackets-Raines</td><td>SOP 3</td></tr><tr class="new-date"><td>Saturday, Jan 17</td><td>11:00 AM</td><td>Silver Foxes</td><td>Owls</td><td>SOP 3</td></tr><tr><td>Saturday, Jan 17</td><td>12:00 PM</td><td>Yellow Jackets-Raines</td><td>MOLINA HEALTHCARE Yellow Jackets-Gardner</td><td>SOP 3</td></tr><tr class="new-date"><td>Saturday, Jan 24</td><td>12:00 PM</td><td>Silver Foxes</td><td>Yellow Jackets-Raines</td><td>IMS</td></tr><tr><td>Saturday, Jan 24</td><td>1:00 PM</td><td>Owls</td><td>MOLINA HEALTHCARE Yellow Jackets-Gardner</td><td>IMS</td></tr><tr class="new-date"><td>Saturday, Jan 31</td><td>12:00 PM</td><td>Yellow Jackets-Raines</td><td>Owls</td><td>DFMS</td></tr><tr><td>Saturday, Jan 31</td><td>1:00 PM</td><td>Silver Foxes</td><td>MOLINA HEALTHCARE Yellow Jackets-Gardner</td><td>DFMS</td></tr><tr class="new-date"><td>Saturday, Feb 7</td><td>12:00 PM</td><td>MOLINA HEALTHCARE Yellow Jackets-Gardner</td><td>Yellow Jackets-Raines</td><td>IHS</td></tr><tr><td>Saturday, Feb 7</td><td>1:00 PM</td><td>Owls</td><td>Silver Foxes</td><td>IHS</td></tr></tbody>
-</table>
-</div><div class="league-section" id="p2_l15_18">
-<div class="league-title">15–18 Basketball</div>
-<table>
-<thead>
-<tr>
-<th>Date</th><th>Time</th><th>Team</th><th>Team</th><th>Location</th>
-</tr>
-</thead>
-<tbody>
-</tr><tr class="new-date"><td>Saturday, Dec 13</td><td>9:00 AM</td><td>MOLINA HEATHCARE Storm</td><td>Warriors</td><td>SOP 3</td></tr><tr><td>Saturday, Dec 13</td><td>10:00 AM</td><td>Cavs</td><td>Bulls</td><td>SOP 3</td></tr><tr class="new-date"><td>Saturday, Dec 20</td><td>9:00 AM</td><td>Warriors</td><td>Bulls</td><td>SOP 3</td></tr><tr><td>Saturday, Dec 20</td><td>10:00 AM</td><td>Cavs</td><td>MOLINA HEATHCARE Storm</td><td>SOP 3</td></tr><tr class="new-date"><td>Saturday, Jan 10</td><td>9:00 AM</td><td>Warriors</td><td>Cavs</td><td>SOP 3</td></tr><tr><td>Saturday, Jan 10</td><td>10:00 AM</td><td>MOLINA HEATHCARE Storm</td><td>Bulls</td><td>SOP 3</td></tr><tr class="new-date"><td>Saturday, Jan 17</td><td>9:00 AM</td><td>Warriors</td><td>MOLINA HEATHCARE Storm</td><td>SOP 3</td></tr><tr><td>Saturday, Jan 17</td><td>10:00 AM</td><td>Cavs</td><td>Bulls</td><td>SOP 3</td></tr><tr class="new-date"><td>Saturday, Jan 24</td><td>9:00 AM</td><td>Warriors</td><td>Bulls</td><td>SOP 3</td></tr><tr><td>Saturday, Jan 24</td><td>10:00 AM</td><td>Cavs</td><td>MOLINA HEATHCARE Storm</td><td>SOP 3</td></tr><tr class="new-date"><td>Saturday, Jan 31</td><td>9:00 AM</td><td>Cavs</td><td>Warriors</td><td>SOP 3</td></tr><tr><td>Saturday, Jan 31</td><td>10:00 AM</td><td>MOLINA HEATHCARE Storm</td><td>Bulls</td><td>SOP 3</td></tr><tr class="new-date"><td>Saturday, Feb 7</td><td>9:00 AM</td><td>Warriors</td><td>MOLINA HEATHCARE Storm</td><td>SOP 3</td></tr><tr><td>Saturday, Feb 7</td><td>10:00 AM</td><td>Bulls</td><td>Cavs</td><td>SOP 3</td></tr></tbody>
-</table>
-</div><div class="league-section" id="p2_l7_8">
-<div class="league-title">7–8 Basketball</div>
-<table>
-<thead>
-<tr>
-<th>Date</th><th>Time</th><th>Team</th><th>Team</th><th>Location</th>
-</tr>
-</thead>
-<tbody>
-<tr class="new-date"><td>Wednesday, Dec 3</td><td>6:00 PM</td><td>Cavs</td><td>PEAK DENTAL Razorbacks</td><td>SOP 1AB</td></tr><tr><td>Wednesday, Dec 3</td><td>6:00 PM</td><td>Owls</td><td>Pirates</td><td>SOP 1CD</td></tr><tr><td>Wednesday, Dec 3</td><td>7:00 PM</td><td>Wolfpack</td><td>MOLINA HEALTHCARE Panthers</td><td>SOP 1AB</td></tr><tr><td>Wednesday, Dec 3</td><td>7:00 PM</td><td>Wildcats</td><td>HEALTHY BLUE Tar Heels</td><td>SOP 1CD</td></tr><tr class="new-date"><td>Wednesday, Dec 10</td><td>6:00 PM</td><td>Owls</td><td>Wolfpack</td><td>SOP 1AB</td></tr><tr><td>Wednesday, Dec 10</td><td>6:00 PM</td><td>Pirates</td><td>MOLINA HEALTHCARE Panthers</td><td>SOP 1CD</td></tr><tr><td>Wednesday, Dec 10</td><td>7:00 PM</td><td>Wildcats</td><td>Cavs</td><td>SOP 1AB</td></tr><tr><td>Wednesday, Dec 10</td><td>7:00 PM</td><td>PEAK DENTAL Razorbacks</td><td>HEALTHY BLUE Tar Heels</td><td>SOP 1CD</td></tr><tr class="new-date"><td>Wednesday, Dec 17</td><td>6:00 PM</td><td>Pirates</td><td>Wolfpack</td><td>SOP 1AB</td></tr><tr><td>Wednesday, Dec 17</td><td>6:00 PM</td><td>Wildcats</td><td>PEAK DENTAL Razorbacks</td><td>SOP 1CD</td></tr><tr><td>Wednesday, Dec 17</td><td>7:00 PM</td><td>HEALTHY BLUE Tar Heels</td><td>Cavs</td><td>SOP 1AB</td></tr><tr><td>Wednesday, Dec 17</td><td>7:00 PM</td><td>MOLINA HEALTHCARE Panthers</td><td>Owls</td><td>SOP 1CD</td></tr><tr class="new-date"><td>Wednesday, Jan 7</td><td>6:00 PM</td><td>Wolfpack</td><td>Wildcats</td><td>SOP 1AB</td></tr><tr><td>Wednesday, Jan 7</td><td>6:00 PM</td><td>PEAK DENTAL Razorbacks</td><td>Pirates</td><td>SOP 1CD</td></tr><tr><td>Wednesday, Jan 7</td><td>7:00 PM</td><td>Owls</td><td>HEALTHY BLUE Tar Heels</td><td>SOP 1AB</td></tr><tr><td>Wednesday, Jan 7</td><td>7:00 PM</td><td>MOLINA HEALTHCARE Panthers</td><td>Cavs</td><td>SOP 1CD</td></tr><tr class="new-date"><td>Wednesday, Jan 14</td><td>6:00 PM</td><td>Pirates</td><td>Cavs</td><td>SOP 1AB</td></tr><tr><td>Wednesday, Jan 14</td><td>6:00 PM</td><td>Owls</td><td>Wildcats</td><td>SOP 1CD</td></tr><tr><td>Wednesday, Jan 14</td><td>7:00 PM</td><td>Wolfpack</td><td>HEALTHY BLUE Tar Heels</td><td>SOP 1AB</td></tr><tr><td>Wednesday, Jan 14</td><td>7:00 PM</td><td>MOLINA HEALTHCARE Panthers</td><td>PEAK DENTAL Razorbacks</td><td>SOP 1CD</td></tr><tr class="new-date"><td>Wednesday, Jan 21</td><td>6:00 PM</td><td>HEALTHY BLUE Tar Heels</td><td>Pirates</td><td>SOP 1AB</td></tr><tr><td>Wednesday, Jan 21</td><td>6:00 PM</td><td>MOLINA HEALTHCARE Panthers</td><td>Wildcats</td><td>SOP 1CD</td></tr><tr><td>Wednesday, Jan 21</td><td>7:00 PM</td><td>Cavs</td><td>Wolfpack</td><td>SOP 1AB</td></tr><tr><td>Wednesday, Jan 21</td><td>7:00 PM</td><td>Owls</td><td>PEAK DENTAL Razorbacks</td><td>SOP 1CD</td></tr><tr class="new-date"><td>Monday, Jan 26</td><td>6:00 PM</td><td>Owls</td><td>Cavs</td><td>SOP 1AB</td></tr><tr><td>Monday, Jan 26</td><td>6:00 PM</td><td>Wolfpack</td><td>PEAK DENTAL Razorbacks</td><td>SOP 1CD</td></tr><tr><td>Monday, Jan 26</td><td>7:00 PM</td><td>Wildcats</td><td>Pirates</td><td>SOP 1AB</td></tr><tr><td>Monday, Jan 26</td><td>7:00 PM</td><td>MOLINA HEALTHCARE Panthers</td><td>HEALTHY BLUE Tar Heels</td><td>SOP 1CD</td></tr><tr class="new-date"><td>Wednesday, Jan 28</td><td>6:00 PM</td><td>Wolfpack</td><td>MOLINA HEALTHCARE Panthers</td><td>SOP 1AB</td></tr><tr><td>Wednesday, Jan 28</td><td>6:00 PM</td><td>Wildcats</td><td>HEALTHY BLUE Tar Heels</td><td>SOP 1CD</td></tr><tr><td>Wednesday, Jan 28</td><td>7:00 PM</td><td>PEAK DENTAL Razorbacks</td><td>Cavs</td><td>SOP 1AB</td></tr><tr><td>Wednesday, Jan 28</td><td>7:00 PM</td><td>Owls</td><td>Pirates</td><td>SOP 1CD</td></tr></tbody>
-</table>
-</div><div class="league-section" id="p2_l5_6">
-<div class="league-title">5–6 Basketball</div>
-<table>
-<thead>
-<tr>
-<th>Date</th><th>Time</th><th>Team</th><th>Team</th><th>Location</th>
-</tr>
-</thead>
-<tbody>
-<tr class="new-date"><td>Thursday, December 11</td><td>6:00 PM</td><td>Yellow Jackets</td><td>MOLINA HEALTHCARE Eagles</td><td>SOP 1AB</td></tr><tr><td>Thursday, December 11</td><td>6:00 PM</td><td>Cardinals</td><td>GREAT ENDEAVORS Gators</td><td>SOP 1CD</td></tr><tr class="new-date"><td>Thursday, December 18</td><td>6:00 PM</td><td>Yellow Jackets</td><td>GREAT ENDEAVORS Gators</td><td>SOP 1AB</td></tr><tr><td>Thursday, December 18</td><td>6:00 PM</td><td>MOLINA HEALTHCARE Eagles</td><td>Cardinals</td><td>SOP 1CD</td></tr><tr class="new-date"><td>Thursday, January 8</td><td>6:00 PM</td><td>GREAT ENDEAVORS Gators</td><td>MOLINA HEALTHCARE Eagles</td><td>SOP 1AB</td></tr><tr><td>Thursday, January 8</td><td>6:00 PM</td><td>Yellow Jackets</td><td>Cardinals</td><td>SOP 1CD</td></tr><tr class="new-date"><td>Thursday, January 15</td><td>6:00 PM</td><td>Cardinals</td><td>GREAT ENDEAVORS Gators</td><td>SOP 1AB</td></tr><tr><td>Thursday, January 15</td><td>6:00 PM</td><td>Yellow Jackets</td><td>MOLINA HEALTHCARE Eagles</td><td>SOP 1CD</td></tr><tr class="new-date"><td>Tuesday, January 20</td><td>6:00 PM</td><td>MOLINA HEALTHCARE Eagles</td><td>Cardinals</td><td>SOP 1AB</td></tr><tr><td>Tuesday, January 20</td><td>6:00 PM</td><td>Yellow Jackets</td><td>GREAT ENDEAVORS Gators</td><td>SOP 1CD</td></tr><tr class="new-date"><td>Thursday, January 22</td><td>6:00 PM</td><td>Cardinals</td><td>Yellow Jackets</td><td>SOP 1AB</td></tr><tr><td>Thursday, January 22</td><td>6:00 PM</td><td>GREAT ENDEAVORS Gators</td><td>MOLINA HEALTHCARE Eagles</td><td>SOP 1CD</td></tr><tr class="new-date"><td>Tuesday, January 27</td><td>6:00 PM</td><td>Yellow Jackets</td><td>MOLINA HEALTHCARE Eagles</td><td>SOP 1AB</td></tr><tr><td>Tuesday, January 27</td><td>6:00 PM</td><td>Cardinals</td><td>GREAT ENDEAVORS Gators</td><td>SOP 1CD</td></tr><tr class="new-date"><td>Thursday, January 29</td><td>6:00 PM</td><td>Yellow Jackets</td><td>GREAT ENDEAVORS Gators</td><td>SOP 1AB</td></tr><tr><td>Thursday, January 29</td><td>6:00 PM</td><td>MOLINA HEALTHCARE Eagles</td><td>Cardinals</td><td>SOP 1CD</td></tr></tbody>
-</table>
-</div></div>
 <script>
-(function(){
-  function qs(sel, root){ return (root||document).querySelector(sel); }
-  function qsa(sel, root){ return (root||document).querySelectorAll(sel); }
+(function () {
+  function qs(sel, root) { return (root || document).querySelector(sel); }
+  function qsa(sel, root) { return Array.from((root || document).querySelectorAll(sel)); }
 
-  function showBadge(){
-    var b = document.getElementById("jsBadge");
-    if (b) b.style.display = "block";
+  const schedules = {
+    "p1_s4-5": [
+      ["Tuesday, March 24", "6:00 PM", "Charlotte FC", "New York Red Bulls", "MP 1A"],
+      ["Tuesday, March 24", "6:00 PM", "New York City FC", "Montreal Impact", "MP 1B"],
+      ["Tuesday, March 24", "6:00 PM", "NE Revolution", "Philadelphia Union", "MP 1C"]
+    ],
+    "p1_s6-7": [
+      ["Monday, March 23", "6:00 PM", "Charlotte FC", "Minnesota United", "MP A"],
+      ["Monday, March 23", "6:00 PM", "Colorado Rapids", "Portland Timbers", "MP B"],
+      ["Monday, March 23", "6:00 PM", "Real Salt Lake", "Sporting KC", "MP C"],
+      ["Monday, March 23", "6:00 PM", "Seattle Sounders", "Vancouver Whitecaps", "MP D"]
+    ],
+    "p1_s8-9": [
+      ["Tuesday, March 24", "6:00 PM", "Austin FC", "Houston Dynamo", "MP A"],
+      ["Tuesday, March 24", "6:00 PM", "FC Dallas", "LA Galaxy", "MP B"],
+      ["Tuesday, March 24", "7:00 PM", "Los Angeles FC", "San Jose Earthquakes", "MP A"],
+      ["Tuesday, March 24", "7:00 PM", "San Diego FC", "St. Louis City FC", "MP B"]
+    ],
+    "p1_s10-11": [
+      ["Wednesday, March 25", "6:15 PM", "Atlanta United", "Columbus Crew", "CCP 2"],
+      ["Wednesday, March 25", "7:15 PM", "Chicago Fire", "D.C. United", "CCP 2"]
+    ],
+    "p1_s12-14": [
+      ["Thursday, March 19", "6:15 PM", "Orlando City SC", "Atlanta United", "SSP 6"],
+      ["Thursday, March 19", "7:30 PM", "Nashville SC", "Inter Miami", "SSP 6"],
+      ["Thursday, March 26", "6:15 PM", "Orlando City SC", "Nashville SC", "CCP 1"],
+      ["Thursday, March 26", "7:30 PM", "Charlotte FC", "Inter Miami", "CCP 1"],
+      ["Thursday, April 2", "6:15 PM", "Inter Miami", "Orlando City SC", "SSP 6"],
+      ["Thursday, April 2", "7:30 PM", "Atlanta United", "Charlotte FC", "SSP 6"],
+      ["Tuesday, April 14", "6:15 PM", "Orlando City SC", "Charlotte FC", "CCP 1"],
+      ["Tuesday, April 14", "7:30 PM", "Nashville SC", "Atlanta United", "CCP 1"],
+      ["Thursday, April 16", "6:15 PM", "Nashville SC", "Charlotte FC", "CCP 1"],
+      ["Thursday, April 16", "6:15 PM", "Atlanta United", "Inter Miami", "SSP 6"],
+      ["Tuesday, April 21", "6:15 PM", "Inter Miami", "Nashville SC", "CCP 1"],
+      ["Tuesday, April 21", "7:30 PM", "Atlanta United", "Orlando City SC", "CCP 1"],
+      ["Thursday, April 23", "6:15 PM", "Inter Miami", "Charlotte FC", "SSP 6"],
+      ["Thursday, April 23", "7:00 PM", "Nashville SC", "Orlando City SC", "CCP 1"],
+      ["Tuesday, April 28", "6:15 PM", "Charlotte FC", "Atlanta United", "CCP 1"],
+      ["Tuesday, April 28", "7:30 PM", "Orlando City SC", "Inter Miami", "CCP 1"],
+      ["Thursday, April 30", "6:15 PM", "Charlotte FC", "Orlando City SC", "CCP 1"],
+      ["Thursday, April 30", "6:15 PM", "Atlanta United", "Nashville SC", "SSP 6"],
+      ["Tuesday, May 5", "6:15 PM", "Charlotte FC", "Nashville SC", "CCP 1"],
+      ["Tuesday, May 5", "6:15 PM", "Inter Miami", "Atlanta United", "SSP 6"]
+    ],
+    "p1_f9-10": [
+      ["Thursday, March 26", "6:00 PM", "Commanders", "Cowboys", "MP 2"],
+      ["Thursday, March 26", "6:00 PM", "Eagles", "Giants", "MP 2"]
+    ],
+    "p1_f11-12": [
+      ["Thursday, March 26", "7:00 PM", "Colts", "Jaguars", "MP 2"],
+      ["Thursday, March 26", "2:00 PM", "Texans", "Titans", "MP 2"]
+    ],
+    "p1_f13-14": [
+      ["Thursday, March 26", "7:00 PM", "Buccaneers", "Falcons", "MP 3"],
+      ["Thursday, March 26", "7:00 PM", "Panthers", "Saints", "MP 3"]
+    ],
+    "p1_b3-4": [
+      ["Monday, March 30", "6:00 PM", "Mudcats", "Hooks", "MP 5"],
+      ["Monday, March 30", "6:00 PM", "River Dogs", "Grasshoppers", "MP 6"],
+      ["Monday, March 30", "6:00 PM", "Storm", "Bulls", "CES 1"],
+      ["Monday, March 30", "6:00 PM", "Lugnuts", "River Bandits", "CES 2"]
+    ],
+    "p1_b5-6": [
+      ["Tuesday, March 31", "6:00 PM", "Ironbirds", "Yard Goats", "MP 5"],
+      ["Tuesday, March 31", "6:00 PM", "Mussels", "Tides", "MP 6"],
+      ["Tuesday, March 31", "6:00 PM", "Tincaps", "Trash Pandas", "CES 1"],
+      ["Tuesday, March 31", "6:00 PM", "Grizzlies", "Rattlers", "CES 2"]
+    ],
+    "p1_b7-8": [
+      ["Monday, March 30", "6:00 PM", "Blue Rocks", "Marchauders", "CES 3"],
+      ["Monday, March 30", "6:00 PM", "Emeralds", "Red Wings", "SOP 1"],
+      ["Monday, March 30", "7:30 PM", "Thunder", "SOP TEAM", "CES 3"]
+    ],
+    "p1_b9-11": [
+      ["Tuesday, March 31", "6:15 PM", "Athletics", "Braves", "MP 2"],
+      ["Tuesday, March 31", "7:30 PM", "Blue Jays", "Cardinals", "MP 2"]
+    ],
+    "p1_s9-11": [
+      ["Wednesday, March 18", "6:15 PM", "Razorbacks", "Jayhawks", "CCP 3"],
+      ["Monday, March 23", "6:15 PM", "Hurricanes", "Razorbacks", "SOP 3"],
+      ["Wednesday, March 25", "6:15 PM", "Hurricanes", "Jayhawks", "SOP 3"],
+      ["Monday, March 30", "6:15 PM", "Jayhawks", "Razorbacks", "CCP 3"],
+      ["Wednesday, April 1", "6:15 PM", "Razorbacks", "Hurricanes", "CCP 3"],
+      ["Monday, April 13", "6:15 PM", "Jayhawks", "Hurricanes", "CCP 3"],
+      ["Wednesday, April 15", "6:15 PM", "Razorbacks", "Jayhawks", "CCP 3"],
+      ["Monday, April 20", "6:15 PM", "Hurricanes", "Razorbacks", "SOP 3"],
+      ["Wednesday, April 22", "6:15 PM", "Jayhawks", "Hurricanes", "CCP 3"],
+      ["Monday, April 27", "6:15 PM", "Jayhawks", "Razorbacks", "CCP 3"],
+      ["Wednesday, April 29", "6:15 PM", "Hurricanes", "Razorbacks", "SOP 3"],
+      ["Monday, May 4", "6:15 PM", "Hurricanes", "Jayhawks", "SOP 3"]
+    ],
+
+    "p2_s4-5": [["Tuesday, March 24", "6:00 PM", "SOPTEAM1", "SOPTEAM2", "SSP"]],
+    "p2_s6-7": [["Monday, March 23", "6:00 PM", "SOPTEAM1", "SOPTEAM2", "SSP"]],
+    "p2_s8-9": [["Tuesday, March 24", "6:00 PM", "SOPTEAM1", "SOPTEAM2", "SSP"]],
+    "p2_s10-11": [["Wednesday, March 25", "6:00 PM", "SOPTEAM1", "SOPTEAM2", "SSP"]],
+    "p2_s12-14": [
+      ["Thursday, March 19", "6:15 PM", "Orlando City SC", "Atlanta United", "SSP 6"],
+      ["Thursday, March 19", "7:30 PM", "Nashville SC", "Inter Miami", "SSP 6"],
+      ["Thursday, March 26", "6:15 PM", "Orlando City SC", "Nashville SC", "CCP 1"],
+      ["Thursday, March 26", "7:30 PM", "Charlotte FC", "Inter Miami", "CCP 1"],
+      ["Thursday, April 2", "6:15 PM", "Inter Miami", "Orlando City SC", "SSP 6"],
+      ["Thursday, April 2", "7:30 PM", "Atlanta United", "Charlotte FC", "SSP 6"],
+      ["Tuesday, April 14", "6:15 PM", "Orlando City SC", "Charlotte FC", "CCP 1"],
+      ["Tuesday, April 14", "7:30 PM", "Nashville SC", "Atlanta United", "CCP 1"],
+      ["Thursday, April 16", "6:15 PM", "Nashville SC", "Charlotte FC", "CCP 1"],
+      ["Thursday, April 16", "6:15 PM", "Atlanta United", "Inter Miami", "SSP 6"],
+      ["Tuesday, April 21", "6:15 PM", "Inter Miami", "Nashville SC", "CCP 1"],
+      ["Tuesday, April 21", "7:30 PM", "Atlanta United", "Orlando City SC", "CCP 1"],
+      ["Thursday, April 23", "6:15 PM", "Inter Miami", "Charlotte FC", "SSP 6"],
+      ["Thursday, April 23", "7:00 PM", "Nashville SC", "Orlando City SC", "CCP 1"],
+      ["Tuesday, April 28", "6:15 PM", "Charlotte FC", "Atlanta United", "CCP 1"],
+      ["Tuesday, April 28", "7:30 PM", "Orlando City SC", "Inter Miami", "CCP 1"],
+      ["Thursday, April 30", "6:15 PM", "Charlotte FC", "Orlando City SC", "CCP 1"],
+      ["Thursday, April 30", "6:15 PM", "Atlanta United", "Nashville SC", "SSP 6"],
+      ["Tuesday, May 5", "6:15 PM", "Charlotte FC", "Nashville SC", "CCP 1"],
+      ["Tuesday, May 5", "6:15 PM", "Inter Miami", "Atlanta United", "SSP 6"]
+    ],
+    "p2_f9-10": [["Tuesday, March 30", "6:00 PM", "SOPTEAM1", "SOPTEAM2", "SSP"]],
+    "p2_f11-12": [["Tuesday, March 30", "6:00 PM", "SOPTEAM1", "SOPTEAM2", "SSP"]],
+    "p2_f13-14": [["Tuesday, March 30", "6:00 PM", "SOPTEAM1", "SOPTEAM2", "SSP"]],
+    "p2_b3-4": [["Monday, March 29", "6:00 PM", "SOPTEAM1", "SOPTEAM2", "SOP"]],
+    "p2_b5-6": [["Tuesday, March 30", "6:00 PM", "SOPTEAM1", "SOPTEAM2", "SOP"]],
+    "p2_b7-8": [["Monday, March 29", "6:00 PM", "SOPTEAM1", "SOPTEAM2", "SOP"]],
+    "p2_b9-11": [["Tuesday, March 30", "6:00 PM", "SOPTEAM1", "SOPTEAM2", "SOP"]],
+    "p2_s9-11": [
+      ["Wednesday, March 18", "6:15 PM", "Razorbacks", "Jayhawks", "CCP 3"],
+      ["Monday, March 23", "6:15 PM", "Hurricanes", "Razorbacks", "SOP 3"],
+      ["Wednesday, March 25", "6:15 PM", "Hurricanes", "Jayhawks", "SOP 3"],
+      ["Monday, March 30", "6:15 PM", "Jayhawks", "Razorbacks", "CCP 3"],
+      ["Wednesday, April 1", "6:15 PM", "Razorbacks", "Hurricanes", "CCP 3"],
+      ["Monday, April 13", "6:15 PM", "Jayhawks", "Hurricanes", "CCP 3"],
+      ["Wednesday, April 15", "6:15 PM", "Razorbacks", "Jayhawks", "CCP 3"],
+      ["Monday, April 20", "6:15 PM", "Hurricanes", "Razorbacks", "SOP 3"],
+      ["Wednesday, April 22", "6:15 PM", "Jayhawks", "Hurricanes", "CCP 3"],
+      ["Monday, April 27", "6:15 PM", "Jayhawks", "Razorbacks", "CCP 3"],
+      ["Wednesday, April 29", "6:15 PM", "Hurricanes", "Razorbacks", "SOP 3"],
+      ["Monday, May 4", "6:15 PM", "Hurricanes", "Jayhawks", "SOP 3"]
+    ]
+  };
+
+  function escapeHtml(str) {
+    return String(str)
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#039;");
   }
 
-  function hideAllLeagues(){
-    var secs = qsa(".league-section");
-    for (var i=0;i<secs.length;i++){
-      secs[i].classList.remove("active");
-      secs[i].style.display = "none";
-    }
+  function expandVenue(venue) {
+  const str = String(venue).trim();
+  const parts = str.split(/\s+/);
+  const code = parts.shift() || "";
+  const rest = parts.join(" ");
+
+  const venueMap = {
+    CCP: "Crooked Creek Park",
+    MP: "Melvin Park",
+    SOP: "Seven Oaks Park",
+    SSP: "Saluda Shoals Park"
+  };
+
+  const fullName = venueMap[code] || code;
+
+  if (!rest) return fullName;
+  if (/^[A-Z]$/i.test(rest)) return `${fullName} Field ${rest.toUpperCase()}`;
+  if (/^\d+[A-Z]?$/i.test(rest)) return `${fullName} Field ${rest.toUpperCase()}`;
+
+  return `${fullName} ${rest}`;
   }
 
-  function clearActiveLinks(){
-    var links = qsa(".sidebar a");
-    for (var i=0;i<links.length;i++){
-      links[i].classList.remove("active-league");
-    }
+  function groupByDate(rows) {
+    const grouped = [];
+    let currentDate = null;
+    let currentGroup = null;
+
+    rows.forEach(function (row) {
+      const date = row[0];
+      if (date !== currentDate) {
+        currentDate = date;
+        currentGroup = { date: date, games: [] };
+        grouped.push(currentGroup);
+      }
+      currentGroup.games.push({
+        time: row[1],
+        away: row[2],
+        home: row[3],
+        venue: row[4]
+      });
+    });
+
+    return grouped;
   }
 
-  function setWelcomeText(parkName){
-    var box = document.getElementById("welcomeBox");
+  function renderLeagueSchedule(rows) {
+    const groups = groupByDate(rows || []);
+  if (!groups.length) {
+  return '<div class="schedule-empty">Schedule Coming Soon</div>';
+  }
+
+    return groups.map(function (group) {
+      return `
+        <div class="week-header"><div class="week-date">${escapeHtml(group.date)}</div></div>
+        <table>
+          <thead><tr><th>Time</th><th>Matchup</th><th>Venue</th></tr></thead>
+          <tbody>
+            ${group.games.map(function (game) {
+              return `
+                <tr>
+                  <td><span class="time-pill">${escapeHtml(game.time)}</span></td>
+                  <td>
+                    <div class="matchup">
+                      <span class="away-team">${escapeHtml(game.away)}</span>
+                      <span class="matchup-sep">vs.</span>
+                      <span class="home-team">${escapeHtml(game.home)}</span>
+                    </div>
+                  </td>
+                  <td><span class="location-pill">${escapeHtml(expandVenue(game.venue))}</span></td>
+                </tr>
+              `;
+            }).join("")}
+          </tbody>
+        </table>
+      `;
+    }).join("");
+  }
+
+  function renderAllSchedules() {
+    qsa(".schedule-render").forEach(function (container) {
+      const leagueId = container.getAttribute("data-league");
+      container.innerHTML = renderLeagueSchedule(schedules[leagueId] || []);
+    });
+  }
+
+  function hideAllLeagues() {
+    qsa(".league-section").forEach(function (sec) {
+      sec.classList.remove("active");
+      sec.style.display = "none";
+    });
+  }
+
+  function clearActiveLinks() {
+    qsa(".sidebar a").forEach(function (link) {
+      link.classList.remove("active-league");
+    });
+  }
+
+  function setWelcomeText(parkName) {
+    const box = document.getElementById("welcomeBox");
     if (!box) return;
-    var h = box.querySelector("h2");
-    var p = box.querySelector("p");
-    if (h) h.textContent = parkName ? ("Welcome to " + parkName + " Schedules") : "Welcome to the Winter Basketball Schedules Page";
-    if (p) p.textContent = parkName ? "Please select your league from the sidebar to view your schedule."
-                                    : "Please select a park, then a league, from the sidebar to view your schedule.";
+    const h = box.querySelector("h2");
+    const p = box.querySelector("p");
+
+    if (h) {
+      h.textContent = parkName
+        ? "Welcome to " + parkName + " Schedules"
+        : "Welcome to the Spring Athletics Schedules Page";
+    }
+
+    if (p) {
+      p.textContent = parkName
+        ? "Please select your league from the sidebar to view your schedule."
+        : "Please select a side of the district, then a league, from the sidebar to view your schedule.";
+    }
   }
 
-  window.showPark = function(parkId){
-    var box = document.getElementById("welcomeBox");
+  window.showPark = function (parkId) {
+    const box = document.getElementById("welcomeBox");
     if (box) box.style.display = "block";
 
     hideAllLeagues();
     clearActiveLinks();
 
-    // hide all league groups then show requested
-    var groups = qsa(".league-group");
-    for (var i=0;i<groups.length;i++) groups[i].style.display = "none";
-    var g = document.getElementById("leagueGroup_" + parkId);
-    if (g) g.style.display = "block";
+    qsa(".league-group").forEach(function (group) {
+      group.style.display = "none";
+    });
 
-    // active park styling
-    var parks = qsa(".park-link");
-    for (var j=0;j<parks.length;j++) parks[j].classList.remove("active-league");
-    var active = qs('.park-link[data-park="' + parkId + '"]');
-    if (active) active.classList.add("active-league");
+    const activeGroup = document.getElementById("leagueGroup_" + parkId);
+    if (activeGroup) activeGroup.style.display = "block";
 
-    var parkName = active ? (active.getAttribute("data-park-name") || "") : "";
-    setWelcomeText(parkName);
+    qsa(".park-link").forEach(function (park) {
+      park.classList.remove("active-league");
+    });
+
+    const activePark = qs('.park-link[data-park="' + parkId + '"]');
+    if (activePark) activePark.classList.add("active-league");
+
+    setWelcomeText(activePark ? (activePark.getAttribute("data-park-name") || "") : "");
   };
 
-  window.showLeague = function(sectionId){
-    var box = document.getElementById("welcomeBox");
+  window.showLeague = function (sectionId) {
+    const box = document.getElementById("welcomeBox");
     if (box) box.style.display = "none";
 
     hideAllLeagues();
 
-    var sec = document.getElementById(sectionId);
-    if (sec){
+    const sec = document.getElementById(sectionId);
+    if (sec) {
       sec.style.display = "block";
       sec.classList.add("active");
-      if (sec.scrollIntoView) sec.scrollIntoView({behavior:"smooth"});
+      if (sec.scrollIntoView) {
+        sec.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
     }
 
     clearActiveLinks();
-    var link = qs('.sidebar a[data-league="' + sectionId + '"]');
+    const link = qs('.sidebar a[data-league="' + sectionId + '"]');
     if (link) link.classList.add("active-league");
   };
 
-  function buildDateHeadersOnce(){
-    var tables = qsa(".league-section table");
-    for (var t=0;t<tables.length;t++){
-      var table = tables[t];
-      var tbody = table.querySelector("tbody") || table;
-      var dateRows = tbody.querySelectorAll("tr.new-date");
-      var last = null;
+  function bindClicks() {
+    qsa(".park-link").forEach(function (park) {
+      park.addEventListener("click", function (e) {
+        e.preventDefault();
+        const parkId = this.getAttribute("data-park");
+        if (parkId) window.showPark(parkId);
+      });
+    });
 
-      for (var r=0;r<dateRows.length;r++){
-        var row = dateRows[r];
-        var first = row.querySelector("td");
-        var dateText = first ? ((first.innerText || first.textContent || "").trim()) : "";
-        if (!dateText) continue;
-        if (dateText === last) continue;
-
-        var prev = row.previousElementSibling;
-        if (prev && prev.classList && prev.classList.contains("week-header-row")) { last = dateText; continue; }
-
-        var hr = document.createElement("tr");
-        hr.className = "week-header-row";
-        var td = document.createElement("td");
-        td.colSpan = 5;
-        td.textContent = dateText;
-        hr.appendChild(td);
-        tbody.insertBefore(hr, row);
-        last = dateText;
-      }
-    }
+    qsa(".league-link").forEach(function (league) {
+      league.addEventListener("click", function (e) {
+        e.preventDefault();
+        const leagueId = this.getAttribute("data-league");
+        if (leagueId) window.showLeague(leagueId);
+      });
+    });
   }
 
-  function bindClicks(){
-    var parks = qsa(".park-link");
-    for (var i=0;i<parks.length;i++){
-      parks[i].addEventListener("click", function(e){
-        e.preventDefault();
-        var pid = this.getAttribute("data-park");
-        if (pid) window.showPark(pid);
-      });
-    }
-    var leagues = qsa(".league-link");
-    for (var j=0;j<leagues.length;j++){
-      leagues[j].addEventListener("click", function(e){
-        e.preventDefault();
-        var lid = this.getAttribute("data-league");
-        if (lid) window.showLeague(lid);
-      });
-    }
-  }
-
-  document.addEventListener("DOMContentLoaded", function(){
-    showBadge();
+  document.addEventListener("DOMContentLoaded", function () {
+    renderAllSchedules();
     bindClicks();
-    buildDateHeadersOnce();
-
-    // initial state
-    var box = document.getElementById("welcomeBox");
-    if (box) box.style.display = "block";
     setWelcomeText("");
     hideAllLeagues();
-    var groups = qsa(".league-group");
-    for (var i=0;i<groups.length;i++) groups[i].style.display = "none";
+
+    qsa(".league-group").forEach(function (group) {
+      group.style.display = "none";
+    });
+
+    const box = document.getElementById("welcomeBox");
+    if (box) box.style.display = "block";
   });
 })();
 </script>
 </body>
-</html>
+</html>l>
