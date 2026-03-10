@@ -36,7 +36,7 @@
     --line-soft: #D9E4EC;
     --line-light: #EDF2F7;
 
-    --bg-page: #EEF3F8;
+    --bg-page: #ECF2F7;
     --bg-card: #FFFFFF;
     --bg-soft: #F8FBFE;
 }
@@ -49,11 +49,40 @@ body {
     padding-top: var(--header-total);
     box-sizing: border-box;
 }
+body {
+    margin: 0;
+    font-family: "Segoe UI", Arial, sans-serif;
+    background: var(--bg-page);
+    color: var(--text-main);
+    padding-top: var(--header-total);
+    box-sizing: border-box;
+}
 
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background-image: url("your-logo.png");
+    background-repeat: no-repeat;
+    background-position: center 58%;
+    background-size: 420px auto;
+    opacity: 0.03;
+    pointer-events: none;
+    z-index: 0;
+}
 *,
 *::before,
 *::after {
     box-sizing: inherit;
+}
+
+.sidebar,
+.content,
+.welcome-box,
+.sponsor-wrapper,
+.topnav {
+    position: relative;
+    z-index: 1;
 }
 
 .top-stack,
@@ -109,6 +138,9 @@ body {
     align-items: center;
     overflow: hidden;
     border-bottom: 1px solid #dde5ea;
+    box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.7),
+    inset 0 -1px 0 rgba(0,0,0,0.04);
 }
 
 .sponsor-logos {
@@ -126,6 +158,7 @@ body {
     margin: 0 24px;
     transition: opacity 0.2s ease, transform 0.2s ease;
     flex-shrink: 0;
+    filter: grayscale(6%);
 }
 
 .sponsor-logos img:hover {
@@ -174,7 +207,7 @@ body {
 }
 
 .topnav-logo {
-    height: 38px;
+    height: 50px;
     width: auto;
     object-fit: contain;
     background: #ffffff;
@@ -402,6 +435,19 @@ body {
     color: var(--text-muted);
 }
 
+.welcome-box::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    transform: translateX(-50%);
+    width: 120px;
+    height: 4px;
+    border-radius: 999px;
+    background: linear-gradient(to right, var(--brand-green), var(--brand-blue));
+    opacity: 0.85;
+}
+
 @keyframes fadeIn {
     from { opacity: 0; transform: translateY(6px); }
     to   { opacity: 1; transform: translateY(0); }
@@ -426,6 +472,9 @@ body {
 .league-section.active {
     display: block;
     animation: sectionFade 0.22s ease;
+    box-shadow:
+        0 16px 36px rgba(0,0,0,0.07),
+        0 0 0 1px rgba(18,111,175,0.06);
 }
 
 @keyframes sectionFade {
@@ -479,11 +528,12 @@ body {
 }
 
 .league-subtext {
-    margin: -8px 0 20px 0;
-    font-size: 0.92rem;
+    margin: -4px 0 18px 0;
+    font-size: 0.9rem;
     color: var(--text-muted);
     font-weight: 700;
-    letter-spacing: 0.1px;
+    letter-spacing: 0.15px;
+    text-transform: uppercase;
 }
 
 /* ============================
@@ -491,9 +541,11 @@ body {
 ============================ */
 table {
     width: 100%;
+    margin-top: 20px;
+    margin-left: 0;
+    margin-right: auto;
     border-collapse: separate;
     border-spacing: 0;
-    margin-top: 20px;
     font-size: 0.98rem;
     line-height: 1.4;
     background: #ffffff;
@@ -504,32 +556,14 @@ table {
     box-shadow: 0 8px 20px rgba(0,0,0,0.07);
 }
 
-th,
-td {
-    text-align: left;
-    vertical-align: middle;
-}
+th:nth-child(1), td:nth-child(1) { width: 140px; }
+th:nth-child(2), td:nth-child(2) { width: 46%; }
+th:nth-child(3), td:nth-child(3) { width: 34%; }
 
-th {
-    background: linear-gradient(to bottom, #e8f0f7, #dfeaf3);
-    color: var(--brand-blue-dark);
-    font-weight: 800;
-    border-bottom: 1px solid #d2dee8;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    font-size: 0.75rem;
-    padding: 13px 12px;
+td:nth-child(1) {
+    color: var(--text-muted);
+    font-size: 0.94rem;
 }
-
-td {
-    padding: 15px 12px;
-    border-bottom: 1px solid var(--line-light);
-    color: var(--text-main);
-}
-
-th:nth-child(1), td:nth-child(1) { width: 115px; }
-th:nth-child(2), td:nth-child(2) { width: 58%; }
-th:nth-child(3), td:nth-child(3) { width: 27%; }
 
 td:nth-child(2) {
     color: var(--text-main);
@@ -543,6 +577,30 @@ td:nth-child(3) {
     padding-left: 8px;
 }
 
+th,
+td {
+    text-align: left;
+    vertical-align: middle;
+}
+
+th {
+    background: linear-gradient(to bottom, #edf3f8, #e3edf5);
+    color: var(--brand-blue-dark);
+    font-weight: 800;
+    border-bottom: 1px solid #d2dee8;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 0.75rem;
+    padding: 13px 12px;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.65);
+}
+
+td {
+    padding: 15px 12px;
+    border-bottom: 1px solid var(--line-light);
+    color: var(--text-main);
+}
+
 tbody tr:nth-child(even) {
     background: #fbfdff;
 }
@@ -552,12 +610,12 @@ tbody tr:nth-child(odd) {
 }
 
 tbody tr {
-    transition: background 0.15s ease, transform 0.15s ease;
+    transition: background 0.15s ease, box-shadow 0.15s ease;
 }
 
 tbody tr:hover {
-    background: #f3f8fd;
-    box-shadow: inset 0 0 0 9999px rgba(18,111,175,0.03);
+    background: #f5f9fd;
+    box-shadow: inset 0 0 0 9999px rgba(18,111,175,0.025);
 }
 
 tbody tr:last-child td {
@@ -583,12 +641,12 @@ td:nth-child(1) {
     font-weight: 800;
     color: #ffffff;
     background: linear-gradient(to right, var(--brand-blue-dark), var(--brand-blue));
-    padding: 11px 18px;
+    padding: 11px 20px;
     border-radius: 999px;
-    letter-spacing: 0.4px;
+    letter-spacing: 0.35px;
     box-shadow:
         inset 0 1px 0 rgba(255,255,255,0.18),
-        0 5px 12px rgba(12, 86, 136, 0.18);
+        0 6px 14px rgba(12, 86, 136, 0.18);
 }
 
 .week-header + table {
@@ -605,10 +663,10 @@ table + .week-header {
 .matchup {
     display: inline-flex;
     align-items: center;
-    gap: 14px;
+    gap: 16px;
     flex-wrap: nowrap;
     white-space: nowrap;
-    padding: 10px 18px;
+    padding: 11px 22px;
     border-radius: 999px;
     background: linear-gradient(to right, #f3f8f1 0%, #f6f9fc 45%, #eef5fb 100%);
     border: 1px solid #cfdce7;
@@ -620,7 +678,7 @@ table + .week-header {
 
 .away-team,
 .home-team {
-    font-size: 1rem;
+    font-size: 1.04rem;
     line-height: 1.2;
     min-width: 0;
     font-weight: 800;
@@ -661,32 +719,40 @@ td:nth-child(2) {
 
 .time-pill {
     display: inline-block;
-    padding: 9px 14px;
+    padding: 9px 18px;
     border-radius: 999px;
-    font-size: 0.9rem;
+    font-size: 0.92rem;
     font-weight: 800;
     text-transform: uppercase;
     letter-spacing: 0.5px;
     line-height: 1;
     background: var(--brand-blue-light);
     color: var(--brand-blue-dark);
-    border: 1px solid #CFE0EC;
+    border: 1px solid #cfe0ec;
     box-shadow: 0 1px 3px rgba(12, 86, 136, 0.08);
 }
 
 .location-pill {
     display: inline-block;
-    padding: 8px 14px;
+    padding: 9px 16px;
     border-radius: 999px;
-    font-size: 0.86rem;
+    font-size: 0.88rem;
     font-weight: 800;
-    letter-spacing: 0.15px;
+    letter-spacing: 0.1px;
     line-height: 1.2;
     background: var(--brand-green-light);
     color: var(--brand-green-dark);
-    border: 1px solid #D5E9CC;
+    border: 1px solid #d5e9cc;
     white-space: nowrap;
     box-shadow: 0 1px 3px rgba(63, 148, 50, 0.08);
+}
+.time-pill {
+    min-width: 82px;
+    text-align: center;
+}
+.location-pill {
+    min-width: 220px;
+    text-align: center;
 }
 
 .schedule-empty {
@@ -732,194 +798,37 @@ td:nth-child(2) {
 }
 
 @media (max-width: 900px) {
-    :root {
-        --thankyou-height: 34px;
-        --sponsor-height: 56px;
-        --topnav-height: 58px;
-        --sidebar-width: 100%;
-    }
-
-    body {
-        padding-top: calc(var(--thankyou-height) + var(--sponsor-height) + var(--topnav-height));
-    }
-
-    /* ============================
-       HEADER STACK
-    ============================ */
-    .sponsor-thankyou {
-        min-height: var(--thankyou-height);
-        padding: 6px 10px;
-        font-size: 0.78rem;
-        line-height: 1.2;
-        text-align: center;
-    }
-
-    .sponsor-banner {
-        min-height: var(--sponsor-height);
-        padding: 8px 10px;
-        overflow-x: auto;
-        overflow-y: hidden;
-        justify-content: flex-start;
-        -webkit-overflow-scrolling: touch;
-    }
-
-    .sponsor-banner::-webkit-scrollbar {
-        display: none;
-    }
-
-    .sponsor-logos {
-        animation: none;
-        width: max-content;
-        display: flex;
-        align-items: center;
-    }
-
-    .sponsor-logos img {
-        height: 34px;
-        margin: 0 14px;
-        opacity: 0.95;
-    }
-
-    .topnav {
-        top: calc(var(--thankyou-height) + var(--sponsor-height));
-        min-height: var(--topnav-height);
-        padding: 10px 12px;
-        gap: 10px;
-        flex-wrap: nowrap;
-    }
-
-    .topnav-left {
-        gap: 10px;
-        min-width: 0;
-    }
-
-    .topnav-logo {
-        height: 30px;
-        padding: 4px;
-        border-radius: 6px;
-    }
-
-    .topnav-title {
-        font-size: 1rem;
-        letter-spacing: 0.3px;
-        line-height: 1.1;
-    }
-
-    .topnav-right {
-        display: none;
-    }
-
-    /* ============================
-       SIDEBAR / LAYOUT
-    ============================ */
     .sidebar {
-        position: relative;
-        top: 0;
+        position: static;
         width: 100%;
         height: auto;
-        margin-top: 12px;
         border-right: none;
         border-bottom: 1px solid #dde5ea;
-        border-radius: 14px;
-        overflow: hidden;
-        z-index: 1;
     }
 
     .content {
         margin-left: 0;
-        padding: 18px 14px 40px 14px;
-    }
-
-    .welcome-box {
-        padding: 26px 22px;
-        margin: 18px auto 28px auto;
-    }
-
-    .welcome-box h2 {
-        font-size: 1.6rem;
-    }
-
-    .welcome-box p {
-        font-size: 0.96rem;
+        padding: 24px 18px 50px 18px;
     }
 
     .league-section {
         padding: 22px 18px;
-        margin-bottom: 34px;
     }
 
-    .league-header {
-        gap: 12px;
-        margin-bottom: 18px;
+    .welcome-box {
+        padding: 26px 22px;
     }
 
-    .league-title {
-        font-size: 1.55rem;
-        padding: 12px 16px;
-    }
+   table {
+    width: 100%;
+}
 
-    .league-meta {
-        font-size: 0.72rem;
-        padding: 7px 10px;
-    }
-
-    .league-subtext {
-        margin: -4px 0 16px 0;
-        font-size: 0.88rem;
-        line-height: 1.4;
-    }
-
-    /* ============================
-       SIDEBAR LINKS
-    ============================ */
-    .sidebar h3 {
-        font-size: 0.92rem;
-    }
-
-    .sidebar .park-link,
-    .sidebar .league-link {
-        font-size: 0.95rem;
-    }
-
-    .sidebar .league-link {
-        padding: 9px 10px;
-    }
-
-    /* ============================
-       TABLES
-    ============================ */
-    table {
-        font-size: 0.92rem;
-    }
+th:nth-child(1), td:nth-child(1) { width: 96px; }
+th:nth-child(2), td:nth-child(2) { width: auto; }
+th:nth-child(3), td:nth-child(3) { width: 145px; }
 
     th {
         font-size: 0.72rem;
-        padding: 12px 10px;
-    }
-
-    td {
-        padding: 13px 10px;
-    }
-
-    th:nth-child(1), td:nth-child(1) { width: 96px; }
-    th:nth-child(2), td:nth-child(2) { width: auto; }
-    th:nth-child(3), td:nth-child(3) { width: 145px; }
-
-    .week-date {
-        font-size: 0.94rem;
-        padding: 10px 14px;
-    }
-
-    /* ============================
-       MATCHUP / PILLS
-    ============================ */
-    .matchup {
-        white-space: normal;
-        flex-wrap: wrap;
-        row-gap: 4px;
-        padding: 10px 14px;
-        gap: 10px;
-        min-height: auto;
     }
 
     .away-team,
@@ -927,24 +836,15 @@ td:nth-child(2) {
         font-size: 0.92rem;
     }
 
-    .matchup-sep {
-        font-size: 0.68rem;
-    }
+    .matchup {
+    white-space: normal;
+    flex-wrap: wrap;
+    row-gap: 6px;
+}
 
-    .time-pill {
-        padding: 8px 12px;
-        font-size: 0.84rem;
-    }
-
-    .location-pill {
-        padding: 8px 12px;
-        font-size: 0.82rem;
-        white-space: normal;
-    }
-
-    .schedule-empty {
-        font-size: 0.92rem;
-    }
+.location-pill {
+    white-space: normal;
+}
 }
 </style>
 </head>
@@ -1064,33 +964,33 @@ td:nth-child(2) {
 
 <!-- Main Content -->
 <div class="content">
-  <div class="league-section" id="p1_s4-5"><div class="league-header"><div class="league-title">4-5 Soccer</div><div class="league-meta">Season Schedule</div></div><div class="league-subtext">TEAM LISTED FIRST WILL WEAR LIGHTER COLORED JERSEY</div><div class="schedule-render" data-league="p1_s4-5"></div></div>
-  <div class="league-section" id="p1_s6-7"><div class="league-header"><div class="league-title">6-7 Soccer</div><div class="league-meta">Season Schedule</div></div><div class="league-subtext">TEAM LISTED FIRST WILL WEAR LIGHTER COLORED JERSEY</div><div class="schedule-render" data-league="p1_s6-7"></div></div>
-  <div class="league-section" id="p1_s8-9"><div class="league-header"><div class="league-title">8-9 Soccer</div><div class="league-meta">Season Schedule</div></div><div class="league-subtext">TEAM LISTED FIRST WILL WEAR LIGHTER COLORED JERSEY</div><div class="schedule-render" data-league="p1_s8-9"></div></div>
-  <div class="league-section" id="p1_s10-11"><div class="league-header"><div class="league-title">10-11 Soccer</div><div class="league-meta">Season Schedule</div></div><div class="league-subtext">TEAM LISTED FIRST WILL WEAR LIGHTER COLORED JERSEY</div><div class="schedule-render" data-league="p1_s10-11"></div></div>
-  <div class="league-section" id="p1_s12-14"><div class="league-header"><div class="league-title">12-14 Soccer</div><div class="league-meta">Season Schedule</div></div><div class="league-subtext">TEAM LISTED FIRST WILL WEAR LIGHTER COLORED JERSEY</div><div class="schedule-render" data-league="p1_s12-14"></div></div>
-  <div class="league-section" id="p1_f9-10"><div class="league-header"><div class="league-title">9-10 Flag Football</div><div class="league-meta">Season Schedule</div></div><div class="league-subtext">TEAM LISTED FIRST WILL WEAR LIGHTER COLORED JERSEY</div><div class="schedule-render" data-league="p1_f9-10"></div></div>
-  <div class="league-section" id="p1_f11-12"><div class="league-header"><div class="league-title">11-12 Flag Football</div><div class="league-meta">Season Schedule</div></div><div class="league-subtext">TEAM LISTED FIRST WILL WEAR LIGHTER COLORED JERSEY</div><div class="schedule-render" data-league="p1_f11-12"></div></div>
-  <div class="league-section" id="p1_f13-14"><div class="league-header"><div class="league-title">13-14 Flag Football</div><div class="league-meta">Season Schedule</div></div><div class="league-subtext">TEAM LISTED FIRST WILL WEAR LIGHTER COLORED JERSEY</div><div class="schedule-render" data-league="p1_f13-14"></div></div>
-  <div class="league-section" id="p1_b3-4"><div class="league-header"><div class="league-title">3-4 Tee Ball</div><div class="league-meta">Season Schedule</div></div><div class="schedule-render" data-league="p1_b3-4"></div></div>
-  <div class="league-section" id="p1_b5-6"><div class="league-header"><div class="league-title">5-6 Coach Pitch</div><div class="league-meta">Season Schedule</div></div><div class="schedule-render" data-league="p1_b5-6"></div></div>
-  <div class="league-section" id="p1_b7-8"><div class="league-header"><div class="league-title">7-8 Machine Pitch</div><div class="league-meta">Season Schedule</div></div><div class="schedule-render" data-league="p1_b7-8"></div></div>
-  <div class="league-section" id="p1_b9-11"><div class="league-header"><div class="league-title">9-11 Baseball</div><div class="league-meta">Season Schedule</div></div><div class="schedule-render" data-league="p1_b9-11"></div></div>
-  <div class="league-section" id="p1_s9-11"><div class="league-header"><div class="league-title">9-11 Softball</div><div class="league-meta">Season Schedule</div></div><div class="schedule-render" data-league="p1_s9-11"></div></div>
+  <div class="league-section" id="p1_s4-5"><div class="league-header"><div class="league-title">4-5 Soccer</div><div class="league-meta">Game Schedule</div></div><div class="league-subtext">TEAM LISTED FIRST WILL WEAR LIGHTER COLORED JERSEY</div><div class="schedule-render" data-league="p1_s4-5"></div></div>
+  <div class="league-section" id="p1_s6-7"><div class="league-header"><div class="league-title">6-7 Soccer</div><div class="league-meta">Game Schedule</div></div><div class="league-subtext">TEAM LISTED FIRST WILL WEAR LIGHTER COLORED JERSEY</div><div class="schedule-render" data-league="p1_s6-7"></div></div>
+  <div class="league-section" id="p1_s8-9"><div class="league-header"><div class="league-title">8-9 Soccer</div><div class="league-meta">Game Schedule</div></div><div class="league-subtext">TEAM LISTED FIRST WILL WEAR LIGHTER COLORED JERSEY</div><div class="schedule-render" data-league="p1_s8-9"></div></div>
+  <div class="league-section" id="p1_s10-11"><div class="league-header"><div class="league-title">10-11 Soccer</div><div class="league-meta">Game Schedule</div></div><div class="league-subtext">TEAM LISTED FIRST WILL WEAR LIGHTER COLORED JERSEY</div><div class="schedule-render" data-league="p1_s10-11"></div></div>
+  <div class="league-section" id="p1_s12-14"><div class="league-header"><div class="league-title">12-14 Soccer</div><div class="league-meta">Game Schedule</div></div><div class="league-subtext">TEAM LISTED FIRST WILL WEAR LIGHTER COLORED JERSEY</div><div class="schedule-render" data-league="p1_s12-14"></div></div>
+  <div class="league-section" id="p1_f9-10"><div class="league-header"><div class="league-title">9-10 Flag Football</div><div class="league-meta">Game Schedule</div></div><div class="league-subtext">TEAM LISTED FIRST WILL WEAR LIGHTER COLORED JERSEY</div><div class="schedule-render" data-league="p1_f9-10"></div></div>
+  <div class="league-section" id="p1_f11-12"><div class="league-header"><div class="league-title">11-12 Flag Football</div><div class="league-meta">Game Schedule</div></div><div class="league-subtext">TEAM LISTED FIRST WILL WEAR LIGHTER COLORED JERSEY</div><div class="schedule-render" data-league="p1_f11-12"></div></div>
+  <div class="league-section" id="p1_f13-14"><div class="league-header"><div class="league-title">13-14 Flag Football</div><div class="league-meta">Game Schedule</div></div><div class="league-subtext">TEAM LISTED FIRST WILL WEAR LIGHTER COLORED JERSEY</div><div class="schedule-render" data-league="p1_f13-14"></div></div>
+  <div class="league-section" id="p1_b3-4"><div class="league-header"><div class="league-title">3-4 Tee Ball</div><div class="league-meta">Game Schedule</div></div><div class="schedule-render" data-league="p1_b3-4"></div></div>
+  <div class="league-section" id="p1_b5-6"><div class="league-header"><div class="league-title">5-6 Coach Pitch</div><div class="league-meta">Game Schedule</div></div><div class="schedule-render" data-league="p1_b5-6"></div></div>
+  <div class="league-section" id="p1_b7-8"><div class="league-header"><div class="league-title">7-8 Machine Pitch</div><div class="league-meta">Game Schedule</div></div><div class="schedule-render" data-league="p1_b7-8"></div></div>
+  <div class="league-section" id="p1_b9-11"><div class="league-header"><div class="league-title">9-11 Baseball</div><div class="league-meta">Game Schedule</div></div><div class="schedule-render" data-league="p1_b9-11"></div></div>
+  <div class="league-section" id="p1_s9-11"><div class="league-header"><div class="league-title">9-11 Softball</div><div class="league-meta">Game Schedule</div></div><div class="schedule-render" data-league="p1_s9-11"></div></div>
 
-  <div class="league-section" id="p2_s4-5"><div class="league-header"><div class="league-title">4-5 Soccer</div><div class="league-meta">Season Schedule</div></div><div class="league-subtext">TEAM LISTED FIRST WILL WEAR LIGHTER COLORED JERSEY</div><div class="schedule-render" data-league="p2_s4-5"></div></div>
-  <div class="league-section" id="p2_s6-7"><div class="league-header"><div class="league-title">6-7 Soccer</div><div class="league-meta">Season Schedule</div></div><div class="league-subtext">TEAM LISTED FIRST WILL WEAR LIGHTER COLORED JERSEY</div><div class="schedule-render" data-league="p2_s6-7"></div></div>
-  <div class="league-section" id="p2_s8-9"><div class="league-header"><div class="league-title">8-9 Soccer</div><div class="league-meta">Season Schedule</div></div><div class="league-subtext">TEAM LISTED FIRST WILL WEAR LIGHTER COLORED JERSEY</div><div class="schedule-render" data-league="p2_s8-9"></div></div>
-  <div class="league-section" id="p2_s10-11"><div class="league-header"><div class="league-title">10-11 Soccer</div><div class="league-meta">Season Schedule</div></div><div class="league-subtext">TEAM LISTED FIRST WILL WEAR LIGHTER COLORED JERSEY</div><div class="schedule-render" data-league="p2_s10-11"></div></div>
-  <div class="league-section" id="p2_s12-14"><div class="league-header"><div class="league-title">12-14 Soccer</div><div class="league-meta">Season Schedule</div></div><div class="league-subtext">TEAM LISTED FIRST WILL WEAR LIGHTER COLORED JERSEY</div><div class="schedule-render" data-league="p2_s12-14"></div></div>
-  <div class="league-section" id="p2_f9-10"><div class="league-header"><div class="league-title">9-10 Flag Football</div><div class="league-meta">Season Schedule</div><div class="league-subtext">TEAM LISTED FIRST WILL WEAR LIGHTER COLORED JERSEY</div></div><div class="schedule-render" data-league="p2_f9-10"></div></div>
-  <div class="league-section" id="p2_f11-12"><div class="league-header"><div class="league-title">11-12 Flag Football</div><div class="league-meta">Season Schedule</div><div class="league-subtext">TEAM LISTED FIRST WILL WEAR LIGHTER COLORED JERSEY</div></div><div class="schedule-render" data-league="p2_f11-12"></div></div>
-  <div class="league-section" id="p2_f13-14"><div class="league-header"><div class="league-title">13-14 Flag Football</div><div class="league-meta">Season Schedule</div><div class="league-subtext">TEAM LISTED FIRST WILL WEAR LIGHTER COLORED JERSEY</div></div><div class="schedule-render" data-league="p2_f13-14"></div></div>
-  <div class="league-section" id="p2_b3-4"><div class="league-header"><div class="league-title">3-4 Tee Ball</div><div class="league-meta">Season Schedule</div></div><div class="schedule-render" data-league="p2_b3-4"></div></div>
-  <div class="league-section" id="p2_b5-6"><div class="league-header"><div class="league-title">5-6 Coach Pitch</div><div class="league-meta">Season Schedule</div></div><div class="schedule-render" data-league="p2_b5-6"></div></div>
-  <div class="league-section" id="p2_b7-8"><div class="league-header"><div class="league-title">7-8 Machine Pitch</div><div class="league-meta">Season Schedule</div></div><div class="schedule-render" data-league="p2_b7-8"></div></div>
-  <div class="league-section" id="p2_b9-11"><div class="league-header"><div class="league-title">9-11 Baseball</div><div class="league-meta">Season Schedule</div></div><div class="schedule-render" data-league="p2_b9-11"></div></div>
-  <div class="league-section" id="p2_s9-11"><div class="league-header"><div class="league-title">9-11 Softball</div><div class="league-meta">Season Schedule</div></div><div class="schedule-render" data-league="p2_s9-11"></div></div>
+  <div class="league-section" id="p2_s4-5"><div class="league-header"><div class="league-title">4-5 Soccer</div><div class="league-meta">Game Schedule</div></div><div class="league-subtext">TEAM LISTED FIRST WILL WEAR LIGHTER COLORED JERSEY</div><div class="schedule-render" data-league="p2_s4-5"></div></div>
+  <div class="league-section" id="p2_s6-7"><div class="league-header"><div class="league-title">6-7 Soccer</div><div class="league-meta">Game Schedule</div></div><div class="league-subtext">TEAM LISTED FIRST WILL WEAR LIGHTER COLORED JERSEY</div><div class="schedule-render" data-league="p2_s6-7"></div></div>
+  <div class="league-section" id="p2_s8-9"><div class="league-header"><div class="league-title">8-9 Soccer</div><div class="league-meta">Game Schedule</div></div><div class="league-subtext">TEAM LISTED FIRST WILL WEAR LIGHTER COLORED JERSEY</div><div class="schedule-render" data-league="p2_s8-9"></div></div>
+  <div class="league-section" id="p2_s10-11"><div class="league-header"><div class="league-title">10-11 Soccer</div><div class="league-meta">Game Schedule</div></div><div class="league-subtext">TEAM LISTED FIRST WILL WEAR LIGHTER COLORED JERSEY</div><div class="schedule-render" data-league="p2_s10-11"></div></div>
+  <div class="league-section" id="p2_s12-14"><div class="league-header"><div class="league-title">12-14 Soccer</div><div class="league-meta">Game Schedule</div></div><div class="league-subtext">TEAM LISTED FIRST WILL WEAR LIGHTER COLORED JERSEY</div><div class="schedule-render" data-league="p2_s12-14"></div></div>
+  <div class="league-section" id="p2_f9-10"><div class="league-header"><div class="league-title">9-10 Flag Football</div><div class="league-meta">Game Schedule</div><div class="league-subtext">TEAM LISTED FIRST WILL WEAR LIGHTER COLORED JERSEY</div></div><div class="schedule-render" data-league="p2_f9-10"></div></div>
+  <div class="league-section" id="p2_f11-12"><div class="league-header"><div class="league-title">11-12 Flag Football</div><div class="league-meta">Game Schedule</div><div class="league-subtext">TEAM LISTED FIRST WILL WEAR LIGHTER COLORED JERSEY</div></div><div class="schedule-render" data-league="p2_f11-12"></div></div>
+  <div class="league-section" id="p2_f13-14"><div class="league-header"><div class="league-title">13-14 Flag Football</div><div class="league-meta">Game Schedule</div><div class="league-subtext">TEAM LISTED FIRST WILL WEAR LIGHTER COLORED JERSEY</div></div><div class="schedule-render" data-league="p2_f13-14"></div></div>
+  <div class="league-section" id="p2_b3-4"><div class="league-header"><div class="league-title">3-4 Tee Ball</div><div class="league-meta">Game Schedule</div></div><div class="schedule-render" data-league="p2_b3-4"></div></div>
+  <div class="league-section" id="p2_b5-6"><div class="league-header"><div class="league-title">5-6 Coach Pitch</div><div class="league-meta">Game Schedule</div></div><div class="schedule-render" data-league="p2_b5-6"></div></div>
+  <div class="league-section" id="p2_b7-8"><div class="league-header"><div class="league-title">7-8 Machine Pitch</div><div class="league-meta">Game Schedule</div></div><div class="schedule-render" data-league="p2_b7-8"></div></div>
+  <div class="league-section" id="p2_b9-11"><div class="league-header"><div class="league-title">9-11 Baseball</div><div class="league-meta">Game Schedule</div></div><div class="schedule-render" data-league="p2_b9-11"></div></div>
+  <div class="league-section" id="p2_s9-11"><div class="league-header"><div class="league-title">9-11 Softball</div><div class="league-meta">Game Schedule</div></div><div class="schedule-render" data-league="p2_s9-11"></div></div>
 </div>
 
 <script>
@@ -1264,17 +1164,17 @@ td:nth-child(2) {
           <tbody>
             ${group.games.map(function (game) {
               return `
-                <tr>
-                  <td><span class="time-pill">${escapeHtml(game.time)}</span></td>
-                  <td>
-                    <div class="matchup">
-                      <span class="away-team">${escapeHtml(game.away)}</span>
-                      <span class="matchup-sep">vs.</span>
-                      <span class="home-team">${escapeHtml(game.home)}</span>
-                    </div>
-                  </td>
-                  <td><span class="location-pill">${escapeHtml(expandVenue(game.venue))}</span></td>
-                </tr>
+               <tr>
+  <td><span class="time-pill">${escapeHtml(game.time)}</span></td>
+  <td>
+    <div class="matchup">
+      <span class="away-team">${escapeHtml(game.away)}</span>
+      <span class="matchup-sep">vs.</span>
+      <span class="home-team">${escapeHtml(game.home)}</span>
+    </div>
+  </td>
+  <td><span class="location-pill">${escapeHtml(expandVenue(game.venue))}</span></td>
+</tr>
               `;
             }).join("")}
           </tbody>
