@@ -907,11 +907,9 @@ th:nth-child(3), td:nth-child(3) { width: 145px; }
     <img alt="League Logo" class="topnav-logo" src="your-logo.png" />
     <div class="topnav-title">ICRC Spring Athletic Schedules</div>
   </div>
-
   <div class="topnav-right">
     <img alt="Sponsor Logo 1" class="topnav-logo" src="mlsgo.png" />
     <img alt="Sponsor Logo 2" class="topnav-logo" src="nflflag.png" />
-    <img alt="Sponsor Logo 3" class="topnav-logo" src="braves.png" />
   </div>
 </div>
 </div>
@@ -975,8 +973,8 @@ th:nth-child(3), td:nth-child(3) { width: 145px; }
   <div class="league-section" id="p1_b3-4"><div class="league-header"><div class="league-title">3-4 Tee Ball</div><div class="league-meta">Game Schedule</div></div><div class="schedule-render" data-league="p1_b3-4"></div></div>
   <div class="league-section" id="p1_b5-6"><div class="league-header"><div class="league-title">5-6 Coach Pitch</div><div class="league-meta">Game Schedule</div></div><div class="schedule-render" data-league="p1_b5-6"></div></div>
   <div class="league-section" id="p1_b7-8"><div class="league-header"><div class="league-title">7-8 Machine Pitch</div><div class="league-meta">Game Schedule</div></div><div class="schedule-render" data-league="p1_b7-8"></div></div>
-  <div class="league-section" id="p1_b9-11"><div class="league-header"><div class="league-title">9-11 Baseball</div><div class="league-meta">Game Schedule</div></div><div class="schedule-render" data-league="p1_b9-11"></div></div>
-  <div class="league-section" id="p1_s9-11"><div class="league-header"><div class="league-title">9-11 Softball</div><div class="league-meta">Game Schedule</div></div><div class="schedule-render" data-league="p1_s9-11"></div></div>
+  <div class="league-section" id="p1_b9-11"><div class="league-header"><div class="league-title">9-11 Baseball</div><div class="league-meta">Game Schedule</div></div><div class="league-subtext">HOME TEAM LISTED FIRST</div><div class="schedule-render" data-league="p1_b9-11"></div></div>
+  <div class="league-section" id="p1_s9-11"><div class="league-header"><div class="league-title">9-11 Softball</div><div class="league-meta">Game Schedule</div></div><div class="league-subtext">HOME TEAM LISTED FIRST</div><div class="schedule-render" data-league="p1_s9-11"></div></div>
 
   <div class="league-section" id="p2_s4-5"><div class="league-header"><div class="league-title">4-5 Soccer</div><div class="league-meta">Game Schedule</div></div><div class="league-subtext">TEAM LISTED FIRST WILL WEAR LIGHTER COLORED JERSEY</div><div class="schedule-render" data-league="p2_s4-5"></div></div>
   <div class="league-section" id="p2_s6-7"><div class="league-header"><div class="league-title">6-7 Soccer</div><div class="league-meta">Game Schedule</div></div><div class="league-subtext">TEAM LISTED FIRST WILL WEAR LIGHTER COLORED JERSEY</div><div class="schedule-render" data-league="p2_s6-7"></div></div>
@@ -989,8 +987,8 @@ th:nth-child(3), td:nth-child(3) { width: 145px; }
   <div class="league-section" id="p2_b3-4"><div class="league-header"><div class="league-title">3-4 Tee Ball</div><div class="league-meta">Game Schedule</div></div><div class="schedule-render" data-league="p2_b3-4"></div></div>
   <div class="league-section" id="p2_b5-6"><div class="league-header"><div class="league-title">5-6 Coach Pitch</div><div class="league-meta">Game Schedule</div></div><div class="schedule-render" data-league="p2_b5-6"></div></div>
   <div class="league-section" id="p2_b7-8"><div class="league-header"><div class="league-title">7-8 Machine Pitch</div><div class="league-meta">Game Schedule</div></div><div class="schedule-render" data-league="p2_b7-8"></div></div>
-  <div class="league-section" id="p2_b9-11"><div class="league-header"><div class="league-title">9-11 Baseball</div><div class="league-meta">Game Schedule</div></div><div class="schedule-render" data-league="p2_b9-11"></div></div>
-  <div class="league-section" id="p2_s9-11"><div class="league-header"><div class="league-title">9-11 Softball</div><div class="league-meta">Game Schedule</div></div><div class="schedule-render" data-league="p2_s9-11"></div></div>
+  <div class="league-section" id="p2_b9-11"><div class="league-header"><div class="league-title">9-11 Baseball</div><div class="league-meta">Game Schedule</div></div><div class="league-subtext">HOME TEAM LISTED FIRST</div><div class="schedule-render" data-league="p2_b9-11"></div></div>
+  <div class="league-section" id="p2_s9-11"><div class="league-header"><div class="league-title">9-11 Softball</div><div class="league-meta">Game Schedule</div></div><div class="league-subtext">HOME TEAM LISTED FIRST</div><div class="schedule-render" data-league="p2_s9-11"></div></div>
 </div>
 
 <script>
@@ -999,10 +997,116 @@ th:nth-child(3), td:nth-child(3) { width: 145px; }
   function qsa(sel, root) { return Array.from((root || document).querySelectorAll(sel)); }
 
   const schedules = {
-    "p1_s4-5": [],
-    "p1_s6-7": [],
-    "p1_s8-9": [],
-    "p1_s10-11": [],
+    "p1_s4-5": [
+  ["Tuesday, March 24", "6:00 PM", "Montreal Impact", "Charlotte FC", "MP 2A"],
+  ["Tuesday, March 24", "6:00 PM", "New England Revolution", "Philadelphia Union", "MP 2B"],
+  ["Tuesday, March 24", "6:00 PM", "New York City FC", "New York Red Bulls", "MP 2C"],
+  ["Tuesday, March 31", "6:00 PM", "New England Revolution", "New York City FC", "MP 2A"],
+  ["Tuesday, March 31", "6:00 PM", "Philadelphia Union", "Charlotte FC", "MP 2B"],
+  ["Tuesday, March 31", "6:00 PM", "Montreal Impact", "New York Red Bulls", "MP 2C"],
+  ["Thursday, April 16", "6:00 PM", "Philadelphia Union", "New York City FC", "MP 2A"],
+  ["Thursday, April 16", "6:00 PM", "Montreal Impact", "New England Revolution", "MP 2B"],
+  ["Thursday, April 16", "6:00 PM", "Charlotte FC", "New York Red Bulls", "MP 2C"],
+  ["Tuesday, April 21", "6:00 PM", "New York City FC", "Charlotte FC", "MP 2A"],
+  ["Tuesday, April 21", "6:00 PM", "New York Red Bulls", "New England Revolution", "MP 2B"],
+  ["Tuesday, April 21", "6:00 PM", "Philadelphia Union", "Montreal Impact", "MP 2C"],
+  ["Thursday, April 23", "6:00 PM", "New York Red Bulls", "Philadelphia Union", "MP 2A"],
+  ["Thursday, April 23", "6:00 PM", "Charlotte FC", "New England Revolution", "MP 2B"],
+  ["Thursday, April 23", "6:00 PM", "New York City FC", "Montreal Impact", "MP 2C"],
+  ["Tuesday, April 28", "6:00 PM", "Charlotte FC", "Montreal Impact", "MP 2A"],
+  ["Tuesday, April 28", "6:00 PM", "Philadelphia Union", "New England Revolution", "MP 2B"],
+  ["Tuesday, April 28", "6:00 PM", "New York Red Bulls", "New York City FC", "MP 2C"],
+  ["Thursday, April 30", "6:00 PM", "New England Revolution", "New York City FC", "MP 2A"],
+  ["Thursday, April 30", "6:00 PM", "Charlotte FC", "Philadelphia Union", "MP 2B"],
+  ["Thursday, April 30", "6:00 PM", "Montreal Impact", "New York Red Bulls", "MP 2C"],
+  ["Tuesday, May 4", "6:00 PM", "New York City FC", "Philadelphia Union", "MP 2A"],
+  ["Tuesday, May 4", "6:00 PM", "New England Revolution", "Montreal Impact", "MP 2B"],
+  ["Tuesday, May 4", "6:00 PM", "New York Red Bulls", "Charlotte FC", "MP 2C"]],
+
+    "p1_s6-7": [
+  ["Monday, March 23", "6:00 PM", "Colorado Rapids", "Charlotte FC", "MP A"],
+  ["Monday, March 23", "6:00 PM", "Minnesota United", "Vancouver Whitecaps", "MP B"],
+  ["Monday, March 23", "6:00 PM", "Portland Timbers", "Sporting Kansas City", "MP C"],
+  ["Monday, March 23", "6:00 PM", "Real Salt Lake", "Seattle Sounders", "MP D"],
+  ["Monday, March 30", "6:00 PM", "Minnesota United", "Portland Timbers", "MP A"],
+  ["Monday, March 30", "6:00 PM", "Charlotte FC", "Sporting Kansas City", "MP B"],
+  ["Monday, March 30", "6:00 PM", "Vancouver Whitecaps", "Seattle Sounders", "MP C"],
+  ["Monday, March 30", "6:00 PM", "Colorado Rapids", "Real Salt Lake", "MP D"],
+  ["Wednesday, April 15", "6:00 PM", "Seattle Sounders", "Colorado Rapids", "MP A"],
+  ["Wednesday, April 15", "6:00 PM", "Sporting Kansas City", "Vancouver Whitecaps", "MP B"],
+  ["Wednesday, April 15", "6:00 PM", "Portland Timbers", "Charlotte FC", "MP C"],
+  ["Wednesday, April 15", "6:00 PM", "Real Salt Lake", "Minnesota United", "MP D"],
+  ["Monday, April 20", "6:00 PM", "Sporting Kansas City", "Real Salt Lake", "MP A"],
+  ["Monday, April 20", "6:00 PM", "Colorado Rapids", "Minnesota United", "MP B"],
+  ["Monday, April 20", "6:00 PM", "Seattle Sounders", "Charlotte FC", "MP C"],
+  ["Monday, April 20", "6:00 PM", "Vancouver Whitecaps", "Portland Timbers", "MP D"],
+  ["Wednesday, April 22", "6:00 PM", "Charlotte FC", "Minnesota United", "MP A"],
+  ["Wednesday, April 22", "6:00 PM", "Portland Timbers", "Colorado Rapids", "MP B"],
+  ["Wednesday, April 22", "6:00 PM", "Real Salt Lake", "Vancouver Whitecaps", "MP C"],
+  ["Wednesday, April 22", "6:00 PM", "Seattle Sounders", "Sporting Kansas City", "MP D"],
+  ["Monday, April 27", "6:00 PM", "Minnesota United", "Seattle Sounders", "MP A"],
+  ["Monday, April 27", "6:00 PM", "Vancouver Whitecaps", "Charlotte FC", "MP B"],
+  ["Monday, April 27", "6:00 PM", "Colorado Rapids", "Sporting Kansas City", "MP C"],
+  ["Monday, April 27", "6:00 PM", "Portland Timbers", "Real Salt Lake", "MP D"],
+  ["Wednesday, April 29", "6:00 PM", "Seattle Sounders", "Portland Timbers", "MP A"],
+  ["Wednesday, April 29", "6:00 PM", "Vancouver Whitecaps", "Colorado Rapids", "MP B"],
+  ["Wednesday, April 29", "6:00 PM", "Charlotte FC", "Real Salt Lake", "MP C"],
+  ["Wednesday, April 29", "6:00 PM", "Sporting Kansas City", "Minnesota United", "MP D"],
+  ["Monday, May 4", "6:00 PM", "Charlotte FC", "Colorado Rapids", "MP A"],
+  ["Monday, May 4", "6:00 PM", "Minnesota United", "Vancouver Whitecaps", "MP B"],
+  ["Monday, May 4", "6:00 PM", "Sporting Kansas City", "Portland Timbers", "MP C"],
+  ["Monday, May 4", "6:00 PM", "Real Salt Lake", "Seattle Sounders", "MP D"]],
+
+   "p1_s8-9": [
+  ["Tuesday, March 24", "6:00 PM", "FC Dallas", "Austin FC", "MP C"],
+  ["Tuesday, March 24", "6:00 PM", "LA Galaxy", "San Jose Earthquakes", "MP D"],
+  ["Tuesday, March 24", "7:00 PM", "Los Angeles FC", "St. Louis City SC", "MP B"],
+  ["Tuesday, March 31", "6:00 PM", "Houston Dynamo", "LA Galaxy", "MP C"],
+  ["Tuesday, March 31", "6:00 PM", "FC Dallas", "Los Angeles FC", "MP D"],
+  ["Tuesday, March 31", "7:00 PM", "Austin FC", "San Jose Earthquakes", "MP B"],
+  ["Thursday, April 16", "6:00 PM", "St. Louis City SC", "FC Dallas", "MP C"],
+  ["Thursday, April 16", "6:00 PM", "LA Galaxy", "Austin FC", "MP D"],
+  ["Thursday, April 16", "7:00 PM", "Los Angeles FC", "Houston Dynamo", "MP B"],
+  ["Tuesday, April 21", "6:00 PM", "San Jose Earthquakes", "Los Angeles FC", "MP C"],
+  ["Tuesday, April 21", "6:00 PM", "FC Dallas", "Houston Dynamo", "MP D"],
+  ["Tuesday, April 21", "7:00 PM", "St. Louis City SC", "Austin FC", "MP B"],
+  ["Thursday, April 23", "6:00 PM", "St. Louis City SC", "San Jose Earthquakes", "MP C"],
+  ["Thursday, April 23", "6:00 PM", "LA Galaxy", "FC Dallas", "MP D"],
+  ["Tuesday, April 28", "6:00 PM", "Houston Dynamo", "St. Louis City SC", "MP C"],
+  ["Tuesday, April 28", "6:00 PM", "FC Dallas", "San Jose Earthquakes", "MP D"],
+  ["Tuesday, April 28", "7:00 PM", "Los Angeles FC", "LA Galaxy", "MP B"],
+  ["Thursday, April 30", "6:00 PM", "San Jose Earthquakes", "Houston Dynamo", "MP C"],
+  ["Thursday, April 30", "6:00 PM", "Austin FC", "Los Angeles FC", "MP D"],
+  ["Thursday, April 30", "7:00 PM", "St. Louis City SC", "LA Galaxy", "MP B"],
+  ["Tuesday, May 5", "6:00 PM", "Austin FC", "FC Dallas", "MP C"],
+  ["Tuesday, May 5", "6:00 PM", "Los Angeles FC", "St. Louis City SC", "MP D"],
+  ["Tuesday, May 5", "7:00 PM", "LA Galaxy", "San Jose Earthquakes", "MP B"],
+  ["Thursday, May 7", "6:00 PM", "FC Dallas", "Los Angeles FC", "MP C"],
+  ["Thursday, May 7", "6:00 PM", "Austin FC", "San Jose Earthquakes", "MP D"],
+  ["Thursday, May 7", "7:00 PM", "Houston Dynamo", "LA Galaxy", "MP B"],
+  ["Tuesday, May 12", "6:00 PM", "St. Louis City SC", "Houston Dynamo", "MP B"],
+  ["Tuesday, May 12", "7:00 PM", "Austin FC", "Houston Dynamo", "MP B"]],
+
+    "p1_s10-11": [
+  ["Wednesday, March 25", "6:00 PM", "Atlanta United", "Columbus Crew", "CCP 1"],
+  ["Wednesday, March 25", "7:05 PM", "D.C. United", "Inter Miami", "CCP 1"],
+  ["Wednesday, April 1", "6:00 PM", "Columbus Crew", "Inter Miami", "CCP 1"],
+  ["Wednesday, April 1", "7:05 PM", "D.C. United", "Atlanta United", "CCP 1"],
+  ["Wednesday, April 15", "6:00 PM", "Atlanta United", "Inter Miami", "CCP 1"],
+  ["Wednesday, April 15", "7:05 PM", "D.C. United", "Columbus Crew", "CCP 1"],
+  ["Monday, April 20", "6:00 PM", "Atlanta United", "Columbus Crew", "CCP 1"],
+  ["Monday, April 20", "7:05 PM", "D.C. United", "Inter Miami", "CCP 1"],
+  ["Wednesday, April 22", "6:00 PM", "Inter Miami", "Atlanta United", "CCP 1"],
+  ["Wednesday, April 22", "7:05 PM", "Columbus Crew", "D.C. United", "CCP 1"],
+  ["Monday, April 27", "6:00 PM", "Columbus Crew", "Atlanta United", "CCP 1"],
+  ["Monday, April 27", "7:05 PM", "Inter Miami", "D.C. United", "CCP 1"],
+  ["Wednesday, April 29", "6:00 PM", "Inter Miami", "Columbus Crew", "CCP 1"],
+  ["Wednesday, April 29", "7:05 PM", "Atlanta United", "D.C. United", "CCP 1"],
+  ["Monday, May 4", "6:00 PM", "Inter Miami", "Atlanta United", "CCP 1"],
+  ["Monday, May 4", "7:05 PM", "Columbus Crew", "D.C. United", "CCP 1"],
+  ["Wednesday, May 6", "6:00 PM", "Columbus Crew", "Inter Miami", "CCP 1"],
+  ["Wednesday, May 6", "7:05 PM", "D.C. United", "Atlanta United", "CCP 1"]],
+
     "p1_s12-14": [
       ["Thursday, March 19", "6:15 PM", "Orlando City SC", "Atlanta United", "SSP 6"],
       ["Thursday, March 19", "7:30 PM", "Nashville SC", "Inter Miami", "SSP 6"],
@@ -1023,15 +1127,114 @@ th:nth-child(3), td:nth-child(3) { width: 145px; }
       ["Thursday, April 30", "6:15 PM", "Charlotte FC", "Orlando City SC", "CCP 1"],
       ["Thursday, April 30", "6:15 PM", "Atlanta United", "Nashville SC", "SSP 6"],
       ["Tuesday, May 5", "6:15 PM", "Charlotte FC", "Nashville SC", "CCP 1"],
-      ["Tuesday, May 5", "6:15 PM", "Inter Miami", "Atlanta United", "SSP 6"]
-    ],
-    "p1_f9-10": [],
-    "p1_f11-12": [],
-    "p1_f13-14": [],
+      ["Tuesday, May 5", "6:15 PM", "Inter Miami", "Atlanta United", "SSP 6"]],
+
+"p1_f9-10": [
+  ["Thursday, March 19", "6:15 PM", "Chargers", "Broncos", "MP 1A"],
+  ["Thursday, March 19", "6:15 PM", "Raiders", "Steelers", "MP 1B"],
+  ["Thursday, March 19", "6:15 PM", "Ravens", "Rams", "SSP 2A"],
+  ["Thursday, March 19", "6:15 PM", "Bengals", "Seahawks", "SSP 2B"],
+  ["Thursday, March 26", "6:15 PM", "Raiders", "Rams", "MP 1A"],
+  ["Thursday, March 26", "6:15 PM", "Chargers", "Seahawks", "MP 1B"],
+  ["Thursday, March 26", "6:15 PM", "Steelers", "Bengals", "SSP 2A"],
+  ["Thursday, March 26", "6:15 PM", "Ravens", "Broncos", "SSP 2B"],
+  ["Thursday, April 16", "6:15 PM", "Rams", "Seahawks", "MP 1A"],
+  ["Thursday, April 16", "6:15 PM", "Broncos", "Steelers", "MP 1B"],
+  ["Thursday, April 16", "6:15 PM", "Ravens", "Chargers", "SSP 2A"],
+  ["Thursday, April 16", "6:15 PM", "Raiders", "Bengals", "SSP 2B"],
+  ["Tuesday, April 21", "6:15 PM", "Broncos", "Raiders", "MP 1A"],
+  ["Tuesday, April 21", "6:15 PM", "Chargers", "Rams", "MP 1B"],
+  ["Tuesday, April 21", "6:15 PM", "Seahawks", "Steelers", "SSP 2A"],
+  ["Tuesday, April 21", "6:15 PM", "Bengals", "Ravens", "SSP 2B"],
+  ["Thursday, April 23", "6:15 PM", "Broncos", "Seahawks", "MP 1A"],
+  ["Thursday, April 23", "6:15 PM", "Rams", "Bengals", "MP 1B"],
+  ["Thursday, April 23", "6:15 PM", "Raiders", "Ravens", "SSP 2A"],
+  ["Thursday, April 23", "6:15 PM", "Steelers", "Chargers", "SSP 2B"],
+  ["Tuesday, April 28", "6:15 PM", "Chargers", "Raiders", "MP 1A"],
+  ["Tuesday, April 28", "6:15 PM", "Seahawks", "Ravens", "MP 1B"],
+  ["Tuesday, April 28", "6:15 PM", "Bengals", "Broncos", "SSP 2A"],
+  ["Tuesday, April 28", "6:15 PM", "Steelers", "Rams", "SSP 2B"],
+  ["Thursday, April 30", "6:15 PM", "Rams", "Broncos", "MP 1A"],
+  ["Thursday, April 30", "6:15 PM", "Seahawks", "Raiders", "MP 1B"],
+  ["Thursday, April 30", "6:15 PM", "Bengals", "Chargers", "SSP 2A"],
+  ["Thursday, April 30", "6:15 PM", "Ravens", "Steelers", "SSP 2B"],
+  ["Tuesday, May 5", "6:15 PM", "Broncos", "Chargers", "MP 1A"],
+  ["Tuesday, May 5", "6:15 PM", "Seahawks", "Bengals", "MP 1B"],
+  ["Tuesday, May 5", "6:15 PM", "Rams", "Ravens", "SSP 2A"],
+  ["Tuesday, May 5", "6:15 PM", "Steelers", "Raiders", "SSP 2B"]],
+
+"p1_f11-12": [
+  ["Thursday, March 19", "7:15 PM", "Titans", "Bears", "MP 1A"],
+  ["Thursday, March 19", "7:15 PM", "Lions", "Texans", "SSP 2A"],
+  ["Thursday, March 26", "7:15 PM", "Texans", "Jaguars", "MP 1A"],
+  ["Thursday, March 26", "7:15 PM", "Bears", "Lions", "SSP 2A"],
+  ["Thursday, April 16", "7:15 PM", "Titans", "Texans", "MP 1A"],
+  ["Thursday, April 16", "7:15 PM", "Lions", "Jaguars", "SSP 2A"],
+  ["Tuesday, April 21", "7:15 PM", "Jaguars", "Titans", "MP 1A"],
+  ["Tuesday, April 21", "7:15 PM", "Bears", "Texans", "SSP 2A"],
+  ["Thursday, April 23", "7:15 PM", "Jaguars", "Bears", "MP 1A"],
+  ["Thursday, April 23", "7:15 PM", "Lions", "Titans", "SSP 2A"],
+  ["Tuesday, April 28", "7:15 PM", "Jaguars", "Texans", "MP 1A"],
+  ["Tuesday, April 28", "7:15 PM", "Lions", "Bears", "SSP 2A"],
+  ["Thursday, April 30", "7:15 PM", "Texans", "Lions", "MP 1A"],
+  ["Thursday, April 30", "7:15 PM", "Bears", "Titans", "SSP 2A"],
+  ["Tuesday, May 5", "7:15 PM", "Texans", "Titans", "MP 1A"],
+  ["Tuesday, May 5", "7:15 PM", "Jaguars", "Lions", "SSP 2A"],
+  ["Thursday, May 7", "6:15 PM", "Titans", "Lions", "SSP 2A"],
+  ["Thursday, May 7", "6:15 PM", "Bears", "Jaguars", "SSP 2B"],
+  ["Tuesday, May 12", "6:15 PM", "Titans", "Jaguars", "MP 1A"],
+  ["Tuesday, May 12", "6:15 PM", "Texans", "Bears", "MP 1B"]],
+
+"p1_f13-14": [
+  ["Thursday, March 19", "7:15 PM", "Panthers", "Vikings", "MP 1B"],
+  ["Thursday, March 19", "7:15 PM", "Packers", "Falcons", "SSP 2B"],
+  ["Thursday, March 26", "7:15 PM", "Falcons", "Buccaneers", "MP 1B"],
+  ["Thursday, March 26", "7:15 PM", "Vikings", "Packers", "SSP 2B"],
+  ["Thursday, April 16", "7:15 PM", "Panthers", "Falcons", "MP 1B"],
+  ["Thursday, April 16", "7:15 PM", "Packers", "Buccaneers", "SSP 2B"],
+  ["Tuesday, April 21", "7:15 PM", "Buccaneers", "Vikings", "MP 1B"],
+  ["Tuesday, April 21", "7:15 PM", "Packers", "Panthers", "SSP 2B"],
+  ["Thursday, April 23", "7:15 PM", "Buccaneers", "Panthers", "MP 1B"],
+  ["Thursday, April 23", "7:15 PM", "Vikings", "Falcons", "SSP 2B"],
+  ["Tuesday, April 28", "7:15 PM", "Falcons", "Packers", "MP 1B"],
+  ["Tuesday, April 28", "7:15 PM", "Vikings", "Panthers", "SSP 2B"],
+  ["Thursday, April 30", "7:15 PM", "Falcons", "Panthers", "MP 1B"],
+  ["Thursday, April 30", "7:15 PM", "Buccaneers", "Packers", "SSP 2B"],
+  ["Tuesday, May 5", "7:15 PM", "Buccaneers", "Falcons", "MP 1B"],
+  ["Tuesday, May 5", "7:15 PM", "Packers", "Vikings", "SSP 2B"],
+  ["Thursday, May 7", "7:15 PM", "Panthers", "Packers", "SSP 2A"],
+  ["Thursday, May 7", "7:15 PM", "Vikings", "Buccaneers", "SSP 2B"],
+  ["Tuesday, May 12", "7:15 PM", "Panthers", "Buccaneers", "MP 1A"],
+  ["Tuesday, May 12", "7:15 PM", "Falcons", "Vikings", "MP 1B"]
+],
+
     "p1_b3-4": [],
+
     "p1_b5-6": [],
+
     "p1_b7-8": [],
-    "p1_b9-11": [],
+
+    "p1_b9-11": [  ["Thursday, March 19", "6:00 PM", "Blue Jays", "Astros", "MP 3"],
+  ["Thursday, March 19", "7:30 PM", "Cardinals", "White Sox", "MP 3"],
+  ["Thursday, March 26", "6:00 PM", "Astros", "Cardinals", "MP 3"],
+  ["Thursday, March 26", "7:30 PM", "Blue Jays", "Royals", "MP 3"],
+  ["Thursday, April 2", "6:00 PM", "Royals", "Astros", "SOP 2"],
+  ["Thursday, April 2", "7:30 PM", "White Sox", "Blue Jays", "SOP 2"],
+  ["Thursday, April 16", "6:00 PM", "Blue Jays", "Cardinals", "MP 3"],
+  ["Thursday, April 16", "6:00 PM", "Royals", "White Sox", "SOP 2"],
+  ["Tuesday, April 21", "6:00 PM", "Royals", "Cardinals", "SOP 2"],
+  ["Tuesday, April 21", "7:30 PM", "White Sox", "Astros", "SOP 2"],
+  ["Thursday, April 23", "6:00 PM", "Astros", "Blue Jays", "MP 3"],
+  ["Thursday, April 23", "6:00 PM", "White Sox", "Cardinals", "SOP 2"],
+  ["Tuesday, April 28", "6:00 PM", "Cardinals", "Astros", "MP 3"],
+  ["Tuesday, April 28", "6:00 PM", "Royals", "Blue Jays", "SOP 2"],
+  ["Thursday, April 30", "6:00 PM", "Blue Jays", "White Sox", "MP 3"],
+  ["Thursday, April 30", "7:30 PM", "Astros", "Royals", "MP 3"],
+  ["Tuesday, May 5", "6:00 PM", "Cardinals", "Blue Jays", "MP 3"],
+  ["Tuesday, May 5", "6:00 PM", "White Sox", "Royals", "SOP 2"],
+  ["Thursday, May 7", "6:00 PM", "Astros", "White Sox", "MP 3"],
+  ["Thursday, May 7", "7:30 PM", "Cardinals", "Royals", "MP 3"]],
+
     "p1_s9-11": [
       ["Wednesday, March 18", "6:15 PM", "Razorbacks", "Jayhawks", "CCP 3"],
       ["Monday, March 23", "6:15 PM", "Hurricanes", "Razorbacks", "SOP 3"],
@@ -1044,13 +1247,16 @@ th:nth-child(3), td:nth-child(3) { width: 145px; }
       ["Wednesday, April 22", "6:15 PM", "Jayhawks", "Hurricanes", "CCP 3"],
       ["Monday, April 27", "6:15 PM", "Jayhawks", "Razorbacks", "CCP 3"],
       ["Wednesday, April 29", "6:15 PM", "Hurricanes", "Razorbacks", "SOP 3"],
-      ["Monday, May 4", "6:15 PM", "Hurricanes", "Jayhawks", "SOP 3"]
-    ],
+      ["Monday, May 4", "6:15 PM", "Hurricanes", "Jayhawks", "SOP 3"]],
 
     "p2_s4-5": [],
+
     "p2_s6-7": [],
+
     "p2_s8-9": [],
+
     "p2_s10-11": [],
+
     "p2_s12-14": [
       ["Thursday, March 19", "6:15 PM", "Orlando City SC", "Atlanta United", "SSP 6"],
       ["Thursday, March 19", "7:30 PM", "Nashville SC", "Inter Miami", "SSP 6"],
@@ -1071,15 +1277,113 @@ th:nth-child(3), td:nth-child(3) { width: 145px; }
       ["Thursday, April 30", "6:15 PM", "Charlotte FC", "Orlando City SC", "CCP 1"],
       ["Thursday, April 30", "6:15 PM", "Atlanta United", "Nashville SC", "SSP 6"],
       ["Tuesday, May 5", "6:15 PM", "Charlotte FC", "Nashville SC", "CCP 1"],
-      ["Tuesday, May 5", "6:15 PM", "Inter Miami", "Atlanta United", "SSP 6"]
-    ],
-    "p2_f9-10": [],
-    "p2_f11-12": [],
-    "p2_f13-14": [],
+      ["Tuesday, May 5", "6:15 PM", "Inter Miami", "Atlanta United", "SSP 6"]],
+
+"p2_f9-10": [
+  ["Thursday, March 19", "6:15 PM", "Chargers", "Broncos", "MP 1A"],
+  ["Thursday, March 19", "6:15 PM", "Raiders", "Steelers", "MP 1B"],
+  ["Thursday, March 19", "6:15 PM", "Ravens", "Rams", "SSP 2A"],
+  ["Thursday, March 19", "6:15 PM", "Bengals", "Seahawks", "SSP 2B"],
+  ["Thursday, March 26", "6:15 PM", "Raiders", "Rams", "MP 1A"],
+  ["Thursday, March 26", "6:15 PM", "Chargers", "Seahawks", "MP 1B"],
+  ["Thursday, March 26", "6:15 PM", "Steelers", "Bengals", "SSP 2A"],
+  ["Thursday, March 26", "6:15 PM", "Ravens", "Broncos", "SSP 2B"],
+  ["Thursday, April 16", "6:15 PM", "Rams", "Seahawks", "MP 1A"],
+  ["Thursday, April 16", "6:15 PM", "Broncos", "Steelers", "MP 1B"],
+  ["Thursday, April 16", "6:15 PM", "Ravens", "Chargers", "SSP 2A"],
+  ["Thursday, April 16", "6:15 PM", "Raiders", "Bengals", "SSP 2B"],
+  ["Tuesday, April 21", "6:15 PM", "Broncos", "Raiders", "MP 1A"],
+  ["Tuesday, April 21", "6:15 PM", "Chargers", "Rams", "MP 1B"],
+  ["Tuesday, April 21", "6:15 PM", "Seahawks", "Steelers", "SSP 2A"],
+  ["Tuesday, April 21", "6:15 PM", "Bengals", "Ravens", "SSP 2B"],
+  ["Thursday, April 23", "6:15 PM", "Broncos", "Seahawks", "MP 1A"],
+  ["Thursday, April 23", "6:15 PM", "Rams", "Bengals", "MP 1B"],
+  ["Thursday, April 23", "6:15 PM", "Raiders", "Ravens", "SSP 2A"],
+  ["Thursday, April 23", "6:15 PM", "Steelers", "Chargers", "SSP 2B"],
+  ["Tuesday, April 28", "6:15 PM", "Chargers", "Raiders", "MP 1A"],
+  ["Tuesday, April 28", "6:15 PM", "Seahawks", "Ravens", "MP 1B"],
+  ["Tuesday, April 28", "6:15 PM", "Bengals", "Broncos", "SSP 2A"],
+  ["Tuesday, April 28", "6:15 PM", "Steelers", "Rams", "SSP 2B"],
+  ["Thursday, April 30", "6:15 PM", "Rams", "Broncos", "MP 1A"],
+  ["Thursday, April 30", "6:15 PM", "Seahawks", "Raiders", "MP 1B"],
+  ["Thursday, April 30", "6:15 PM", "Bengals", "Chargers", "SSP 2A"],
+  ["Thursday, April 30", "6:15 PM", "Ravens", "Steelers", "SSP 2B"],
+  ["Tuesday, May 5", "6:15 PM", "Broncos", "Chargers", "MP 1A"],
+  ["Tuesday, May 5", "6:15 PM", "Seahawks", "Bengals", "MP 1B"],
+  ["Tuesday, May 5", "6:15 PM", "Rams", "Ravens", "SSP 2A"],
+  ["Tuesday, May 5", "6:15 PM", "Steelers", "Raiders", "SSP 2B"]],
+
+"p2_f11-12": [
+  ["Thursday, March 19", "7:15 PM", "Titans", "Bears", "MP 1A"],
+  ["Thursday, March 19", "7:15 PM", "Lions", "Texans", "SSP 2A"],
+  ["Thursday, March 26", "7:15 PM", "Texans", "Jaguars", "MP 1A"],
+  ["Thursday, March 26", "7:15 PM", "Bears", "Lions", "SSP 2A"],
+  ["Thursday, April 16", "7:15 PM", "Titans", "Texans", "MP 1A"],
+  ["Thursday, April 16", "7:15 PM", "Lions", "Jaguars", "SSP 2A"],
+  ["Tuesday, April 21", "7:15 PM", "Jaguars", "Titans", "MP 1A"],
+  ["Tuesday, April 21", "7:15 PM", "Bears", "Texans", "SSP 2A"],
+  ["Thursday, April 23", "7:15 PM", "Jaguars", "Bears", "MP 1A"],
+  ["Thursday, April 23", "7:15 PM", "Lions", "Titans", "SSP 2A"],
+  ["Tuesday, April 28", "7:15 PM", "Jaguars", "Texans", "MP 1A"],
+  ["Tuesday, April 28", "7:15 PM", "Lions", "Bears", "SSP 2A"],
+  ["Thursday, April 30", "7:15 PM", "Texans", "Lions", "MP 1A"],
+  ["Thursday, April 30", "7:15 PM", "Bears", "Titans", "SSP 2A"],
+  ["Tuesday, May 5", "7:15 PM", "Texans", "Titans", "MP 1A"],
+  ["Tuesday, May 5", "7:15 PM", "Jaguars", "Lions", "SSP 2A"],
+  ["Thursday, May 7", "6:15 PM", "Titans", "Lions", "SSP 2A"],
+  ["Thursday, May 7", "6:15 PM", "Bears", "Jaguars", "SSP 2B"],
+  ["Tuesday, May 12", "6:15 PM", "Titans", "Jaguars", "MP 1A"],
+  ["Tuesday, May 12", "6:15 PM", "Texans", "Bears", "MP 1B"]],
+
+"p2_f13-14": [
+  ["Thursday, March 19", "7:15 PM", "Panthers", "Vikings", "MP 1B"],
+  ["Thursday, March 19", "7:15 PM", "Packers", "Falcons", "SSP 2B"],
+  ["Thursday, March 26", "7:15 PM", "Falcons", "Buccaneers", "MP 1B"],
+  ["Thursday, March 26", "7:15 PM", "Vikings", "Packers", "SSP 2B"],
+  ["Thursday, April 16", "7:15 PM", "Panthers", "Falcons", "MP 1B"],
+  ["Thursday, April 16", "7:15 PM", "Packers", "Buccaneers", "SSP 2B"],
+  ["Tuesday, April 21", "7:15 PM", "Buccaneers", "Vikings", "MP 1B"],
+  ["Tuesday, April 21", "7:15 PM", "Packers", "Panthers", "SSP 2B"],
+  ["Thursday, April 23", "7:15 PM", "Buccaneers", "Panthers", "MP 1B"],
+  ["Thursday, April 23", "7:15 PM", "Vikings", "Falcons", "SSP 2B"],
+  ["Tuesday, April 28", "7:15 PM", "Falcons", "Packers", "MP 1B"],
+  ["Tuesday, April 28", "7:15 PM", "Vikings", "Panthers", "SSP 2B"],
+  ["Thursday, April 30", "7:15 PM", "Falcons", "Panthers", "MP 1B"],
+  ["Thursday, April 30", "7:15 PM", "Buccaneers", "Packers", "SSP 2B"],
+  ["Tuesday, May 5", "7:15 PM", "Buccaneers", "Falcons", "MP 1B"],
+  ["Tuesday, May 5", "7:15 PM", "Packers", "Vikings", "SSP 2B"],
+  ["Thursday, May 7", "7:15 PM", "Panthers", "Packers", "SSP 2A"],
+  ["Thursday, May 7", "7:15 PM", "Vikings", "Buccaneers", "SSP 2B"],
+  ["Tuesday, May 12", "7:15 PM", "Panthers", "Buccaneers", "MP 1A"],
+  ["Tuesday, May 12", "7:15 PM", "Falcons", "Vikings", "MP 1B"]],
+
     "p2_b3-4": [],
+
     "p2_b5-6": [],
+
     "p2_b7-8": [],
-    "p2_b9-11": [],
+
+    "p2_b9-11": [  ["Thursday, March 19", "6:00 PM", "Blue Jays", "Astros", "MP 3"],
+  ["Thursday, March 19", "7:30 PM", "Cardinals", "White Sox", "MP 3"],
+  ["Thursday, March 26", "6:00 PM", "Astros", "Cardinals", "MP 3"],
+  ["Thursday, March 26", "7:30 PM", "Blue Jays", "Royals", "MP 3"],
+  ["Thursday, April 2", "6:00 PM", "Royals", "Astros", "SOP 2"],
+  ["Thursday, April 2", "7:30 PM", "White Sox", "Blue Jays", "SOP 2"],
+  ["Thursday, April 16", "6:00 PM", "Blue Jays", "Cardinals", "MP 3"],
+  ["Thursday, April 16", "6:00 PM", "Royals", "White Sox", "SOP 2"],
+  ["Tuesday, April 21", "6:00 PM", "Royals", "Cardinals", "SOP 2"],
+  ["Tuesday, April 21", "7:30 PM", "White Sox", "Astros", "SOP 2"],
+  ["Thursday, April 23", "6:00 PM", "Astros", "Blue Jays", "MP 3"],
+  ["Thursday, April 23", "6:00 PM", "White Sox", "Cardinals", "SOP 2"],
+  ["Tuesday, April 28", "6:00 PM", "Cardinals", "Astros", "MP 3"],
+  ["Tuesday, April 28", "6:00 PM", "Royals", "Blue Jays", "SOP 2"],
+  ["Thursday, April 30", "6:00 PM", "Blue Jays", "White Sox", "MP 3"],
+  ["Thursday, April 30", "7:30 PM", "Astros", "Royals", "MP 3"],
+  ["Tuesday, May 5", "6:00 PM", "Cardinals", "Blue Jays", "MP 3"],
+  ["Tuesday, May 5", "6:00 PM", "White Sox", "Royals", "SOP 2"],
+  ["Thursday, May 7", "6:00 PM", "Astros", "White Sox", "MP 3"],
+  ["Thursday, May 7", "7:30 PM", "Cardinals", "Royals", "MP 3"]],
+
     "p2_s9-11": [
       ["Wednesday, March 18", "6:15 PM", "Razorbacks", "Jayhawks", "CCP 3"],
       ["Monday, March 23", "6:15 PM", "Hurricanes", "Razorbacks", "SOP 3"],
@@ -1092,8 +1396,7 @@ th:nth-child(3), td:nth-child(3) { width: 145px; }
       ["Wednesday, April 22", "6:15 PM", "Jayhawks", "Hurricanes", "CCP 3"],
       ["Monday, April 27", "6:15 PM", "Jayhawks", "Razorbacks", "CCP 3"],
       ["Wednesday, April 29", "6:15 PM", "Hurricanes", "Razorbacks", "SOP 3"],
-      ["Monday, May 4", "6:15 PM", "Hurricanes", "Jayhawks", "SOP 3"]
-    ]
+      ["Monday, May 4", "6:15 PM", "Hurricanes", "Jayhawks", "SOP 3"]]
   };
 
   function escapeHtml(str) {
