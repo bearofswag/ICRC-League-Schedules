@@ -12,7 +12,7 @@
 :root {
     --thankyou-height: 30px;
     --sponsor-height: 72px;
-    --topnav-height: 66px;
+    --topnav-height: 82px;
     --header-total: calc(var(--thankyou-height) + var(--sponsor-height) + var(--topnav-height));
 
     --sidebar-width: 240px;
@@ -41,13 +41,12 @@
     --bg-soft: #F8FBFE;
 }
 
+html,
 body {
-    margin: 0;
-    font-family: "Segoe UI", Arial, sans-serif;
-    background: var(--bg-page);
-    color: var(--text-main);
-    padding-top: var(--header-total);
-    box-sizing: border-box;
+    overflow-x: hidden;
+    overflow-y: auto;
+    height: auto;
+    max-height: none;
 }
 body {
     margin: 0;
@@ -76,8 +75,6 @@ body::before {
     box-sizing: inherit;
 }
 
-.sidebar,
-.content,
 .welcome-box,
 .sponsor-wrapper,
 .topnav {
@@ -148,22 +145,33 @@ body::before {
     align-items: center;
     white-space: nowrap;
     width: max-content;
-    animation: scroll-logos 55s linear infinite;
+    animation: scroll-logos 50s linear infinite;
 }
 
-.sponsor-logos img {
-    height: 52px;
+.sponsor-logo-item {
+    width: 150px;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 14px;
+    flex-shrink: 0;
+}
+
+.sponsor-logo-item img {
+    max-width: 90%;
+    max-height: 55px;
+    width: auto;
+    height: auto;
     object-fit: contain;
     opacity: 0.95;
-    margin: 0 24px;
     transition: opacity 0.2s ease, transform 0.2s ease;
-    flex-shrink: 0;
     filter: grayscale(6%);
 }
 
-.sponsor-logos img:hover {
+.sponsor-logo-item img:hover {
     opacity: 1;
-    transform: scale(1.1);
+    transform: scale(1.35);
 }
 
 @keyframes scroll-logos {
@@ -180,54 +188,108 @@ body::before {
     left: 0;
     width: 100%;
     min-height: var(--topnav-height);
-    background: var(--brand-blue);
-    color: white;
-    padding: 12px 18px;
+    background: linear-gradient(to right, var(--brand-blue-dark), var(--brand-blue));
+    color: #ffffff;
+    padding: 10px 28px;
     display: flex;
     align-items: center;
     justify-content: space-between;
     z-index: 9998;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+    box-shadow:
+        0 4px 12px rgba(0,0,0,0.14),
+        inset 0 1px 0 rgba(255,255,255,0.08);
+    border-bottom: 1px solid rgba(255,255,255,0.08);
 }
 
 .topnav-left {
     display: flex;
     align-items: center;
     gap: 18px;
+    min-width: 0;
+    flex: 1 1 auto;
+}
+
+.topnav-logo {
+    height: 60px;
+    width: auto;
+    object-fit: contain;
+    background: rgba(255,255,255,0.96);
+    padding: 5px;
+    border-radius: 8px;
+    box-shadow:
+        0 2px 6px rgba(0,0,0,0.12),
+        inset 0 1px 0 rgba(255,255,255,0.85);
+    border: 1px solid rgba(255,255,255,0.22);
+    flex-shrink: 0;
+}
+
+.topnav-brand {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 2px;
+    min-width: 0;
+}
+
+.topnav-kicker {
+    font-size: 1 rem;
+    font-weight: 900;
+    letter-spacing: 1.1px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.78);
+    line-height: 1;
+    white-space: nowrap;
+}
+
+.topnav-title {
+    font-size: 1.75rem;
+    font-weight: 900;
+    letter-spacing: 0.2px;
+    line-height: 1.02;
+    color: #ffffff;
+    text-shadow: 0 1px 1px rgba(0,0,0,0.12);
+    white-space: nowrap;
+}
+
+.topnav-title span {
+    color: #d7f2ce;
 }
 
 .topnav-right {
     display: flex;
     align-items: center;
-    margin-right: 24px;
+    flex: 0 0 auto;
+    margin-left: 20px;
 }
 
-.topnav-right img {
-    margin-left: 12px;
+.topnav-partners {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 7px 10px;
+    border-radius: 999px;
+    background: rgba(255,255,255,0.10);
+    border: 1px solid rgba(255,255,255,0.14);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.08);
 }
 
-.topnav-logo {
-    height: 50px;
+.topnav-partners-label {
+    font-size: 0.9rem;
+    font-weight: 800;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.78);
+    white-space: nowrap;
+}
+
+.topnav-partner-logo {
+    height: 36px;
     width: auto;
     object-fit: contain;
-    background: #ffffff;
-    padding: 6px;
-    border-radius: 8px;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.15);
-    border: 2px solid var(--brand-green);
-    animation: logoPop 0.6s ease-out;
-}
-
-@keyframes logoPop {
-    0%   { transform: scale(0.85); opacity: 0; }
-    60%  { transform: scale(1.05); opacity: 1; }
-    100% { transform: scale(1); }
-}
-
-.topnav-title {
-    font-size: 1.45rem;
-    font-weight: 700;
-    letter-spacing: 0.9px;
+    background: rgba(255,255,255,0.96);
+    padding: 3px 6px;
+    border-radius: 6px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.10);
 }
 
 /* ============================
@@ -801,7 +863,7 @@ td:nth-child(2) {
     :root {
         --thankyou-height: 34px;
         --sponsor-height: 56px;
-        --topnav-height: 58px;
+        --topnav-height: 64px;
         --sidebar-width: 100%;
     }
 
@@ -814,9 +876,9 @@ td:nth-child(2) {
     ============================ */
     .sponsor-thankyou {
         min-height: var(--thankyou-height);
-        padding: 6px 10px;
-        font-size: 0.78rem;
-        line-height: 1.2;
+        padding: 6px 12px;
+        font-size: 0.72rem;
+        line-height: 1.15;
         text-align: center;
     }
 
@@ -849,27 +911,56 @@ td:nth-child(2) {
     .topnav {
         top: calc(var(--thankyou-height) + var(--sponsor-height));
         min-height: var(--topnav-height);
-        padding: 10px 12px;
+        padding: 10px 14px;
         gap: 10px;
         flex-wrap: nowrap;
         align-items: center;
     }
 
     .topnav-left {
-        gap: 10px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
         min-width: 0;
+        flex: 1 1 auto;
     }
 
     .topnav-logo {
-        height: 30px;
+        height: 34px;
+        width: auto;
         padding: 4px;
         border-radius: 6px;
+        flex-shrink: 0;
+    }
+
+    .topnav-brand {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 2px;
+        min-width: 0;
+    }
+
+    .topnav-kicker {
+        font-size: 0.56rem;
+        font-weight: 800;
+        letter-spacing: 0.8px;
+        text-transform: uppercase;
+        color: rgba(255,255,255,0.76);
+        line-height: 1;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
 
     .topnav-title {
-        font-size: 1rem;
-        letter-spacing: 0.2px;
-        line-height: 1.1;
+        font-size: 1.02rem;
+        font-weight: 900;
+        letter-spacing: 0.15px;
+        line-height: 1.05;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
 
     .topnav-right {
@@ -1099,72 +1190,81 @@ td:nth-child(2) {
         padding: 10px 14px;
     }
 }
+
 </style>
 </head>
 <body>
 <div class="sponsor-wrapper">
   <div class="sponsor-thankyou"> THANK YOU TO OUR GENEROUS COMMUNITY SPONSORS
 </div>
-  <div class="sponsor-banner">
-    <div class="sponsor-logos">
+<div class="sponsor-banner">
+  <div class="sponsor-logos">
     <!-- Original set -->
-    <img src="sponsor1.png" alt="Sponsor 1">
-    <img src="sponsor2.png" alt="Sponsor 2">
-    <img src="sponsor3.png" alt="Sponsor 3">
-    <img src="sponsor4.png" alt="Sponsor 4">
-    <img src="sponsor5.png" alt="Sponsor 5">
-    <img src="sponsor6.png" alt="Sponsor 6">
-    <img src="sponsor7.png" alt="Sponsor 7">
-    <img src="sponsor8.png" alt="Sponsor 8">
-    <img src="sponsor9.png" alt="Sponsor 9">
-    <img src="sponsor10.png" alt="Sponsor 10">
-    <img src="sponsor11.png" alt="Sponsor 11">
-    <img src="sponsor12.png" alt="Sponsor 12">
-    <img src="sponsor13.png" alt="Sponsor 13">
-    <img src="sponsor14.png" alt="Sponsor 14">
-    <img src="sponsor15.png" alt="Sponsor 15">
-    <img src="sponsor16.png" alt="Sponsor 16">
-    <img src="sponsor17.png" alt="Sponsor 17">
-    <img src="sponsor18.png" alt="Sponsor 18">
-    <img src="sponsor19.png" alt="Sponsor 19">
-    <img src="sponsor20.png" alt="Sponsor 20">
-    <img src="sponsor21.png" alt="Sponsor 21">
-    <img src="sponsor22.png" alt="Sponsor 22">
+    <div class="sponsor-logo-item"><img src="sponsor1.png" alt="Sponsor 1"></div>
+    <div class="sponsor-logo-item"><img src="sponsor2.png" alt="Sponsor 2"></div>
+    <div class="sponsor-logo-item"><img src="sponsor3.png" alt="Sponsor 3"></div>
+    <div class="sponsor-logo-item"><img src="sponsor4.png" alt="Sponsor 4"></div>
+    <div class="sponsor-logo-item"><img src="sponsor5.png" alt="Sponsor 5"></div>
+    <div class="sponsor-logo-item"><img src="sponsor6.png" alt="Sponsor 6"></div>
+    <div class="sponsor-logo-item"><img src="sponsor7.png" alt="Sponsor 7"></div>
+    <div class="sponsor-logo-item"><img src="sponsor8.png" alt="Sponsor 8"></div>
+    <div class="sponsor-logo-item"><img src="sponsor9.png" alt="Sponsor 9"></div>
+    <div class="sponsor-logo-item"><img src="sponsor10.png" alt="Sponsor 10"></div>
+    <div class="sponsor-logo-item"><img src="sponsor11.png" alt="Sponsor 11"></div>
+    <div class="sponsor-logo-item"><img src="sponsor12.png" alt="Sponsor 12"></div>
+    <div class="sponsor-logo-item"><img src="sponsor13.png" alt="Sponsor 13"></div>
+    <div class="sponsor-logo-item"><img src="sponsor14.png" alt="Sponsor 14"></div>
+    <div class="sponsor-logo-item"><img src="sponsor15.png" alt="Sponsor 15"></div>
+    <div class="sponsor-logo-item"><img src="sponsor16.png" alt="Sponsor 16"></div>
+    <div class="sponsor-logo-item"><img src="sponsor17.png" alt="Sponsor 17"></div>
+    <div class="sponsor-logo-item"><img src="sponsor18.png" alt="Sponsor 18"></div>
+    <div class="sponsor-logo-item"><img src="sponsor19.png" alt="Sponsor 19"></div>
+    <div class="sponsor-logo-item"><img src="sponsor20.png" alt="Sponsor 20"></div>
+    <div class="sponsor-logo-item"><img src="sponsor21.png" alt="Sponsor 21"></div>
+    <div class="sponsor-logo-item"><img src="sponsor22.png" alt="Sponsor 22"></div>
+
     <!-- Duplicate set for seamless loop -->
-    <img src="sponsor1.png" alt="Sponsor 1">
-    <img src="sponsor2.png" alt="Sponsor 2">
-    <img src="sponsor3.png" alt="Sponsor 3">
-    <img src="sponsor4.png" alt="Sponsor 4">
-    <img src="sponsor5.png" alt="Sponsor 5">
-    <img src="sponsor6.png" alt="Sponsor 6">
-    <img src="sponsor7.png" alt="Sponsor 7">
-    <img src="sponsor8.png" alt="Sponsor 8">
-    <img src="sponsor9.png" alt="Sponsor 9">
-    <img src="sponsor10.png" alt="Sponsor 10">
-    <img src="sponsor11.png" alt="Sponsor 11">
-    <img src="sponsor12.png" alt="Sponsor 12">
-    <img src="sponsor13.png" alt="Sponsor 13">
-    <img src="sponsor14.png" alt="Sponsor 14">
-    <img src="sponsor15.png" alt="Sponsor 15">
-    <img src="sponsor16.png" alt="Sponsor 16">
-    <img src="sponsor17.png" alt="Sponsor 17">
-    <img src="sponsor18.png" alt="Sponsor 18">
-    <img src="sponsor19.png" alt="Sponsor 19">
-    <img src="sponsor20.png" alt="Sponsor 20">
-    <img src="sponsor21.png" alt="Sponsor 21">
-    <img src="sponsor22.png" alt="Sponsor 22">
+    <div class="sponsor-logo-item"><img src="sponsor1.png" alt="Sponsor 1"></div>
+    <div class="sponsor-logo-item"><img src="sponsor2.png" alt="Sponsor 2"></div>
+    <div class="sponsor-logo-item"><img src="sponsor3.png" alt="Sponsor 3"></div>
+    <div class="sponsor-logo-item"><img src="sponsor4.png" alt="Sponsor 4"></div>
+    <div class="sponsor-logo-item"><img src="sponsor5.png" alt="Sponsor 5"></div>
+    <div class="sponsor-logo-item"><img src="sponsor6.png" alt="Sponsor 6"></div>
+    <div class="sponsor-logo-item"><img src="sponsor7.png" alt="Sponsor 7"></div>
+    <div class="sponsor-logo-item"><img src="sponsor8.png" alt="Sponsor 8"></div>
+    <div class="sponsor-logo-item"><img src="sponsor9.png" alt="Sponsor 9"></div>
+    <div class="sponsor-logo-item"><img src="sponsor10.png" alt="Sponsor 10"></div>
+    <div class="sponsor-logo-item"><img src="sponsor11.png" alt="Sponsor 11"></div>
+    <div class="sponsor-logo-item"><img src="sponsor12.png" alt="Sponsor 12"></div>
+    <div class="sponsor-logo-item"><img src="sponsor13.png" alt="Sponsor 13"></div>
+    <div class="sponsor-logo-item"><img src="sponsor14.png" alt="Sponsor 14"></div>
+    <div class="sponsor-logo-item"><img src="sponsor15.png" alt="Sponsor 15"></div>
+    <div class="sponsor-logo-item"><img src="sponsor16.png" alt="Sponsor 16"></div>
+    <div class="sponsor-logo-item"><img src="sponsor17.png" alt="Sponsor 17"></div>
+    <div class="sponsor-logo-item"><img src="sponsor18.png" alt="Sponsor 18"></div>
+    <div class="sponsor-logo-item"><img src="sponsor19.png" alt="Sponsor 19"></div>
+    <div class="sponsor-logo-item"><img src="sponsor20.png" alt="Sponsor 20"></div>
+    <div class="sponsor-logo-item"><img src="sponsor21.png" alt="Sponsor 21"></div>
+    <div class="sponsor-logo-item"><img src="sponsor22.png" alt="Sponsor 22"></div>
   </div>
+</div>
 </div>
 <div class="topnav">
   <div class="topnav-left">
-    <img alt="League Logo" class="topnav-logo" src="your-logo.png" />
-    <div class="topnav-title">ICRC Spring Athletic Schedules</div>
+    <img class="topnav-logo" src="your-logo.png" alt="ICRC Logo" />
+    <div class="topnav-brand">
+      <div class="topnav-kicker">Irmo Chapin Recreation Commission</div>
+      <div class="topnav-title">Spring <span>Athletic </span>Schedules </span></div>
+    </div>
   </div>
+
   <div class="topnav-right">
-    <img alt="Sponsor Logo 1" class="topnav-logo" src="mlsgo.png" />
-    <img alt="Sponsor Logo 2" class="topnav-logo" src="nflflag.png" />
+    <div class="topnav-partners">
+      <span class="topnav-partners-label">In Partnership With</span>
+      <img src="mlsgo.png" alt="Partner 1" class="topnav-partner-logo" />
+      <img src="nflflag.png" alt="Partner 2" class="topnav-partner-logo" />
+    </div>
   </div>
-</div>
 </div>
 <!-- Sidebar -->
 <div class="sidebar">
@@ -1461,11 +1561,106 @@ td:nth-child(2) {
   ["Tuesday, May 12", "7:15 PM", "Falcons", "Vikings", "MP 1B"]
 ],
 
-    "p1_b3-4": [],
+ "p1_b3-4": [
+  ["Wednesday, March 25", "6:00 PM", "BANDITS", "RIVER DOGS", "CES 2"],
+  ["Wednesday, March 25", "6:00 PM", "BULLS", "RAIL RIDERS", "CES 3"],
+  ["Wednesday, March 25", "6:00 PM", "GRASSHOPPERS", "MUDCATS", "MP 5"],
+  ["Wednesday, March 25", "6:00 PM", "HOOKS", "LUGNUTS", "MP 6"],
+  ["Wednesday, April 1", "6:00 PM", "LUGNUTS", "GRASSHOPPERS", "CES 2"],
+  ["Wednesday, April 1", "6:00 PM", "MUDCATS", "BULLS", "CES 3"],
+  ["Wednesday, April 1", "6:00 PM", "RAIL RIDERS", "BANDITS", "MP 5"],
+  ["Wednesday, April 1", "6:00 PM", "RIVER DOGS", "STORM", "MP 6"],
+  ["Wednesday, April 15", "6:00 PM", "BULLS", "STORM", "CES 2"],
+  ["Wednesday, April 15", "6:00 PM", "GRASSHOPPERS", "RIVER DOGS", "CES 3"],
+  ["Wednesday, April 15", "6:00 PM", "HOOKS", "RAIL RIDERS", "MP 5"],
+  ["Wednesday, April 15", "6:00 PM", "LUGNUTS", "MUDCATS", "MP 6"],
+  ["Monday, April 20", "6:00 PM", "MUDCATS", "HOOKS", "CES 2"],
+  ["Monday, April 20", "6:00 PM", "RAIL RIDERS", "GRASSHOPPERS", "CES 3"],
+  ["Monday, April 20", "6:00 PM", "RIVER DOGS", "BULLS", "MP 5"],
+  ["Monday, April 20", "6:00 PM", "STORM", "BANDITS", "MP 6"],
+  ["Wednesday, April 22", "6:00 PM", "GRASSHOPPERS", "BANDITS", "CES 2"],
+  ["Wednesday, April 22", "6:00 PM", "HOOKS", "STORM", "CES 3"],
+  ["Wednesday, April 22", "6:00 PM", "LUGNUTS", "RIVER DOGS", "MP 5"],
+  ["Wednesday, April 22", "6:00 PM", "MUDCATS", "RAIL RIDERS", "MP 6"],
+  ["Monday, April 27", "6:00 PM", "RAIL RIDERS", "LUGNUTS", "CES 2"],
+  ["Monday, April 27", "6:00 PM", "RIVER DOGS", "HOOKS", "CES 3"],
+  ["Monday, April 27", "6:00 PM", "STORM", "GRASSHOPPERS", "MP 5"],
+  ["Monday, April 27", "6:00 PM", "BANDITS", "BULLS", "MP 6"],
+  ["Wednesday, April 29", "6:00 PM", "HOOKS", "BULLS", "CES 2"],
+  ["Wednesday, April 29", "6:00 PM", "LUGNUTS", "BANDITS", "CES 3"],
+  ["Wednesday, April 29", "6:00 PM", "MUDCATS", "STORM", "MP 5"],
+  ["Wednesday, April 29", "6:00 PM", "RAIL RIDERS", "RIVER DOGS", "MP 6"],
+  ["Monday, May 4", "6:00 PM", "RIVER DOGS", "MUDCATS", "CES 2"],
+  ["Monday, May 4", "6:00 PM", "STORM", "LUGNUTS", "CES 3"],
+  ["Monday, May 4", "6:00 PM", "BANDITS", "HOOKS", "MP 5"],
+  ["Monday, May 4", "6:00 PM", "BULLS", "GRASSHOPPERS", "MP 6"],
+  ["Wednesday, May 6", "6:00 PM", "STORM", "RAIL RIDERS", "CES 2"],
+  ["Wednesday, May 6", "6:00 PM", "BANDITS", "MUDCATS", "CES 3"],
+  ["Wednesday, May 6", "6:00 PM", "BULLS", "LUGNUTS", "MP 5"],
+  ["Wednesday, May 6", "6:00 PM", "GRASSHOPPERS", "HOOKS", "MP 6"]],
 
-    "p1_b5-6": [],
+    "p1_b5-6": [
+  ["Thursday, March 26", "6:00 PM", "GRIZZLIES", "TRASH PANDAS", "CES 2"],
+  ["Thursday, March 26", "6:00 PM", "MIGHTY MUSSELS", "RATTLERS", "CES 3"],
+  ["Thursday, March 26", "6:00 PM", "YARD GOATS", "TINCAPS", "MP 5"],
+  ["Thursday, March 26", "6:00 PM", "IRONBIRDS", "TIDES", "MP 6"],
+  ["Tuesday, April 14", "6:00 PM", "TRASH PANDAS", "YARD GOATS", "CES 2"],
+  ["Tuesday, April 14", "6:00 PM", "TINCAPS", "IRONBIRDS", "CES 3"],
+  ["Tuesday, April 14", "6:00 PM", "TIDES", "MIGHTY MUSSELS", "MP 5"],
+  ["Tuesday, April 14", "6:00 PM", "RATTLERS", "GRIZZLIES", "MP 6"],
+  ["Tuesday, April 21", "6:00 PM", "IRONBIRDS", "MIGHTY MUSSELS", "CES 2"],
+  ["Tuesday, April 21", "6:00 PM", "TINCAPS", "GRIZZLIES", "CES 3"],
+  ["Tuesday, April 21", "6:00 PM", "TRASH PANDAS", "TIDES", "MP 5"],
+  ["Tuesday, April 21", "6:00 PM", "YARD GOATS", "RATTLERS", "MP 6"],
+  ["Thursday, April 23", "6:00 PM", "RATTLERS", "IRONBIRDS", "CES 2"],
+  ["Thursday, April 23", "6:00 PM", "TINCAPS", "TRASH PANDAS", "CES 3"],
+  ["Thursday, April 23", "6:00 PM", "TIDES", "YARD GOATS", "MP 5"],
+  ["Thursday, April 23", "6:00 PM", "GRIZZLIES", "MIGHTY MUSSELS", "MP 6"],
+  ["Tuesday, April 28", "6:00 PM", "GRIZZLIES", "TIDES", "CES 2"],
+  ["Tuesday, April 28", "6:00 PM", "YARD GOATS", "IRONBIRDS", "CES 3"],
+  ["Tuesday, April 28", "6:00 PM", "TRASH PANDAS", "MIGHTY MUSSELS", "MP 5"],
+  ["Tuesday, April 28", "6:00 PM", "TINCAPS", "RATTLERS", "MP 6"],
+  ["Thursday, April 30", "6:00 PM", "TINCAPS", "TIDES", "CES 2"],
+  ["Thursday, April 30", "6:00 PM", "YARD GOATS", "MIGHTY MUSSELS", "CES 3"],
+  ["Thursday, April 30", "6:00 PM", "TRASH PANDAS", "RATTLERS", "MP 5"],
+  ["Thursday, April 30", "6:00 PM", "GRIZZLIES", "IRONBIRDS", "MP 6"],
+  ["Tuesday, May 5", "6:00 PM", "MIGHTY MUSSELS", "TINCAPS", "CES 2"],
+  ["Tuesday, May 5", "6:00 PM", "RATTLERS", "TIDES", "CES 3"],
+  ["Tuesday, May 5", "6:00 PM", "IRONBIRDS", "TRASH PANDAS", "MP 5"],
+  ["Tuesday, May 5", "6:00 PM", "YARD GOATS", "GRIZZLIES", "MP 6"],
+  ["Thursday, May 7", "6:00 PM", "RATTLERS", "MIGHTY MUSSELS", "CES 2"],
+  ["Thursday, May 7", "6:00 PM", "TRASH PANDAS", "GRIZZLIES", "CES 3"],
+  ["Thursday, May 7", "6:00 PM", "TINCAPS", "YARD GOATS", "MP 5"],
+  ["Thursday, May 7", "6:00 PM", "TIDES", "IRONBIRDS", "MP 6"]],
 
-    "p1_b7-8": [],
+    "p1_b7-8": [["Wednesday, March 25", "6:00 PM", "BULLS", "IRON PIGS", "MP 4"],
+  ["Wednesday, March 25", "6:00 PM", "TIDES", "BLUE ROCKS", "SOP 1"],
+  ["Wednesday, March 25", "7:15 PM", "LUGNUTS", "EMERALDS", "MP 4"],
+  ["Wednesday, April 1", "6:00 PM", "IRON PIGS", "LUGNUTS", "MP 4"],
+  ["Wednesday, April 1", "6:00 PM", "BULLS", "BLUE ROCKS", "SOP 1"],
+  ["Wednesday, April 1", "7:15 PM", "EMERALDS", "MARAUDERS", "MP 4"],
+  ["Monday, April 13", "6:00 PM", "LUGNUTS", "BULLS", "MP 4"],
+  ["Monday, April 13", "6:00 PM", "EMERALDS", "TIDES", "SOP 1"],
+  ["Monday, April 13", "7:15 PM", "MARAUDERS", "IRON PIGS", "MP 4"],
+  ["Wednesday, April 15", "6:00 PM", "IRON PIGS", "EMERALDS", "MP 4"],
+  ["Wednesday, April 15", "6:00 PM", "MARAUDERS", "BLUE ROCKS", "SOP 1"],
+  ["Wednesday, April 15", "7:15 PM", "TIDES", "BULLS", "MP 4"],
+  ["Monday, April 20", "6:00 PM", "EMERALDS", "BULLS", "MP 4"],
+  ["Monday, April 20", "6:00 PM", "TIDES", "MARAUDERS", "SOP 1"],
+  ["Monday, April 20", "7:15 PM", "BLUE ROCKS", "LUGNUTS", "SOP 1"],
+  ["Wednesday, April 22", "6:00 PM", "MARAUDERS", "LUGNUTS", "MP 4"],
+  ["Wednesday, April 22", "6:00 PM", "TIDES", "IRON PIGS", "SOP 1"],
+  ["Wednesday, April 22", "7:15 PM", "BLUE ROCKS", "EMERALDS", "SOP 1"],
+  ["Monday, April 27", "6:00 PM", "LUGNUTS", "EMERALDS", "MP 4"],
+  ["Monday, April 27", "6:00 PM", "BLUE ROCKS", "TIDES", "SOP 1"],
+  ["Monday, April 27", "7:15 PM", "BULLS", "IRON PIGS", "MP 4"],
+  ["Wednesday, April 29", "6:00 PM", "IRON PIGS", "BLUE ROCKS", "MP 4"],
+  ["Wednesday, April 29", "6:00 PM", "LUGNUTS", "TIDES", "SOP 1"],
+  ["Wednesday, April 29", "7:15 PM", "BULLS", "MARAUDERS", "MP 4"],
+  ["Monday, May 4", "6:00 PM", "EMERALDS", "MARAUDERS", "MP 4"],
+  ["Monday, May 4", "6:00 PM", "BLUE ROCKS", "TIDES", "SOP 1"],
+  ["Monday, May 4", "7:15 PM", "IRON PIGS", "LUGNUTS", "MP 4"],
+  ["Wednesday, May 6", "6:00 PM", "MARAUDERS", "BULLS", "MP 4"]],
 
     "p1_b9-11": [  ["Thursday, March 19", "6:00 PM", "Blue Jays", "Astros", "MP 3"],
   ["Thursday, March 19", "7:30 PM", "Cardinals", "White Sox", "MP 3"],
@@ -1614,7 +1809,35 @@ td:nth-child(2) {
 
     "p2_b5-6": [],
 
-    "p2_b7-8": [],
+    "p2_b7-8": [  
+  ["Wednesday, March 25", "6:00 PM", "BULLS", "IRON PIGS", "MP 4"],
+  ["Wednesday, March 25", "6:00 PM", "TIDES", "BLUE ROCKS", "SOP 1"],
+  ["Wednesday, March 25", "7:15 PM", "LUGNUTS", "EMERALDS", "MP 4"],
+  ["Wednesday, April 1", "6:00 PM", "IRON PIGS", "LUGNUTS", "MP 4"],
+  ["Wednesday, April 1", "6:00 PM", "BULLS", "BLUE ROCKS", "SOP 1"],
+  ["Wednesday, April 1", "7:15 PM", "EMERALDS", "MARAUDERS", "MP 4"],
+  ["Monday, April 13", "6:00 PM", "LUGNUTS", "BULLS", "MP 4"],
+  ["Monday, April 13", "6:00 PM", "EMERALDS", "TIDES", "SOP 1"],
+  ["Monday, April 13", "7:15 PM", "MARAUDERS", "IRON PIGS", "MP 4"],
+  ["Wednesday, April 15", "6:00 PM", "IRON PIGS", "EMERALDS", "MP 4"],
+  ["Wednesday, April 15", "6:00 PM", "MARAUDERS", "BLUE ROCKS", "SOP 1"],
+  ["Wednesday, April 15", "7:15 PM", "TIDES", "BULLS", "MP 4"],
+  ["Monday, April 20", "6:00 PM", "EMERALDS", "BULLS", "MP 4"],
+  ["Monday, April 20", "6:00 PM", "TIDES", "MARAUDERS", "SOP 1"],
+  ["Monday, April 20", "7:15 PM", "BLUE ROCKS", "LUGNUTS", "SOP 1"],
+  ["Wednesday, April 22", "6:00 PM", "MARAUDERS", "LUGNUTS", "MP 4"],
+  ["Wednesday, April 22", "6:00 PM", "TIDES", "IRON PIGS", "SOP 1"],
+  ["Wednesday, April 22", "7:15 PM", "BLUE ROCKS", "EMERALDS", "SOP 1"],
+  ["Monday, April 27", "6:00 PM", "LUGNUTS", "EMERALDS", "MP 4"],
+  ["Monday, April 27", "6:00 PM", "BLUE ROCKS", "TIDES", "SOP 1"],
+  ["Monday, April 27", "7:15 PM", "BULLS", "IRON PIGS", "MP 4"],
+  ["Wednesday, April 29", "6:00 PM", "IRON PIGS", "BLUE ROCKS", "MP 4"],
+  ["Wednesday, April 29", "6:00 PM", "LUGNUTS", "TIDES", "SOP 1"],
+  ["Wednesday, April 29", "7:15 PM", "BULLS", "MARAUDERS", "MP 4"],
+  ["Monday, May 4", "6:00 PM", "EMERALDS", "MARAUDERS", "MP 4"],
+  ["Monday, May 4", "6:00 PM", "BLUE ROCKS", "TIDES", "SOP 1"],
+  ["Monday, May 4", "7:15 PM", "IRON PIGS", "LUGNUTS", "MP 4"],
+  ["Wednesday, May 6", "6:00 PM", "MARAUDERS", "BULLS", "MP 4"]],
 
     "p2_b9-11": [  ["Thursday, March 19", "6:00 PM", "Blue Jays", "Astros", "MP 3"],
   ["Thursday, March 19", "7:30 PM", "Cardinals", "White Sox", "MP 3"],
@@ -1671,7 +1894,8 @@ td:nth-child(2) {
     CCP: "Crooked Creek Park",
     MP: "Melvin Park",
     SOP: "Seven Oaks Park",
-    SSP: "Saluda Shoals Park"
+    SSP: "Saluda Shoals Park",
+    CES: "Chapin Elementary School",
   };
 
   const fullName = venueMap[code] || code;
