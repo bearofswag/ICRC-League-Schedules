@@ -18,25 +18,26 @@
     --sidebar-width: 240px;
     --content-left-gap: 40px;
 
-    --brand-blue: #126FAF;
-    --brand-blue-dark: #0C5688;
-    --brand-blue-deep: #0A3E63;
+    --brand-navy:       #071E3D;
+    --brand-blue:       #126FAF;
+    --brand-blue-dark:  #0A4F8C;
+    --brand-blue-deep:  #071E3D;
     --brand-blue-light: #EAF4FB;
 
-    --brand-green: #57B947;
-    --brand-green-dark: #3F9432;
+    --brand-green:       #57B947;
+    --brand-green-dark:  #3F9432;
     --brand-green-light: #EEF8EA;
 
     --brand-gold: #F0B323;
 
-    --text-main: #1E2A33;
+    --text-main:  #1A2530;
     --text-muted: #667685;
-    --text-soft: #7A8894;
+    --text-soft:  #7A8894;
 
-    --line-soft: #D9E4EC;
+    --line-soft:  #D9E4EC;
     --line-light: #EDF2F7;
 
-    --bg-page: #ECF2F7;
+    --bg-page: #E8EEF5;
     --bg-card: #FFFFFF;
     --bg-soft: #F8FBFE;
 }
@@ -188,17 +189,36 @@ body::before {
     left: 0;
     width: 100%;
     min-height: var(--topnav-height);
-    background: linear-gradient(to right, var(--brand-blue-dark), var(--brand-blue));
+    background: linear-gradient(135deg, #040E1C 0%, var(--brand-navy) 45%, var(--brand-blue-dark) 100%);
     color: #ffffff;
     padding: 10px 28px;
     display: flex;
     align-items: center;
     justify-content: space-between;
     z-index: 9998;
-    box-shadow:
-        0 4px 12px rgba(0,0,0,0.14),
-        inset 0 1px 0 rgba(255,255,255,0.08);
-    border-bottom: 1px solid rgba(255,255,255,0.08);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.28), inset 0 1px 0 rgba(255,255,255,0.06);
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    overflow: hidden;
+}
+.topnav::before {
+    content: '';
+    position: absolute;
+    right: -60px; top: -60px;
+    width: 320px; height: 220px;
+    background: rgba(255,255,255,0.03);
+    transform: rotate(-18deg);
+    border-radius: 50px;
+    pointer-events: none;
+}
+.topnav::after {
+    content: '';
+    position: absolute;
+    right: 80px; bottom: -80px;
+    width: 240px; height: 200px;
+    background: rgba(18,111,175,0.12);
+    transform: rotate(-18deg);
+    border-radius: 40px;
+    pointer-events: none;
 }
 
 .topnav-left {
@@ -542,22 +562,18 @@ body::before {
 .league-section {
     display: none;
     margin-bottom: 54px;
-    background: linear-gradient(to bottom right, rgba(18,111,175,0.035), rgba(87,185,71,0.025)), #ffffff;
+    background: #ffffff;
     padding: 30px;
     border-radius: 20px;
-    box-shadow:
-        0 14px 34px rgba(0,0,0,0.06),
-        0 2px 6px rgba(12, 86, 136, 0.04);
+    box-shadow: 0 16px 40px rgba(0,0,0,0.08), 0 2px 8px rgba(7,30,61,0.06);
     scroll-margin-top: calc(var(--header-total) + 20px);
     border: 1px solid #dfe8ef;
+    overflow: hidden;
 }
 
 .league-section.active {
     display: block;
     animation: sectionFade 0.22s ease;
-    box-shadow:
-        0 16px 36px rgba(0,0,0,0.07),
-        0 0 0 1px rgba(18,111,175,0.06);
 }
 
 @keyframes sectionFade {
@@ -570,44 +586,62 @@ body::before {
     align-items: center;
     justify-content: space-between;
     gap: 18px;
-    margin-bottom: 24px;
-    padding: 0 0 6px 0;
+    margin: -30px -30px 24px;
+    padding: 22px 30px 26px;
+    background: linear-gradient(135deg, #040E1C 0%, var(--brand-navy) 50%, var(--brand-blue-dark) 100%);
+    border-radius: 18px 18px 0 0;
+    position: relative;
+    overflow: hidden;
     flex-wrap: wrap;
+}
+.league-header::before {
+    content: '';
+    position: absolute;
+    right: -40px; top: -40px;
+    width: 240px; height: 240px;
+    background: rgba(255,255,255,0.04);
+    transform: rotate(45deg);
+    border-radius: 40px;
+    pointer-events: none;
+}
+.league-header::after {
+    content: '';
+    position: absolute;
+    right: 80px; top: -70px;
+    width: 180px; height: 180px;
+    background: rgba(18,111,175,0.12);
+    transform: rotate(45deg);
+    border-radius: 28px;
+    pointer-events: none;
 }
 
 .league-title {
-    display: inline-flex;
-    align-items: center;
-    padding: 14px 20px;
-    border-radius: 18px;
-    background:
-        linear-gradient(to right, rgba(87,185,71,0.08), rgba(87,185,71,0.08)) left/8px 100% no-repeat,
-        linear-gradient(to right, #f8fbfe, #eef5fa);
-    border: 1px solid #d8e4ed;
-    color: var(--brand-blue-dark);
-    font-size: 1.95rem;
-    font-weight: 800;
-    letter-spacing: 0.2px;
+    color: #ffffff;
+    font-size: 1.8rem;
+    font-weight: 900;
+    letter-spacing: 0.3px;
     line-height: 1.05;
     margin: 0;
-    box-shadow:
-        inset 0 1px 0 rgba(255,255,255,0.92),
-        0 4px 10px rgba(12, 86, 136, 0.06);
+    text-shadow: 0 2px 8px rgba(0,0,0,0.25);
+    position: relative;
+    z-index: 1;
 }
 
 .league-meta {
     display: inline-flex;
     align-items: center;
-    padding: 8px 12px;
+    padding: 7px 14px;
     border-radius: 999px;
-    background: #f4f8fc;
-    border: 1px solid #d9e5ee;
-    color: var(--brand-blue-dark);
-    font-size: 0.78rem;
+    background: rgba(255,255,255,0.13);
+    border: 1px solid rgba(255,255,255,0.2);
+    color: rgba(255,255,255,0.9);
+    font-size: 0.76rem;
     font-weight: 800;
-    letter-spacing: 0.7px;
+    letter-spacing: 0.8px;
     text-transform: uppercase;
     line-height: 1;
+    position: relative;
+    z-index: 1;
 }
 
 .league-subtext {
@@ -868,6 +902,190 @@ td:nth-child(2) {
     color: #1b4f7a;
     border-radius: 8px;
     font-size: 0.95rem;
+}
+
+/* ============================
+   TEAM BADGE
+============================ */
+.team-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    font-size: 0.68rem;
+    font-weight: 900;
+    letter-spacing: 0.4px;
+    flex-shrink: 0;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,255,255,0.15);
+    text-transform: uppercase;
+    user-select: none;
+}
+
+/* ============================
+   GAME CARDS
+============================ */
+.games-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 6px;
+}
+
+.game-card {
+    background: #fff;
+    border-radius: 14px;
+    padding: 16px 20px 14px;
+    border: 1px solid #e2eaf2;
+    border-left: 4px solid var(--brand-blue);
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    transition: box-shadow 0.2s, transform 0.15s;
+}
+.game-card:hover {
+    box-shadow: 0 6px 20px rgba(0,0,0,0.09);
+    transform: translateY(-1px);
+}
+.game-card.has-score {
+    border-left-color: var(--brand-green-dark);
+    background: #fdfffe;
+}
+
+.gc-matchup {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.gc-team {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex: 1;
+    min-width: 0;
+}
+.gc-team-right {
+    flex-direction: row-reverse;
+}
+.gc-team-right .gc-team-name {
+    text-align: right;
+}
+
+.gc-team-name {
+    font-weight: 800;
+    font-size: 0.98rem;
+    color: var(--text-main);
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.gc-center {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-shrink: 0;
+    min-width: 90px;
+}
+
+.gc-vs {
+    font-size: 0.78rem;
+    font-weight: 800;
+    color: var(--text-soft);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 4px 0;
+}
+
+.gc-score-wrap {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.gc-score {
+    font-size: 1.65rem;
+    font-weight: 900;
+    font-variant-numeric: tabular-nums;
+    line-height: 1;
+    min-width: 30px;
+    text-align: center;
+}
+.gc-score.score-win  { color: var(--brand-green-dark); }
+.gc-score.score-loss { color: #B0BEC5; }
+.gc-score.score-tie  { color: var(--text-muted); }
+
+.gc-score-dash {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #D1D5DB;
+}
+
+.gc-meta {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    margin-top: 11px;
+    padding-top: 10px;
+    border-top: 1px solid #f0f4f8;
+    flex-wrap: wrap;
+}
+
+.gc-time {
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--text-muted);
+}
+.gc-venue {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
+.gc-dot {
+    color: #D1D5DB;
+    font-size: 0.75rem;
+    flex-shrink: 0;
+}
+
+/* ============================
+   STATUS CHIPS
+============================ */
+.status-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 3px 10px;
+    border-radius: 999px;
+    font-size: 0.7rem;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    flex-shrink: 0;
+}
+.status-final {
+    background: linear-gradient(to right, #e8f5e4, #f0fbec);
+    color: var(--brand-green-dark);
+    border: 1px solid #c3e0b8;
+}
+.status-upcoming {
+    background: #F1F5F9;
+    color: #94A3B8;
+    border: 1px solid #E2E8F0;
+}
+
+/* ============================
+   WIN/LOSS RECORD BADGE
+============================ */
+.team-record {
+    font-size: 0.76rem;
+    font-weight: 800;
+    color: var(--brand-blue-dark);
+    background: var(--brand-blue-light);
+    padding: 3px 10px;
+    border-radius: 999px;
+    border: 1px solid #c8def0;
+    flex-shrink: 0;
+    letter-spacing: 0.3px;
 }
 
 /* ============================
@@ -1394,9 +1612,6 @@ td:nth-child(2) {
         margin-top: 16px;
     }
 
-    /* ============================
-       LEAGUE SECTION
-    ============================ */
     .league-section {
         padding: 22px 16px;
         margin-bottom: 34px;
@@ -1404,28 +1619,36 @@ td:nth-child(2) {
     }
 
     .league-header {
-        gap: 12px;
-        margin-bottom: 18px;
-        padding-bottom: 12px;
+        margin: -22px -16px 20px;
+        padding: 18px 16px 20px;
+        border-radius: 16px 16px 0 0;
+        gap: 10px;
     }
 
-    .league-title {
-        font-size: 1.45rem;
-        padding: 12px 16px;
-        border-radius: 16px;
-        line-height: 1.05;
-    }
+    .league-title { font-size: 1.35rem; }
+    .league-meta  { font-size: 0.7rem; padding: 6px 10px; }
 
-    .league-meta {
-        font-size: 0.7rem;
-        padding: 7px 10px;
-    }
+    /* Game cards on mobile */
+    .game-card { padding: 13px 14px 11px; border-radius: 12px; }
 
-    .league-subtext {
-        margin: -2px 0 14px 0;
-        font-size: 0.82rem;
-        line-height: 1.35;
-    }
+    .gc-team-name { font-size: 0.88rem; }
+
+    .team-badge { width: 30px; height: 30px; font-size: 0.6rem; }
+
+    .gc-center { min-width: 72px; }
+
+    .gc-score { font-size: 1.35rem; }
+
+    .gc-meta { margin-top: 9px; padding-top: 8px; gap: 5px; }
+
+    .gc-time, .gc-venue { font-size: 0.74rem; }
+
+    .status-chip { font-size: 0.64rem; padding: 2px 8px; }
+
+    .filter-banner { padding: 9px 12px; gap: 7px; margin-bottom: 14px; border-radius: 10px; }
+    .filter-banner-team { font-size: 0.92rem; }
+    .btn-clear-filter { font-size: 0.76rem; padding: 4px 10px; }
+    .team-record { font-size: 0.72rem; padding: 2px 8px; }
 
     /* ============================
        DATE HEADER
@@ -1836,6 +2059,54 @@ td:nth-child(2) {
   }
 
   /* ==============================
+     TEAM COLORS + BADGE HELPERS
+  ============================== */
+  var TEAM_COLORS = {
+    'Bucks':    { bg: '#00471B', fg: '#EEE1C6' },
+    'Cavs':     { bg: '#6F263D', fg: '#FFB81C' },
+    'Hawks':    { bg: '#E03A3E', fg: '#FFFFFF' },
+    'Raptors':  { bg: '#CE1141', fg: '#FFFFFF' },
+    'Celtics':  { bg: '#007A33', fg: '#FFFFFF' },
+    'Clippers': { bg: '#1D428A', fg: '#FFFFFF' },
+    'Magic':    { bg: '#0077C0', fg: '#FFFFFF' },
+    'Spurs':    { bg: '#1D1160', fg: '#C4CED4' },
+    'Rockets':  { bg: '#CE1141', fg: '#C4CED4' },
+    'Heat':     { bg: '#98002E', fg: '#F9A01B' },
+    'Knicks':   { bg: '#006BB6', fg: '#F58426' },
+    'Pelicans': { bg: '#0C2340', fg: '#85714D' },
+    'Thunder':  { bg: '#007AC1', fg: '#FFFFFF' },
+    'Wolves':   { bg: '#236192', fg: '#78BE20' }
+  };
+
+  function teamBadge(team) {
+    var c = TEAM_COLORS[team] || { bg: '#126FAF', fg: '#fff' };
+    var initials = (team.match(/[A-Za-z]/g) || []).slice(0, 2).join('').toUpperCase();
+    return '<span class="team-badge" style="background:' + c.bg + ';color:' + c.fg + '">' + initials + '</span>';
+  }
+
+  function gameStatusChip(result) {
+    return result !== undefined
+      ? '<span class="status-chip status-final">✓ Final</span>'
+      : '<span class="status-chip status-upcoming">Upcoming</span>';
+  }
+
+  function getTeamRecord(team, leagueId) {
+    var saved = currentScores[leagueId] || {};
+    var rows = schedules[leagueId] || [];
+    var w = 0, l = 0;
+    rows.forEach(function(row) {
+      if (row[2] !== team && row[3] !== team) return;
+      var result = saved[gKey(row[0], row[1], row[2], row[3])];
+      if (!result) return;
+      var isAway = row[2] === team;
+      var mine = isAway ? result.a : result.h;
+      var theirs = isAway ? result.h : result.a;
+      if (mine > theirs) w++; else if (theirs > mine) l++;
+    });
+    return w + '-' + l;
+  }
+
+  /* ==============================
      MY TEAM FILTER
   ============================== */
   var selectedTeam = localStorage.getItem('icrc_my_team') || null;
@@ -2166,70 +2437,73 @@ td:nth-child(2) {
   }
 
   function renderLeagueSchedule(rows, leagueId) {
-    const groups = groupByDate(rows || []);
-    if (!groups.length) {
-      return '<div class="schedule-empty">Schedule Coming Soon</div>';
-    }
-    const saved = leagueId ? ((currentScores[leagueId]) || {}) : {};
+    var groups = groupByDate(rows || []);
+    if (!groups.length) return '<div class="schedule-empty">Schedule Coming Soon</div>';
+    var saved = leagueId ? (currentScores[leagueId] || {}) : {};
 
-    // Filter banner when My Team is active
+    // Filter banner with badge + record when My Team is active
     var banner = '';
     if (selectedTeam) {
+      var record = leagueId ? getTeamRecord(selectedTeam, leagueId) : null;
       banner = '<div class="filter-banner">' +
-        '<span class="filter-banner-label">⭐ Showing games for</span>' +
+        teamBadge(selectedTeam) +
+        '<span class="filter-banner-label">Showing games for</span>' +
         '<span class="filter-banner-team">' + escapeHtml(selectedTeam) + '</span>' +
+        (record ? '<span class="team-record">' + record + '</span>' : '') +
         '<button class="btn-clear-filter">✕ Show All</button>' +
         '</div>';
     }
 
-    var scheduleHtml = groups.map(function (group) {
-      // Filter games to this team if active
+    var scheduleHtml = groups.map(function(group) {
       var games = selectedTeam
         ? group.games.filter(function(g) { return g.away === selectedTeam || g.home === selectedTeam; })
         : group.games;
-      if (!games.length) return ''; // skip dates with no matching games
+      if (!games.length) return '';
 
-      return `
-        <div class="week-header"><div class="week-date">${escapeHtml(group.date)}</div></div>
-        <table>
-          <thead><tr><th>Time</th><th>Matchup</th><th>Location</th></tr></thead>
-          <tbody>
-            ${games.map(function (game) {
-              const key    = gKey(group.date, game.time, game.away, game.home);
-              const result = saved[key];
-              let matchupHtml;
-              if (result !== undefined) {
-                const aScore  = result.a;
-                const hScore  = result.h;
-                const awayWon = aScore > hScore;
-                const homeWon = hScore > aScore;
-                matchupHtml = `<div class="matchup has-score">
-                  <span class="away-team">${escapeHtml(game.away)}</span>
-                  <div class="score-bubble">
-                    <span class="${awayWon ? 'score-win' : 'score-loss'}">${aScore}</span>
-                    <span class="score-dash">–</span>
-                    <span class="${homeWon ? 'score-win' : 'score-loss'}">${hScore}</span>
-                  </div>
-                  <span class="home-team">${escapeHtml(game.home)}</span>
-                  <span class="final-badge">Final</span>
-                </div>`;
-              } else {
-                matchupHtml = `<div class="matchup">
-                  <span class="away-team">${escapeHtml(game.away)}</span>
-                  <span class="matchup-sep">vs.</span>
-                  <span class="home-team">${escapeHtml(game.home)}</span>
-                </div>`;
-              }
-              return `<tr>
-                <td><span class="time-pill">${escapeHtml(game.time)}</span></td>
-                <td>${matchupHtml}</td>
-                <td><span class="location-pill">${escapeHtml(expandVenue(game.venue))}</span></td>
-              </tr>`;
-            }).join("")}
-          </tbody>
-        </table>
-      `;
-    }).join("");
+      var cardsHtml = games.map(function(game) {
+        var key = gKey(group.date, game.time, game.away, game.home);
+        var result = saved[key];
+        var hasScore = result !== undefined;
+        var matchup;
+
+        if (hasScore) {
+          var aScore = result.a, hScore = result.h;
+          var awayWon = aScore > hScore, homeWon = hScore > aScore;
+          matchup =
+            '<div class="gc-team">' + teamBadge(game.away) +
+              '<span class="gc-team-name">' + escapeHtml(game.away) + '</span></div>' +
+            '<div class="gc-center"><div class="gc-score-wrap">' +
+              '<span class="gc-score ' + (awayWon ? 'score-win' : 'score-loss') + '">' + aScore + '</span>' +
+              '<span class="gc-score-dash">—</span>' +
+              '<span class="gc-score ' + (homeWon ? 'score-win' : 'score-loss') + '">' + hScore + '</span>' +
+            '</div></div>' +
+            '<div class="gc-team gc-team-right">' +
+              '<span class="gc-team-name">' + escapeHtml(game.home) + '</span>' +
+              teamBadge(game.home) + '</div>';
+        } else {
+          matchup =
+            '<div class="gc-team">' + teamBadge(game.away) +
+              '<span class="gc-team-name">' + escapeHtml(game.away) + '</span></div>' +
+            '<div class="gc-center"><span class="gc-vs">vs</span></div>' +
+            '<div class="gc-team gc-team-right">' +
+              '<span class="gc-team-name">' + escapeHtml(game.home) + '</span>' +
+              teamBadge(game.home) + '</div>';
+        }
+
+        return '<div class="game-card' + (hasScore ? ' has-score' : '') + '">' +
+          '<div class="gc-matchup">' + matchup + '</div>' +
+          '<div class="gc-meta">' +
+            '<span class="gc-time">' + escapeHtml(game.time) + '</span>' +
+            '<span class="gc-dot">·</span>' +
+            '<span class="gc-venue">' + escapeHtml(expandVenue(game.venue)) + '</span>' +
+            '<span class="gc-dot">·</span>' +
+            gameStatusChip(result) +
+          '</div></div>';
+      }).join('');
+
+      return '<div class="week-header"><div class="week-date">' + escapeHtml(group.date) + '</div></div>' +
+        '<div class="games-list">' + cardsHtml + '</div>';
+    }).join('');
 
     return banner + scheduleHtml;
   }

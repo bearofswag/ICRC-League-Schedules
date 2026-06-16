@@ -14,20 +14,21 @@
     --topnav-height: 82px;
     --header-total: calc(var(--thankyou-height) + var(--sponsor-height) + var(--topnav-height));
     --sidebar-width: 240px;
-    --brand-blue: #126FAF;
-    --brand-blue-dark: #0C5688;
-    --brand-blue-deep: #0A3E63;
+    --brand-navy:       #071E3D;
+    --brand-blue:       #126FAF;
+    --brand-blue-dark:  #0A4F8C;
+    --brand-blue-deep:  #071E3D;
     --brand-blue-light: #EAF4FB;
-    --brand-green: #57B947;
-    --brand-green-dark: #3F9432;
+    --brand-green:       #57B947;
+    --brand-green-dark:  #3F9432;
     --brand-green-light: #EEF8EA;
     --brand-gold: #F0B323;
-    --text-main: #1E2A33;
+    --text-main:  #1A2530;
     --text-muted: #667685;
-    --text-soft: #7A8894;
-    --line-soft: #D9E4EC;
+    --text-soft:  #7A8894;
+    --line-soft:  #D9E4EC;
     --line-light: #EDF2F7;
-    --bg-page: #ECF2F7;
+    --bg-page: #E8EEF5;
     --bg-card: #FFFFFF;
     --bg-soft: #F8FBFE;
 }
@@ -99,12 +100,23 @@ body::before {
     position: fixed;
     top: calc(var(--thankyou-height) + var(--sponsor-height));
     left: 0; width: 100%; min-height: var(--topnav-height);
-    background: linear-gradient(to right, var(--brand-blue-dark), var(--brand-blue));
+    background: linear-gradient(135deg, #040E1C 0%, var(--brand-navy) 45%, var(--brand-blue-dark) 100%);
     color: #fff; padding: 10px 28px;
     display: flex; align-items: center; justify-content: space-between;
     z-index: 9998;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.14), inset 0 1px 0 rgba(255,255,255,0.08);
-    border-bottom: 1px solid rgba(255,255,255,0.08);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.28), inset 0 1px 0 rgba(255,255,255,0.06);
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    overflow: hidden;
+}
+.topnav::before {
+    content: ''; position: absolute; right: -60px; top: -60px;
+    width: 320px; height: 220px; background: rgba(255,255,255,0.03);
+    transform: rotate(-18deg); border-radius: 50px; pointer-events: none;
+}
+.topnav::after {
+    content: ''; position: absolute; right: 80px; bottom: -80px;
+    width: 240px; height: 200px; background: rgba(18,111,175,0.12);
+    transform: rotate(-18deg); border-radius: 40px; pointer-events: none;
 }
 .topnav-left { display: flex; align-items: center; gap: 18px; min-width: 0; flex: 1 1 auto; }
 .topnav-logo {
@@ -314,6 +326,26 @@ body::before {
     display: inline-flex; align-items: center; padding: 8px 12px; border-radius: 999px;
     background: #f4f8fc; border: 1px solid #d9e5ee; color: var(--brand-blue-dark);
     font-size: 0.78rem; font-weight: 800; letter-spacing: 0.7px; text-transform: uppercase; line-height: 1;
+}
+
+/* ============================
+   TEAM BADGE
+============================ */
+.team-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px; height: 30px;
+    border-radius: 50%;
+    font-size: 0.62rem;
+    font-weight: 900;
+    letter-spacing: 0.3px;
+    flex-shrink: 0;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.18), inset 0 1px 0 rgba(255,255,255,0.12);
+    text-transform: uppercase;
+    user-select: none;
+    vertical-align: middle;
+    margin-right: 8px;
 }
 
 /* ============================
@@ -1005,6 +1037,32 @@ td.diff-even { color: var(--text-muted); }
 
 
   /* ==============================
+     TEAM COLORS + BADGE
+  ============================== */
+  var TEAM_COLORS = {
+    'Bucks':    { bg: '#00471B', fg: '#EEE1C6' },
+    'Cavs':     { bg: '#6F263D', fg: '#FFB81C' },
+    'Hawks':    { bg: '#E03A3E', fg: '#FFFFFF' },
+    'Raptors':  { bg: '#CE1141', fg: '#FFFFFF' },
+    'Celtics':  { bg: '#007A33', fg: '#FFFFFF' },
+    'Clippers': { bg: '#1D428A', fg: '#FFFFFF' },
+    'Magic':    { bg: '#0077C0', fg: '#FFFFFF' },
+    'Spurs':    { bg: '#1D1160', fg: '#C4CED4' },
+    'Rockets':  { bg: '#CE1141', fg: '#C4CED4' },
+    'Heat':     { bg: '#98002E', fg: '#F9A01B' },
+    'Knicks':   { bg: '#006BB6', fg: '#F58426' },
+    'Pelicans': { bg: '#0C2340', fg: '#85714D' },
+    'Thunder':  { bg: '#007AC1', fg: '#FFFFFF' },
+    'Wolves':   { bg: '#236192', fg: '#78BE20' }
+  };
+
+  function teamBadge(team) {
+    var c = TEAM_COLORS[team] || { bg: '#126FAF', fg: '#fff' };
+    var initials = (team.match(/[A-Za-z]/g) || []).slice(0, 2).join('').toUpperCase();
+    return '<span class="team-badge" style="background:' + c.bg + ';color:' + c.fg + '">' + initials + '</span>';
+  }
+
+  /* ==============================
      STANDINGS CALCULATION
      Tiebreaker order:
        1. Win Percentage (PCT)
@@ -1151,7 +1209,7 @@ td.diff-even { color: var(--text-muted); }
       var cls     = i === 0 ? ' class="rank-1"' : '';
       out += '<tr' + cls + '>' +
         '<td class="rank-cell">' + (i + 1) + '</td>' +
-        '<td class="team-cell">' + r.team + '</td>' +
+        '<td class="team-cell" style="white-space:nowrap">' + teamBadge(r.team) + r.team + '</td>' +
         '<td class="w-cell">' + r.w + '</td>' +
         '<td class="l-cell">' + r.l + '</td>' +
         '<td class="pct-cell">' + fmtPct(r.pct) + '</td>' +
