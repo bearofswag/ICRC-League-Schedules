@@ -1,31 +1,6 @@
 {
   "p1_b9-11": {},
-  "p1_b12-14": {
-    "Tuesday, June 23|6:00 PM|Clippers|Magic": {
-      "a": 42,
-      "h": 36
-    },
-    "Tuesday, June 23|7:00 PM|Celtics|Spurs": {
-      "a": 38,
-      "h": 27
-    },
-    "Thursday, June 25|6:00 PM|Magic|Celtics": {
-      "a": 68,
-      "h": 82
-    },
-    "Thursday, June 25|7:00 PM|Spurs|Rockets": {
-      "a": 45,
-      "h": 57
-    },
-    "Thursday, July 2|6:00 PM|Rockets|Magic": {
-      "a": 67,
-      "h": 82
-    },
-    "Thursday, July 2|7:00 PM|Celtics|Clippers": {
-      "a": 76,
-      "h": 82
-    }
-  },
+  "p1_b12-14": {},
   "p1_b15-18": {
     "Tuesday, June 23|6:00 PM|Heat|Thunder": {
       "a": 47,
