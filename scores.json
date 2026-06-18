@@ -1,30 +1,5 @@
 {
-  "p1_b9-11": {
-    "Monday, June 22|6:00 PM|Bucks|Hawks": {
-      "a": 10,
-      "h": 25
-    },
-    "Monday, June 22|7:00 PM|Raptors|Cavs": {
-      "a": 27,
-      "h": 16
-    },
-    "Monday, June 29|6:00 PM|Raptors|Bucks": {
-      "a": 28,
-      "h": 42
-    },
-    "Monday, June 29|7:00 PM|Cavs|Hawks": {
-      "a": 68,
-      "h": 47
-    },
-    "Monday, July 6|6:00 PM|Cavs|Bucks": {
-      "a": 58,
-      "h": 72
-    },
-    "Monday, July 6|7:00 PM|Hawks|Raptors": {
-      "a": 56,
-      "h": 67
-    }
-  },
+  "p1_b9-11": {},
   "p1_b12-14": {
     "Tuesday, June 23|6:00 PM|Clippers|Magic": {
       "a": 42,
