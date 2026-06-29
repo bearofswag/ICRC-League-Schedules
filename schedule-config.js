@@ -64,9 +64,9 @@ var SEASON_CONFIG = {
       // primary: main shield fill color  |  accent: top band color
       teamColors: {
         'Bucks':   { primary: '#00471B', accent: '#EEE1C6' },
-        'Cavs':    { primary: '#6F263D', accent: '#FFB81C' },
-        'Hawks':   { primary: '#C8102E', accent: '#C1D32F' },
-        'Raptors': { primary: '#5C2D91', accent: '#CE1141' }
+        'Cavs':    { primary: '#860038', accent: '#041E42' },
+        'Hawks':   { primary: '#C8102E', accent: '#FDB927' },
+        'Raptors': { primary: '#753BBD', accent: '#CE1141' }
       },
       schedule: [
         ['Monday, June 22',    '6:00 PM', 'Bucks',   'Hawks',    'CCP 1'],
@@ -96,11 +96,11 @@ var SEASON_CONFIG = {
       name:      '12-14 Summer Basketball',
       shortName: '12-14',
       teamColors: {
-        'Celtics':  { primary: '#007A33', accent: '#FFD700' },
+        'Celtics':  { primary: '#007A33', accent: '#BA9653' },
         'Clippers': { primary: '#1D428A', accent: '#C8102E' },
-        'Magic':    { primary: '#0077C0', accent: '#000000' },
-        'Spurs':    { primary: '#1D1160', accent: '#C4CED4' },
-        'Rockets':  { primary: '#CE1141', accent: '#C4CED4' }
+        'Magic':    { primary: '#0077C0', accent: '#C4CED4' },
+        'Spurs':    { primary: '#C4CED4', accent: '#000000' },
+        'Rockets':  { primary: '#CE1141', accent: '#000000' }
       },
       schedule: [
         ['Tuesday, June 23',   '6:00 PM', 'Clippers', 'Magic',    'CCP 1'],
@@ -136,9 +136,9 @@ var SEASON_CONFIG = {
       teamColors: {
         'Heat':     { primary: '#98002E', accent: '#F9A01B' },
         'Knicks':   { primary: '#006BB6', accent: '#F58426' },
-        'Pelicans': { primary: '#0C2340', accent: '#85714D' },
+        'Pelicans': { primary: '#85714D', accent: '#0C2340' },
         'Thunder':  { primary: '#007AC1', accent: '#EF3B24' },
-        'Wolves':   { primary: '#236192', accent: '#78BE20' }
+        'Wolves':   { primary: '#0C2340', accent: '#78BE20' }
       },
       schedule: [
         ['Tuesday, June 23',   '6:00 PM', 'Heat',     'Thunder',  'CCP 2'],
