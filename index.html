@@ -1965,11 +1965,6 @@ td:nth-child(2) {
       '<svg viewBox="0 0 100 112" xmlns="http://www.w3.org/2000/svg" ' +
            'style="width:100%;height:100%;display:block">' +
         '<defs>' +
-          /* Dark top → light bottom gradient (primary color only) */
-          '<linearGradient id="sg' + uid + '" x1="0%" y1="0%" x2="0%" y2="100%">' +
-            '<stop offset="0%"   stop-color="' + dark  + '"/>' +
-            '<stop offset="100%" stop-color="' + light + '"/>' +
-          '</linearGradient>' +
           /* Drop shadow */
           '<filter id="sf' + uid + '" x="-25%" y="-20%" width="150%" height="145%">' +
             '<feDropShadow dx="0" dy="3" stdDeviation="3" flood-color="rgba(0,0,0,0.4)"/>' +
@@ -1982,7 +1977,7 @@ td:nth-child(2) {
 
         /* Primary gradient fill (slightly inset from border) */
         '<path d="M50 12 L85 27 L85 66 Q85 91 50 104 Q15 91 15 66 L15 27 Z" ' +
-             'fill="url(#sg' + uid + ')"/>' +
+             'fill="' + shadeHex(primary, 20) + '"/>' +
 
         /* Subtle inner highlight edge */
         '<path d="M50 12 L85 27 L85 66 Q85 91 50 104 Q15 91 15 66 L15 27 Z" ' +
