@@ -83,8 +83,8 @@ var SEASON_CONFIG = {
         ['Wednesday, July 22', '7:00 PM', 'Bucks',    'Cavs',    'CCP 1'],
         ['Monday, July 27',    '6:00 PM', 'Bucks',    'Hawks',   'CCP 1'],
         ['Monday, July 27',    '7:00 PM', 'Raptors',  'Cavs',    'CCP 1'],
-        ['Monday, July 29',    '6:00 PM', 'Cavs',     'Hawks',   'CCP 1'],
-        ['Monday, July 29',    '7:00 PM', 'Raptors',  'Bucks',   'CCP 1']
+        ['Wednesday, July 29',    '6:00 PM', 'Cavs',     'Hawks',   'CCP 1'],
+        ['Wednesday, July 29',    '7:00 PM', 'Raptors',  'Bucks',   'CCP 1']
       ]
     },
 
